@@ -13,7 +13,7 @@ const Internship = () => {
         Internship
       </h2>
       <article className="intern-entry" data-reveal>
-        <span className="rail-marker intern-marker" aria-hidden="true" />
+        <span className="rail-marker" aria-hidden="true" />
         <span className="entry-year">2025</span>
         <h3 className="entry-title">medPhoton GmbH</h3>
         <p className="entry-institution">

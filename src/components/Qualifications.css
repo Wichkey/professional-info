@@ -6,10 +6,16 @@
   margin-top: 100px;
 }
 
+/* 84px below the heading, 62px between entries — spacing taken from the
+   Figma frame so the two blocks sit on the same rhythm. */
 .qual-entry {
   position: relative;
-  margin: 90px 0 0 190px;
+  margin: 62px 0 0 190px;
   max-width: 1030px;
+}
+
+.qual-entry:first-of-type {
+  margin-top: 84px;
 }
 
 /* Dot sits level with the entry title */
