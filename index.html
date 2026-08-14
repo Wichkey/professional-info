@@ -4,6 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/dm.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      GitHub Pages cannot send response headers, so the policy has to ride
+      along in the document. Everything listed is a host the page genuinely
+      talks to: Web3Forms for the contact form, hCaptcha for its widget,
+      Google Fonts for Poppins and Inter. script-src deliberately has no
+      'unsafe-inline' — the build emits no inline scripts, so an injected
+      <script> would not execute. style-src needs it for the <noscript>
+      block below and hCaptcha's own styles.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://web3forms.com https://hcaptcha.com https://*.hcaptcha.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://hcaptcha.com https://*.hcaptcha.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data:;
+        connect-src 'self' https://api.web3forms.com https://hcaptcha.com https://*.hcaptcha.com;
+        frame-src https://hcaptcha.com https://*.hcaptcha.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests
+      "
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       name="description"
       content="Daniel Mehler — AI expert & software engineer. AI for businesses: model fine-tuning, proof-of-concept solutions and custom algorithms."
