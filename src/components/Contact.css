@@ -139,6 +139,13 @@
   color: var(--grey-placeholder);
 }
 
+/* The widget is a fixed-size iframe, so it gets its own room rather than
+   sitting tight under the last field. */
+.h-captcha {
+  margin: 8px 0 28px;
+  min-height: 78px;
+}
+
 .send-button {
   display: inline-flex;
   align-items: center;
