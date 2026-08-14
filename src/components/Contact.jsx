@@ -16,8 +16,9 @@ const Contact = () => {
     e.preventDefault()
     const form = e.target
 
-    // Honeypot: real users never fill this hidden field
-    if (form.botcheck.value) return
+    // Honeypot: real users never tick this hidden box. Read .checked, not
+    // .value — an unchecked checkbox still reports "on".
+    if (form.botcheck.checked) return
 
     if (!WEB3FORMS_KEY) {
       const subject = encodeURIComponent(`Portfolio contact from ${form.name.value}`)
@@ -39,7 +40,7 @@ const Contact = () => {
           email: form.email.value,
           phone: form.phone.value,
           message: form.message.value,
-          botcheck: form.botcheck.value,
+          botcheck: form.botcheck.checked,
         }),
       })
       const data = await res.json()
