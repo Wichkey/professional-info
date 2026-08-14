@@ -56,8 +56,7 @@
   position: relative;
 }
 
-.section-menu > summary {
-  list-style: none;
+.section-menu-toggle {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -71,24 +70,22 @@
   white-space: nowrap;
 }
 
-.section-menu > summary::-webkit-details-marker {
-  display: none;
-}
-
-.section-menu > summary::after {
+.section-menu-toggle::after {
   content: '';
   width: 6px;
   height: 6px;
   border-right: 2px solid var(--accent);
   border-bottom: 2px solid var(--accent);
   transform: translateY(-2px) rotate(45deg);
-  transition: transform 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.section-menu[open] > summary::after {
+.section-menu-toggle[aria-expanded='true']::after {
   transform: translateY(1px) rotate(-135deg);
 }
 
+/* Closed state. visibility keeps the links out of the tab order and out of
+   hit-testing while the panel is faded out. */
 .section-menu ul {
   position: absolute;
   right: 0;
@@ -99,6 +96,35 @@
   padding: 6px 0;
   background: var(--bg-chip);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.96);
+  transform-origin: top right;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.32s;
+}
+
+.section-menu ul.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* Items arrive just behind the panel, each a beat after the last. */
+.section-menu li {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-menu ul.is-open li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(60ms + var(--item-index) * 45ms);
 }
 
 .section-menu ul a {
@@ -109,6 +135,15 @@
   font-weight: 600;
   line-height: 1.5;
   transition: background 0.2s ease, color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-menu ul,
+  .section-menu li,
+  .section-menu-toggle::after {
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
 }
 
 .section-menu ul a:hover,

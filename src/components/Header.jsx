@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import './Header.css'
 import resumePdf from '../assets/resume.pdf'
 
@@ -8,10 +9,28 @@ const sections = [
 ]
 
 const Header = () => {
-  // A link inside <details> navigates but leaves the panel open.
-  const closeMenu = (e) => {
-    e.currentTarget.closest('details').open = false
-  }
+  const [open, setOpen] = useState(false)
+  const menuRef = useRef(null)
+
+  // The panel stays mounted so it can animate out as well as in, which
+  // <details> cannot do — it stops rendering its content the moment it closes.
+  useEffect(() => {
+    if (!open) return
+
+    const onPointerDown = (e) => {
+      if (!menuRef.current.contains(e.target)) setOpen(false)
+    }
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
 
   return (
     <header className="header" data-reveal="fade" style={{ '--reveal-delay': '0.15s' }}>
@@ -26,16 +45,23 @@ const Header = () => {
           Download my Resume
         </a>
 
-        <details className="section-menu">
-          <summary aria-label="Jump to a section">Sections</summary>
-          <ul onClick={closeMenu}>
-            {sections.map((s) => (
-              <li key={s.label}>
+        <div className="section-menu" ref={menuRef}>
+          <button
+            type="button"
+            className="section-menu-toggle"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+          >
+            Sections
+          </button>
+          <ul className={open ? 'is-open' : undefined} onClick={() => setOpen(false)}>
+            {sections.map((s, i) => (
+              <li key={s.label} style={{ '--item-index': i }}>
                 <a href={s.href}>{s.label}</a>
               </li>
             ))}
           </ul>
-        </details>
+        </div>
       </div>
     </header>
   )
