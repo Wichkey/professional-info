@@ -1,0 +1,157 @@
+.about-heading {
+  margin-top: 30px;
+}
+
+.qualifications-heading {
+  margin-top: 100px;
+}
+
+/* 84px below the heading, 62px between entries — spacing taken from the
+   Figma frame so the two blocks sit on the same rhythm. */
+.qual-entry {
+  position: relative;
+  margin: 62px 0 0 var(--entry-x);
+  max-width: 1030px;
+}
+
+.qual-entry:first-of-type {
+  margin-top: 84px;
+}
+
+/* Dot sits level with the entry title */
+.qual-entry .rail-marker {
+  top: 69px;
+  left: calc(var(--rail-x) - var(--entry-x));
+}
+
+.entry-year {
+  display: inline-block;
+  background: var(--bg-chip);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 6px 14px;
+}
+
+.entry-title {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.entry-institution {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.entry-dash {
+  width: 58px;
+  height: 4px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Two fixed columns: the grades sit in the first, the thesis rule lands
+   exactly 418px in, as in the Figma frame. */
+.entry-body {
+  display: grid;
+  grid-template-columns: var(--entry-col) minmax(0, 1fr);
+  align-items: start;
+  margin-top: 33px;
+}
+
+.grade-label {
+  display: inline-block;
+  border: 1.5px solid var(--accent);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 6px 24px;
+}
+
+.grade-rows {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grade-rows div {
+  display: flex;
+}
+
+.grade-rows dt {
+  font-size: 20px;
+  font-weight: 300;
+  width: 90px;
+}
+
+.grade-rows dd {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.thesis {
+  border-left: 4px solid var(--accent);
+  padding-left: 37px;
+}
+
+.thesis h4 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.thesis p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 540px;
+  margin-top: 8px;
+}
+
+.thesis .grade-box {
+  margin-top: 32px;
+}
+
+@media (max-width: 900px) {
+  .qual-entry {
+    margin-left: 40px;
+  }
+
+  .qual-entry .rail-marker {
+    display: none;
+  }
+
+  .entry-title {
+    font-size: 28px;
+  }
+
+  /* The institution name wraps on a phone, so the dash lines up with the
+     first line instead of floating in the middle of the block. */
+  .entry-institution {
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 22px;
+  }
+
+  .entry-dash {
+    width: 40px;
+    margin-top: 15px;
+  }
+
+  .entry-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .thesis h4 {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.logo-d {
+  color: var(--white);
+}
+
+.logo-m {
+  color: var(--white-70);
+  font-weight: 300;
+}
+
+.logo-dot {
+  color: var(--accent);
+}
+
+.resume-button {
+  background: var(--accent);
+  color: var(--dark-text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 14px 36px;
+  transition: filter 0.2s ease;
+}
+
+.resume-button:hover {
+  filter: brightness(1.1);
+}
+
+@media (max-width: 900px) {
+  .logo {
+    font-size: 36px;
+  }
+
+  .resume-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}

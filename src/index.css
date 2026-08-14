@@ -1,0 +1,225 @@
+:root {
+  /* Colors from the Figma file */
+  --bg: #262626;
+  --bg-chip: #151515;
+  --accent: #3b7eca;
+  --white: #ffffff;
+  --white-70: rgba(255, 255, 255, 0.7);
+  --grey-card: #cacaca;
+  --grey-placeholder: #aaaaaa;
+  --dark-text: #121212;
+
+  /* Type */
+  --font-main: 'Poppins', sans-serif;
+  --font-form: 'Inter', sans-serif;
+
+  /* Layout */
+  --page-width: 1680px;
+  /* Offsets are measured from the page content edge, which already sits
+     40px in, so these are the Figma x values minus that padding. */
+  --rail-x: 33px; /* timeline line: 73px in the Figma frame */
+  --entry-x: 222px; /* timeline entries start here, 82px clear of the connector */
+  --entry-col: 418px; /* left column of an entry, up to the thesis rule */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Scroll reveal: hidden until the element enters the viewport.
+   Direction comes from the attribute value, stagger from --reveal-delay. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+[data-reveal='left'] {
+  transform: translateX(-60px);
+}
+
+[data-reveal='right'] {
+  transform: translateX(60px);
+}
+
+[data-reveal='down'] {
+  transform: translateY(-70px);
+}
+
+[data-reveal='fade'] {
+  transform: none;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 40px;
+  overflow-x: clip;
+}
+
+/* The hero owns the first screen on its own: nothing below it is visible
+   until the user scrolls. */
+.landing {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Blue section heading, e.g. "Qualifications" */
+.section-heading {
+  color: var(--accent);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Vertical timeline line running from About me down to the projects */
+.rail {
+  position: relative;
+}
+
+.rail::before {
+  content: '';
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: var(--rail-x);
+  width: 1.5px;
+  background: var(--white);
+}
+
+.rail > * {
+  position: relative;
+}
+
+/* The corner the timeline ends on: a dot on the rail and a rule running
+   out to the right edge, closing the section off. */
+.rail-terminal {
+  height: 0;
+}
+
+.rail-terminal::before {
+  content: '';
+  position: absolute;
+  left: var(--rail-x);
+  right: 0;
+  top: 0;
+  height: 1.5px;
+  background: var(--white);
+}
+
+.rail-terminal::after {
+  content: '';
+  position: absolute;
+  left: var(--rail-x);
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+/* Headings inside the rail mask the line behind them */
+.rail .section-heading {
+  position: relative;
+  display: table;
+  background: var(--bg);
+  padding-right: 24px;
+  z-index: 1;
+}
+
+/* Timeline dot with a horizontal connector towards the entry */
+.rail-marker {
+  position: absolute;
+  left: var(--rail-x);
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+/* Connector reaches to 107px right of the rail, leaving the 82px gap
+   before the entry text that the Figma frame has. */
+.rail-marker::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 98px;
+  height: 1.5px;
+  background: var(--white);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --rail-x: 4px;
+  }
+
+  /* Sideways reveals would start off-canvas on a narrow screen, so
+     everything comes up from below instead. */
+  [data-reveal='left'],
+  [data-reveal='right'],
+  [data-reveal='down'] {
+    transform: translateY(40px);
+  }
+
+  .page {
+    padding: 0 20px;
+  }
+
+  .section-heading {
+    font-size: 34px;
+  }
+
+  .rail-marker::after {
+    display: none;
+  }
+}

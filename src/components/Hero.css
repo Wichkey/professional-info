@@ -1,0 +1,293 @@
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.95fr 1.15fr 1.4fr;
+  grid-template-areas:
+    'left center right'
+    'left bottom bottom';
+  column-gap: 40px;
+  align-content: center;
+  padding-bottom: 24px;
+}
+
+.hero-left {
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-chip {
+  background: var(--bg-chip);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-name {
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.hero-lastname {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 48px;
+  font-weight: 300;
+  margin-left: 60px;
+  margin-top: -20px;
+}
+
+.hero-dash {
+  width: 70px;
+  height: 4px;
+  background: var(--accent);
+}
+
+.hero-dash-small {
+  width: 28px;
+  height: 3px;
+}
+
+.contact-button {
+  margin-top: 40px;
+  border: 1.5px solid var(--accent);
+  border-radius: 0 24px 0 24px;
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 10px 60px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.contact-button:hover {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.hero-socials {
+  margin-top: 48px;
+}
+
+.socials-list {
+  list-style: none;
+  display: flex;
+  margin-top: 28px;
+}
+
+.socials-list li {
+  display: flex;
+  align-items: center;
+}
+
+.socials-list li + li::before {
+  content: '';
+  width: 1px;
+  height: 28px;
+  background: var(--white-70);
+  margin: 0 20px;
+}
+
+.socials-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white-70);
+  transition: color 0.2s ease;
+}
+
+.socials-list a:hover {
+  color: var(--white);
+}
+
+.hero-center {
+  grid-area: center;
+  align-self: end;
+}
+
+.hero-photo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Blue circle behind the portrait */
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(430px, 94%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero-photo img {
+  position: relative;
+  width: min(460px, 100%);
+}
+
+.hero-right {
+  grid-area: right;
+  padding-top: 40px;
+}
+
+.hero-title {
+  color: var(--accent);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.hero-subtitle {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+.hero-description {
+  color: var(--white-70);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 480px;
+  margin-top: 32px;
+}
+
+.hero-bottom {
+  grid-area: bottom;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The rule under the photo and the section links share one line. */
+.hero-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--white);
+}
+
+.hero-nav a {
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color 0.2s ease;
+}
+
+.hero-nav a:hover {
+  color: var(--white);
+}
+
+.nav-dash {
+  width: 46px;
+  height: 1px;
+  background: var(--white);
+}
+
+.hero-quote {
+  border-left: 4px solid var(--accent);
+  padding-left: 32px;
+  margin-top: 28px;
+  align-self: center;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.hero-quote cite {
+  font-style: normal;
+  display: block;
+  margin-top: 4px;
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'left center'
+      'right right'
+      'bottom bottom';
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'left'
+      'center'
+      'right'
+      'bottom';
+  }
+
+  .hero-name {
+    font-size: 56px;
+  }
+
+  .hero-lastname {
+    font-size: 36px;
+    margin-left: 40px;
+    margin-top: -10px;
+  }
+
+  .hero-photo img {
+    width: 320px;
+  }
+
+  .hero-photo::before {
+    width: 250px;
+    height: 250px;
+  }
+
+  .hero-right {
+    padding-top: 0;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 24px;
+  }
+
+  /* No room for the rule once the links alone fill the row. */
+  .nav-rule {
+    display: none;
+  }
+
+  .hero-nav {
+    align-self: flex-start;
+    gap: 12px;
+  }
+
+  .nav-dash {
+    width: 20px;
+  }
+
+  .hero-quote {
+    align-self: flex-start;
+  }
+}
