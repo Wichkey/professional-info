@@ -293,10 +293,11 @@
     display: none;
   }
 
-  /* Without the socials the text column is short, so the portrait sits
-     centred against it rather than hanging off the bottom. */
+  /* Bottom-aligned so the portrait ends level with the contact button,
+     which is the last element in the text column once the socials are
+     hidden. Tying it to the row edge keeps them level if the text reflows. */
   .hero-center {
-    align-self: center;
+    align-self: end;
   }
 
   .hero-photo img {
