@@ -1,0 +1,109 @@
+.projects-heading {
+  margin-top: 120px;
+}
+
+.project-row {
+  display: flex;
+  align-items: center;
+  gap: 120px;
+  margin-top: 100px;
+}
+
+.project-row-left {
+  margin-left: 190px;
+}
+
+.project-row-right {
+  margin-left: 190px;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin-right: 120px;
+}
+
+.project-row-right .project-card {
+  margin-left: auto;
+}
+
+/* Card flips from blue title face to grey description face on hover
+   (Figma variants: Card status default -> Card status hovered) */
+.project-card {
+  position: relative;
+  width: 368px;
+  height: 614px;
+  flex-shrink: 0;
+}
+
+.project-card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  transition: opacity 0.4s ease;
+}
+
+.project-card-front {
+  background: var(--accent);
+  opacity: 1;
+}
+
+.project-card-front h3 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.project-card-back {
+  background: var(--grey-card);
+  color: var(--dark-text);
+  opacity: 0;
+}
+
+.project-card-back p {
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.project-card:hover .project-card-front {
+  opacity: 0;
+}
+
+.project-card:hover .project-card-back {
+  opacity: 1;
+}
+
+.project-wip {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .project-row {
+    gap: 60px;
+  }
+
+  .project-row-left,
+  .project-row-right {
+    margin-left: 100px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .project-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-left: 40px;
+    margin-top: 60px;
+  }
+
+  .project-card {
+    width: min(368px, 100%);
+  }
+}
