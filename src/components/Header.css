@@ -121,12 +121,10 @@
     gap: 10px;
   }
 
-  /* Both controls have to share one row with the logo, so the label may not
-     wrap — it shrinks instead. */
-  .resume-button {
-    font-size: clamp(10px, 2.6vw, 13px);
-    padding: clamp(7px, 1.8vw, 9px) clamp(8px, 3vw, 18px);
-    white-space: nowrap;
+  /* The download moves under the hero description at this width, leaving the
+     header as the logo and the section menu. */
+  .header-actions .resume-button {
+    display: none;
   }
 
   .section-menu {

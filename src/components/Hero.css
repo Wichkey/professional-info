@@ -177,6 +177,12 @@
   margin-top: 32px;
 }
 
+/* Lives in the header on desktop; only takes this slot once the header
+   shrinks to the logo and the section menu. */
+.hero-resume {
+  display: none;
+}
+
 .hero-bottom {
   grid-area: bottom;
   display: flex;
@@ -301,8 +307,9 @@
     width: min(470px, 80%);
   }
 
+  /* The heading and the text below it move down as one block. */
   .hero-right {
-    padding-top: 0;
+    padding-top: clamp(28px, 7vw, 56px);
   }
 
   .hero-title {
@@ -313,8 +320,9 @@
     font-size: clamp(18px, 3.2vw, 24px);
   }
 
-  .hero-description {
-    margin-top: clamp(40px, 9vw, 64px);
+  .hero-resume {
+    display: inline-block;
+    margin-top: 32px;
   }
 
   /* The section links move into the header dropdown at this width, so the

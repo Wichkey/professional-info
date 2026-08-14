@@ -1,4 +1,5 @@
 import './Hero.css'
+import resumePdf from '../assets/resume.pdf'
 import profilePhoto from '../assets/profile-photo.webp'
 import linkedinIcon from '../assets/icons/linkedin.png'
 import githubIcon from '../assets/icons/github.png'
@@ -59,6 +60,13 @@ const Hero = () => {
           Additionally, I design and develop interactive websites and create
           custom algorithms tailored to specific needs.
         </p>
+        <a
+          className="resume-button hero-resume"
+          href={resumePdf}
+          download="Daniel-Mehler-CV.pdf"
+        >
+          Download my Resume
+        </a>
       </div>
 
       <div className="hero-bottom" data-reveal="fade" style={{ '--reveal-delay': '0.6s' }}>
