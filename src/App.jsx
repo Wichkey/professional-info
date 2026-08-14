@@ -5,8 +5,11 @@ import Internship from './components/Internship'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import { useReveal } from './hooks/useReveal'
 
 const App = () => {
+  useReveal()
+
   return (
     <div className="page">
       <div className="landing">

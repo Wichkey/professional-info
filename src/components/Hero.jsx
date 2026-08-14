@@ -9,7 +9,7 @@ const socials = [
 const Hero = () => {
   return (
     <section className="hero" id="top">
-      <div className="hero-left">
+      <div className="hero-left" data-reveal="left" style={{ '--reveal-delay': '0.25s' }}>
         <span className="hero-chip">Hello, i am</span>
         <h1 className="hero-name">
           Daniel
@@ -38,13 +38,13 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="hero-center">
+      <div className="hero-center" data-reveal="down" style={{ '--reveal-delay': '0.35s' }}>
         <div className="hero-photo">
           <img src="/profile-photo.webp" alt="Portrait of Daniel Mehler" />
         </div>
       </div>
 
-      <div className="hero-right">
+      <div className="hero-right" data-reveal="right" style={{ '--reveal-delay': '0.45s' }}>
         <h2 className="hero-title">AI for Businesses</h2>
         <h3 className="hero-subtitle">Ai expert &amp; software engineer</h3>
         <p className="hero-description">
@@ -55,7 +55,7 @@ const Hero = () => {
         </p>
       </div>
 
-      <div className="hero-bottom">
+      <div className="hero-bottom" data-reveal="fade" style={{ '--reveal-delay': '0.6s' }}>
         <nav className="hero-nav" aria-label="Section navigation">
           <a href="#qualifications">Education</a>
           <span className="nav-dash" />

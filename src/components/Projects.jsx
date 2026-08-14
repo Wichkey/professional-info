@@ -17,7 +17,7 @@ const projects = [
 
 const ProjectCard = ({ title, description, align }) => (
   <div className={`project-row project-row-${align}`}>
-    <div className="project-card">
+    <div className="project-card" data-reveal={align === 'left' ? 'left' : 'right'}>
       <div className="project-card-face project-card-front">
         <h3>{title}</h3>
       </div>
@@ -25,14 +25,18 @@ const ProjectCard = ({ title, description, align }) => (
         <p>{description}</p>
       </div>
     </div>
-    <span className="project-wip">work in progress</span>
+    <span className="project-wip" data-reveal="fade" style={{ '--reveal-delay': '0.3s' }}>
+      work in progress
+    </span>
   </div>
 )
 
 const Projects = () => {
   return (
     <section id="projects">
-      <h2 className="section-heading projects-heading">Example projects</h2>
+      <h2 className="section-heading projects-heading" data-reveal="left">
+        Example projects
+      </h2>
       {projects.map((project) => (
         <ProjectCard key={project.title} {...project} />
       ))}

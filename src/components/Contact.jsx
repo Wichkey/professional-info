@@ -50,8 +50,15 @@ const Contact = () => {
 
   return (
     <section id="contact">
-      <h2 className="section-heading contact-heading">Contact</h2>
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <h2 className="section-heading contact-heading" data-reveal="left">
+        Contact
+      </h2>
+      <form
+        className="contact-form"
+        onSubmit={handleSubmit}
+        data-reveal
+        style={{ '--reveal-delay': '0.15s' }}
+      >
         <input
           type="checkbox"
           name="botcheck"

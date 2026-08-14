@@ -58,13 +58,15 @@ const entries = [
 const Qualifications = () => {
   return (
     <section id="qualifications">
-      <h2 className="section-heading about-heading" id="about">
+      <h2 className="section-heading about-heading" id="about" data-reveal="left">
         About me
       </h2>
-      <h2 className="section-heading qualifications-heading">Qualifications</h2>
+      <h2 className="section-heading qualifications-heading" data-reveal="left">
+        Qualifications
+      </h2>
 
       {entries.map((entry) => (
-        <article className="qual-entry" key={entry.title}>
+        <article className="qual-entry" key={entry.title} data-reveal>
           <span className="rail-marker" aria-hidden="true" />
           <span className="entry-year">{entry.years}</span>
           <h3 className="entry-title">{entry.title}</h3>

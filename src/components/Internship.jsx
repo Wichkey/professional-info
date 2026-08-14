@@ -9,8 +9,10 @@ const tasks = [
 const Internship = () => {
   return (
     <section id="internship">
-      <h2 className="section-heading internship-heading">Internship</h2>
-      <article className="intern-entry">
+      <h2 className="section-heading internship-heading" data-reveal="left">
+        Internship
+      </h2>
+      <article className="intern-entry" data-reveal>
         <span className="rail-marker intern-marker" aria-hidden="true" />
         <span className="entry-year">2025</span>
         <h3 className="entry-title">medPhoton GmbH</h3>

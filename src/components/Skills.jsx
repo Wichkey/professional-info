@@ -18,8 +18,12 @@ const columns = [
   ],
 ]
 
-const Skill = ({ name, level, icon }) => (
-  <div className="skill">
+const Skill = ({ name, level, icon, delay }) => (
+  <div
+    className="skill"
+    data-reveal
+    style={{ '--reveal-delay': `${delay}s`, '--level': `${level}%` }}
+  >
     <img className="skill-icon" src={icon} alt="" width="42" height="42" />
     <div className="skill-info">
       <div className="skill-head">
@@ -27,7 +31,7 @@ const Skill = ({ name, level, icon }) => (
         <span className="skill-level">{level}%</span>
       </div>
       <div className="skill-bar">
-        <span className="skill-fill" style={{ width: `${level}%` }} />
+        <span className="skill-fill" />
       </div>
     </div>
   </div>
@@ -36,12 +40,14 @@ const Skill = ({ name, level, icon }) => (
 const Skills = () => {
   return (
     <section id="skills">
-      <h2 className="section-heading skills-heading">Skills</h2>
+      <h2 className="section-heading skills-heading" data-reveal="left">
+        Skills
+      </h2>
       <div className="skills-grid">
         {columns.map((column, i) => (
           <div className="skills-column" key={i}>
-            {column.map((skill) => (
-              <Skill key={skill.name} {...skill} />
+            {column.map((skill, j) => (
+              <Skill key={skill.name} {...skill} delay={j * 0.08} />
             ))}
           </div>
         ))}
