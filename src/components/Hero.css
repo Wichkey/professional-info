@@ -122,16 +122,17 @@
   justify-content: center;
 }
 
-/* Blue circle behind the portrait */
+/* Blue half-circle sitting on the nav rule, behind the portrait.
+   Flat edge down so the arc stays below the face instead of haloing it. */
 .hero-photo::before {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(430px, 94%);
-  aspect-ratio: 1;
-  border-radius: 50%;
+  width: min(470px, 104%);
+  aspect-ratio: 2;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   background: var(--accent);
 }
 
@@ -172,6 +173,10 @@
   grid-area: bottom;
   display: flex;
   flex-direction: column;
+  /* The rule is centred in the link row, so the row would start half a
+     line below the photo. Pull it back up so the rule docks on the
+     photo's bottom edge. */
+  margin-top: -13.5px;
 }
 
 /* The rule under the photo and the section links share one line. */
@@ -257,8 +262,8 @@
   }
 
   .hero-photo::before {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: auto;
   }
 
   .hero-right {
@@ -276,6 +281,11 @@
   /* No room for the rule once the links alone fill the row. */
   .nav-rule {
     display: none;
+  }
+
+  /* Nothing left to dock without the rule. */
+  .hero-bottom {
+    margin-top: 0;
   }
 
   .hero-nav {
