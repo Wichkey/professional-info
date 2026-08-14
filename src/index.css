@@ -3,7 +3,6 @@
   --bg: #262626;
   --bg-chip: #151515;
   --accent: #3b7eca;
-  --teal: #3ec2a3;
   --white: #ffffff;
   --white-70: rgba(255, 255, 255, 0.7);
   --grey-card: #cacaca;
@@ -137,6 +136,34 @@ button {
 
 .rail > * {
   position: relative;
+}
+
+/* The corner the timeline ends on: a dot on the rail and a rule running
+   out to the right edge, closing the section off. */
+.rail-terminal {
+  height: 0;
+}
+
+.rail-terminal::before {
+  content: '';
+  position: absolute;
+  left: var(--rail-x);
+  right: 0;
+  top: 0;
+  height: 1.5px;
+  background: var(--white);
+}
+
+.rail-terminal::after {
+  content: '';
+  position: absolute;
+  left: var(--rail-x);
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--white);
 }
 
 /* Headings inside the rail mask the line behind them */

@@ -5,6 +5,7 @@ import Internship from './components/Internship'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 import { useReveal } from './hooks/useReveal'
 
 const App = () => {
@@ -22,8 +23,12 @@ const App = () => {
           <Internship />
           <Skills />
           <Projects />
+          <Contact />
+          {/* Closes the timeline: the line turns a corner and runs out
+              under the section instead of just stopping. */}
+          <div className="rail-terminal" aria-hidden="true" />
         </div>
-        <Contact />
+        <Footer />
       </main>
     </div>
   )

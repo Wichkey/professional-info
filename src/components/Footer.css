@@ -1,0 +1,29 @@
+/* Sits under the corner the timeline ends on, so it reads as the closing
+   line of the page rather than a separate block. */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 96px;
+  padding-left: var(--entry-x);
+  color: var(--grey-placeholder);
+  font-family: var(--font-form);
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.site-footer a {
+  transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    height: auto;
+    padding: 26px 0 40px 40px;
+    gap: 16px;
+  }
+}

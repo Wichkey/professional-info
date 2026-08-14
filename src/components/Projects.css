@@ -114,7 +114,7 @@
 
 .project-figure-value {
   display: block;
-  color: var(--teal);
+  color: var(--accent);
   font-size: 46px;
   font-weight: 200;
   line-height: 1.1;
