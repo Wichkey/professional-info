@@ -10,20 +10,26 @@
   position: relative;
   z-index: 2;
   margin: 70px 0 0 155px;
-  padding-bottom: 140px;
+  padding-bottom: 480px;
 }
 
 .project-slot {
   position: sticky;
-  top: calc(88px + var(--i) * 18px);
+  top: calc(72px + var(--i) * 14px);
   z-index: calc(var(--i) + 1);
+}
+
+/* Dwell time: the gap is the scroll distance a card stays fully readable
+   before the next one slides over it. */
+.project-slot + .project-slot {
+  margin-top: 190px;
 }
 
 .project-card {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.8fr);
   gap: 60px;
-  min-height: 430px;
+  min-height: 470px;
   padding: 46px 50px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 32px;
