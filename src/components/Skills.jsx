@@ -43,7 +43,7 @@ const columns = [
     { name: 'AWS', level: 75, icon: awsIcon },
     { name: 'Git', level: 90, icon: gitIcon },
     { name: 'HTML', level: 70, icon: htmlIcon },
-    { name: 'CSS', level: 60, icon: cssIcon },
+    { name: 'CSS', level: 90, icon: cssIcon },
     { name: 'Java', level: 70, icon: javaIcon },
   ],
 ]
