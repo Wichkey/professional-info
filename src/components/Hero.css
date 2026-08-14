@@ -135,7 +135,7 @@
 .hero-photo::before {
   content: '';
   position: absolute;
-  top: 5px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: min(470px, 100%);
