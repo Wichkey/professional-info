@@ -120,16 +120,19 @@
   position: relative;
   display: flex;
   justify-content: center;
+  /* Crops the circle where the photo ends, which is where the nav rule sits. */
+  overflow: hidden;
 }
 
-/* Blue circle behind the portrait */
+/* A true circle (width = height) starting at the hairline. It reaches past
+   the bottom of the photo and is cut off flat by the crop above. */
 .hero-photo::before {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(430px, 94%);
+  width: min(470px, 100%);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
@@ -172,6 +175,10 @@
   grid-area: bottom;
   display: flex;
   flex-direction: column;
+  /* The rule is centred in the link row, so the row would start half a
+     line below the photo. Pull it back up so the rule docks on the
+     photo's bottom edge. */
+  margin-top: -13.5px;
 }
 
 /* The rule under the photo and the section links share one line. */
@@ -257,8 +264,7 @@
   }
 
   .hero-photo::before {
-    width: 250px;
-    height: 250px;
+    width: 300px;
   }
 
   .hero-right {
@@ -276,6 +282,11 @@
   /* No room for the rule once the links alone fill the row. */
   .nav-rule {
     display: none;
+  }
+
+  /* Nothing left to dock without the rule. */
+  .hero-bottom {
+    margin-top: 0;
   }
 
   .hero-nav {

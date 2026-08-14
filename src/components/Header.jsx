@@ -8,7 +8,11 @@ const Header = () => {
         <span className="logo-m">m</span>
         <span className="logo-dot">.</span>
       </a>
-      <a className="resume-button" href="/resume.pdf" download>
+      <a
+        className="resume-button"
+        href="/resume.pdf"
+        download="Daniel-Mehler-CV.pdf"
+      >
         Download my Resume
       </a>
     </header>

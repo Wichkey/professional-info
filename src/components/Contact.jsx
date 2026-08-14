@@ -5,9 +5,8 @@ const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 const EMAIL = 'daniel.sebastian.mehler@gmail.com'
 
 const socials = [
-  { name: 'LinkedIn', url: 'https://www.linkedin.com' },
-  { name: 'GitHub', url: 'https://github.com' },
-  { name: 'Instagram', url: 'https://www.instagram.com' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/daniel-mehler-536630305' },
+  { name: 'GitHub', url: 'https://github.com/Wichkey' },
 ]
 
 const Contact = () => {
