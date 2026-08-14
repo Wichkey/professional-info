@@ -3,6 +3,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
+  /* The hero's reveal transform makes it a stacking context, and it comes
+     later in the document, so the dropdown needs the header lifted above
+     it — a z-index on the panel alone only orders it within the header. */
+  position: relative;
+  z-index: 10;
 }
 
 .logo {
