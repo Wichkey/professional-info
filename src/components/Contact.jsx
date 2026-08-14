@@ -7,7 +7,6 @@ const EMAIL = 'daniel.sebastian.mehler@gmail.com'
 const socials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/daniel-mehler-536630305' },
   { name: 'GitHub', url: 'https://github.com/Wichkey' },
-  { name: 'Instagram', url: 'https://www.instagram.com' },
 ]
 
 const Contact = () => {
