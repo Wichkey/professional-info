@@ -203,6 +203,12 @@ button {
     --rail-x: 4px;
   }
 
+  /* The 80px start is measured for the 48px desktop heading. The heading is
+     34px here, so the same offset left the line hanging well below it. */
+  .rail::before {
+    top: 60px;
+  }
+
   /* Sideways reveals would start off-canvas on a narrow screen, so
      everything comes up from below instead. */
   [data-reveal='left'],

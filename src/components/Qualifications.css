@@ -121,8 +121,11 @@
 }
 
 @media (max-width: 900px) {
+  /* Each entry is roughly a full screen tall here, so the desktop 62px does
+     not read as a break between them at all. */
   .qual-entry {
     margin-left: 40px;
+    margin-top: 120px;
   }
 
   .qual-entry .rail-marker {
