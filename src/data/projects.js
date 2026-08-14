@@ -5,7 +5,7 @@ export const projects = [
     kicker: 'Machine Learning · AML',
     title: 'Money-Mule Detection Model',
     context: 'EADA Business School — with MyInvestor',
-    timeline: 'Feb 2026 — Present',
+    timeline: 'Feb 2026 — Jul 2026',
     description:
       'An interpretable binary-classification model that flags money-mule accounts for MyInvestor, a Spanish digital investment platform. It feeds an anti-money-laundering workflow that outputs risk scores for human compliance review rather than automated decisions, so every modelling choice was made for auditability first.',
     figure: { value: '3,000', label: 'accounts analysed' },
@@ -21,17 +21,6 @@ export const projects = [
       'An end-to-end computer-vision system that detects cardiomegaly from chest X-rays, built in five days. It runs the full PyTorch pipeline — preprocessing, augmentation, training, validation, evaluation — behind a web app where doctors upload an X-ray and receive a prediction with clinical-support context.',
     figure: { value: '5 days', label: 'from brief to working app' },
     stack: ['PyTorch', 'CNNs', 'Computer Vision'],
-  },
-  {
-    id: 'instadash',
-    kicker: 'Full-Stack · LLM',
-    title: 'InstaDash — AI Dashboard Generator',
-    context: 'Personal Project',
-    timeline: 'Jan 2026 — Present',
-    description:
-      'A full-stack web application that turns an uploaded CSV into an interactive dashboard instantly, removing manual chart setup for non-technical users. A conversational agent reads natural-language requests and rewrites the layout, chart types and filters in real time.',
-    figure: null,
-    stack: ['React', 'Python', 'LLM Agents'],
   },
   {
     id: 'nutripilot',
