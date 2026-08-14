@@ -14,11 +14,24 @@ export const useReveal = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer.unobserve(entry.target)
+        // Elements marked [data-reveal-stagger] cascade against the others
+        // arriving in the same batch, top to bottom, rather than against a
+        // fixed index. A fixed index breaks as soon as the layout reflows —
+        // stacked columns restart their count midway down the page — and
+        // leaves late items waiting out a long delay after scrolling in.
+        const arriving = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+
+        let step = 0
+        arriving.forEach((entry) => {
+          const el = entry.target
+          if (el.hasAttribute('data-reveal-stagger')) {
+            el.style.setProperty('--reveal-delay', `${step * 0.07}s`)
+            step += 1
           }
+          el.classList.add('is-visible')
+          observer.unobserve(el)
         })
       },
       // threshold 0 so sections taller than the viewport still trigger

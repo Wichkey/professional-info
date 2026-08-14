@@ -323,6 +323,10 @@
   .hero-resume {
     display: inline-block;
     margin-top: 32px;
+    /* Secondary to the contact call to action here, so it sits smaller than
+       the header version it replaces. */
+    font-size: 14px;
+    padding: 10px 22px;
   }
 
   /* The section links move into the header dropdown at this width, so the
