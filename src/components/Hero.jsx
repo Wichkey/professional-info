@@ -1,8 +1,12 @@
 import './Hero.css'
 
 const socials = [
-  { name: 'linkedIn', icon: '/icons/linkedin.png', url: 'https://www.linkedin.com' },
-  { name: 'Github', icon: '/icons/github.png', url: 'https://github.com' },
+  {
+    name: 'linkedIn',
+    icon: '/icons/linkedin.png',
+    url: 'https://www.linkedin.com/in/daniel-mehler-536630305',
+  },
+  { name: 'Github', icon: '/icons/github.png', url: 'https://github.com/Wichkey' },
 ]
 
 const Hero = () => {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './Contact.css'
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
-const EMAIL = 'daniel@vlcorp.mx'
+const EMAIL = 'daniel.sebastian.mehler@gmail.com'
 
 const socials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com' },
