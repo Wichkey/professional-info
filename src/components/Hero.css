@@ -177,6 +177,12 @@
   margin-top: 32px;
 }
 
+/* Lives in the header on desktop; only takes this slot once the header
+   shrinks to the logo and the section menu. */
+.hero-resume {
+  display: none;
+}
+
 .hero-bottom {
   grid-area: bottom;
   display: flex;
@@ -281,31 +287,29 @@
     margin-top: clamp(18px, 3.6vw, 40px);
   }
 
+  /* The socials are reachable from the contact section; at this width they
+     only crowd the name. */
   .hero-socials {
-    margin-top: clamp(22px, 4.4vw, 48px);
+    display: none;
   }
 
-  .socials-list {
-    margin-top: clamp(12px, 2.6vw, 28px);
+  /* Without the socials the text column is short, so the portrait sits
+     centred against it rather than hanging off the bottom. */
+  .hero-center {
+    align-self: center;
   }
 
-  .socials-list a {
-    font-size: clamp(10px, 1.9vw, 14px);
-    gap: clamp(5px, 1.4vw, 10px);
+  .hero-photo img {
+    width: min(460px, 78%);
   }
 
-  .socials-list img {
-    width: clamp(20px, 4vw, 32px);
-    height: auto;
+  .hero-photo::before {
+    width: min(470px, 80%);
   }
 
-  .socials-list li + li::before {
-    margin: 0 clamp(7px, 2.2vw, 20px);
-    height: clamp(18px, 3.4vw, 28px);
-  }
-
+  /* The heading and the text below it move down as one block. */
   .hero-right {
-    padding-top: 0;
+    padding-top: clamp(28px, 7vw, 56px);
   }
 
   .hero-title {
@@ -316,23 +320,20 @@
     font-size: clamp(18px, 3.2vw, 24px);
   }
 
-  /* No room for the rule once the links alone fill the row. */
-  .nav-rule {
+  .hero-resume {
+    display: inline-block;
+    margin-top: 32px;
+  }
+
+  /* The section links move into the header dropdown at this width, so the
+     whole rule-and-links row goes. */
+  .hero-nav {
     display: none;
   }
 
   /* Nothing left to dock without the rule. */
   .hero-bottom {
     margin-top: 0;
-  }
-
-  .hero-nav {
-    align-self: flex-start;
-    gap: 12px;
-  }
-
-  .nav-dash {
-    width: 20px;
   }
 
   .hero-quote {

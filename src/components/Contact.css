@@ -139,6 +139,13 @@
   color: var(--grey-placeholder);
 }
 
+/* The widget is a fixed-size iframe, so it gets its own room rather than
+   sitting tight under the last field. */
+.h-captcha {
+  margin: 8px 0 28px;
+  min-height: 78px;
+}
+
 .send-button {
   display: inline-flex;
   align-items: center;
@@ -187,8 +194,11 @@
 }
 
 @media (max-width: 900px) {
+  /* minmax(0, 1fr) rather than 1fr: the email address is one unbreakable
+     token, and a plain 1fr track grows to fit it, pushing the whole
+     section past the page edge. */
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 56px;
     margin: 44px 0 0 40px;
     padding-bottom: 70px;
@@ -196,6 +206,13 @@
 
   .contact-say {
     font-size: 34px;
+  }
+
+  /* Sized so the address stays on one line; the break is only a safety net
+     for widths narrower than any real phone. */
+  .contact-direct b {
+    font-size: clamp(12px, 3.6vw, 22px);
+    overflow-wrap: anywhere;
   }
 
   .contact-row {

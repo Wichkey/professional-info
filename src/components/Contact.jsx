@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Contact.css'
+
+const CAPTCHA_SCRIPT = 'https://web3forms.com/client/script.js'
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 const EMAIL = 'daniel.sebastian.mehler@gmail.com'
@@ -12,12 +14,28 @@ const socials = [
 const Contact = () => {
   const [status, setStatus] = useState('idle')
 
+  // Loaded after mount rather than from index.html: the script renders the
+  // widget into .h-captcha as soon as it runs, so the form has to exist
+  // first. Skipped entirely in the mailto fallback, where nothing posts to
+  // Web3Forms anyway.
+  useEffect(() => {
+    if (!WEB3FORMS_KEY) return
+    if (document.querySelector(`script[src="${CAPTCHA_SCRIPT}"]`)) return
+
+    const script = document.createElement('script')
+    script.src = CAPTCHA_SCRIPT
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = e.target
 
-    // Honeypot: real users never fill this hidden field
-    if (form.botcheck.value) return
+    // Honeypot: real users never tick this hidden box. Read .checked, not
+    // .value — an unchecked checkbox still reports "on".
+    if (form.botcheck.checked) return
 
     if (!WEB3FORMS_KEY) {
       const subject = encodeURIComponent(`Portfolio contact from ${form.name.value}`)
@@ -25,6 +43,15 @@ const Contact = () => {
         `${form.message.value}\n\nPhone: ${form.phone.value || '-'}\nEmail: ${form.email.value}`
       )
       window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+      return
+    }
+
+    // The widget writes its token into a textarea it injects into the form.
+    // Web3Forms rejects the submission without it, so catch it here and say
+    // so plainly instead of letting it come back as a generic failure.
+    const captcha = form.querySelector('textarea[name=h-captcha-response]')?.value
+    if (!captcha) {
+      setStatus('captcha')
       return
     }
 
@@ -39,7 +66,8 @@ const Contact = () => {
           email: form.email.value,
           phone: form.phone.value,
           message: form.message.value,
-          botcheck: form.botcheck.value,
+          botcheck: form.botcheck.checked,
+          'h-captcha-response': captcha,
         }),
       })
       const data = await res.json()
@@ -51,6 +79,10 @@ const Contact = () => {
       }
     } catch {
       setStatus('error')
+    } finally {
+      // A token is single use, so the widget has to go back to unsolved
+      // whether the send worked or not.
+      window.hcaptcha?.reset()
     }
   }
 
@@ -125,11 +157,20 @@ const Contact = () => {
             />
           </label>
 
+          {WEB3FORMS_KEY && (
+            <div className="h-captcha" data-captcha="true" data-theme="dark" />
+          )}
+
           <button className="send-button" type="submit" disabled={status === 'sending'}>
             {status === 'sending' ? 'Sending…' : 'Send message'}
             <span aria-hidden="true">&rarr;</span>
           </button>
 
+          {status === 'captcha' && (
+            <p className="contact-status contact-status-error" role="status">
+              Please confirm you are not a robot.
+            </p>
+          )}
           {status === 'sent' && (
             <p className="contact-status" role="status">
               Thanks! Your message has been sent.

@@ -3,6 +3,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
+  /* The hero's reveal transform makes it a stacking context, and it comes
+     later in the document, so the dropdown needs the header lifted above
+     it — a z-index on the panel alone only orders it within the header. */
+  position: relative;
+  z-index: 10;
 }
 
 .logo {
@@ -38,13 +43,131 @@
   filter: brightness(1.1);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 16px);
+}
+
+/* The section links live in the hero rule on desktop; the dropdown only
+   takes over once that rule is gone. */
+.section-menu {
+  display: none;
+  position: relative;
+}
+
+.section-menu-toggle {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(5px, 1.6vw, 8px);
+  background: var(--bg-chip);
+  color: var(--white);
+  font-size: clamp(10px, 2.6vw, 13px);
+  font-weight: 600;
+  line-height: 1.5;
+  padding: clamp(7px, 1.8vw, 9px) clamp(7px, 2.6vw, 14px);
+  white-space: nowrap;
+}
+
+.section-menu-toggle::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-menu-toggle[aria-expanded='true']::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+/* Closed state. visibility keeps the links out of the tab order and out of
+   hit-testing while the panel is faded out. */
+.section-menu ul {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  list-style: none;
+  min-width: 150px;
+  padding: 6px 0;
+  background: var(--bg-chip);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.96);
+  transform-origin: top right;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.32s;
+}
+
+.section-menu ul.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* Items arrive just behind the panel, each a beat after the last. */
+.section-menu li {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-menu ul.is-open li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(60ms + var(--item-index) * 45ms);
+}
+
+.section-menu ul a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-menu ul,
+  .section-menu li,
+  .section-menu-toggle::after {
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
+}
+
+.section-menu ul a:hover,
+.section-menu ul a:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
 @media (max-width: 900px) {
   .logo {
-    font-size: 36px;
+    font-size: clamp(26px, 5.6vw, 36px);
   }
 
-  .resume-button {
-    font-size: 14px;
-    padding: 10px 20px;
+  .header {
+    gap: 10px;
+  }
+
+  /* The download moves under the hero description at this width, leaving the
+     header as the logo and the section menu. */
+  .header-actions .resume-button {
+    display: none;
+  }
+
+  .section-menu {
+    display: block;
   }
 }
