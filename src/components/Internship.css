@@ -1,0 +1,63 @@
+.internship-heading {
+  margin-top: 120px;
+  margin-left: 110px;
+}
+
+#internship {
+  position: relative;
+}
+
+/* Dot sits level with the Internship heading */
+.intern-marker {
+  top: 156px;
+}
+
+.intern-entry {
+  margin: 30px 0 0 500px;
+  max-width: 900px;
+}
+
+.intern-tasks {
+  list-style: none;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.intern-tasks li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.intern-tasks li::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .intern-entry {
+    margin-left: 190px;
+  }
+}
+
+@media (max-width: 900px) {
+  .internship-heading {
+    margin-left: 0;
+  }
+
+  .intern-marker {
+    display: none;
+  }
+
+  .intern-entry {
+    margin-left: 40px;
+  }
+}
