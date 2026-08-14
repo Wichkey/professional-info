@@ -9,21 +9,41 @@ import javascriptIcon from '../assets/icons/icon-javascript.svg'
 import htmlIcon from '../assets/icons/icon-html5.svg'
 import cssIcon from '../assets/icons/icon-css3.svg'
 import figmaIcon from '../assets/icons/icon-figma.svg'
+import scikitIcon from '../assets/icons/icon-scikit.svg'
+import agentsIcon from '../assets/icons/icon-agents.svg'
+import ragIcon from '../assets/icons/icon-rag.svg'
+import typescriptIcon from '../assets/icons/icon-typescript.svg'
+import reactIcon from '../assets/icons/icon-react.svg'
+import nextIcon from '../assets/icons/icon-nextjs.svg'
+import rubyIcon from '../assets/icons/icon-ruby.svg'
+import awsIcon from '../assets/icons/icon-aws.svg'
+import gitIcon from '../assets/icons/icon-git.svg'
 
+// Left column is the AI and data side, right column web, cloud and tooling.
 const columns = [
   [
     { name: 'Python', level: 95, icon: pythonIcon },
-    { name: 'R', level: 80, icon: rIcon },
+    { name: 'PyTorch', level: 85, icon: pytorchIcon },
+    { name: 'Scikit-learn', level: 85, icon: scikitIcon },
     { name: 'Fine tuning LLMs', level: 80, icon: pytorchIcon },
-    { name: 'SQL', level: 85, icon: mysqlIcon },
     { name: 'Training NNs', level: 60, icon: pytorchIcon },
+    { name: 'AI Agents', level: 75, icon: agentsIcon },
+    { name: 'RAG', level: 70, icon: ragIcon },
+    { name: 'SQL', level: 85, icon: mysqlIcon },
+    { name: 'R', level: 80, icon: rIcon },
     { name: 'Algorithms', level: 95, icon: treeIcon },
   ],
   [
-    { name: 'Java', level: 70, icon: javaIcon },
     { name: 'JavaScript', level: 70, icon: javascriptIcon },
+    { name: 'TypeScript', level: 75, icon: typescriptIcon },
+    { name: 'React', level: 85, icon: reactIcon },
+    { name: 'Next.js', level: 80, icon: nextIcon },
+    { name: 'Ruby on Rails', level: 65, icon: rubyIcon },
+    { name: 'AWS', level: 75, icon: awsIcon },
+    { name: 'Git', level: 90, icon: gitIcon },
     { name: 'HTML', level: 70, icon: htmlIcon },
     { name: 'CSS', level: 60, icon: cssIcon },
+    { name: 'Java', level: 70, icon: javaIcon },
     { name: 'Figma', level: 50, icon: figmaIcon },
   ],
 ]
