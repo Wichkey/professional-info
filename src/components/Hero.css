@@ -281,27 +281,24 @@
     margin-top: clamp(18px, 3.6vw, 40px);
   }
 
+  /* The socials are reachable from the contact section; at this width they
+     only crowd the name. */
   .hero-socials {
-    margin-top: clamp(22px, 4.4vw, 48px);
+    display: none;
   }
 
-  .socials-list {
-    margin-top: clamp(12px, 2.6vw, 28px);
+  /* Without the socials the text column is short, so the portrait sits
+     centred against it rather than hanging off the bottom. */
+  .hero-center {
+    align-self: center;
   }
 
-  .socials-list a {
-    font-size: clamp(10px, 1.9vw, 14px);
-    gap: clamp(5px, 1.4vw, 10px);
+  .hero-photo img {
+    width: min(460px, 78%);
   }
 
-  .socials-list img {
-    width: clamp(20px, 4vw, 32px);
-    height: auto;
-  }
-
-  .socials-list li + li::before {
-    margin: 0 clamp(7px, 2.2vw, 20px);
-    height: clamp(18px, 3.4vw, 28px);
+  .hero-photo::before {
+    width: min(470px, 80%);
   }
 
   .hero-right {
