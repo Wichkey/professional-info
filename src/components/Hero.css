@@ -131,7 +131,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: min(470px, 104%);
-  aspect-ratio: 2;
+  height: 100%;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   background: var(--accent);
 }
@@ -263,7 +263,6 @@
 
   .hero-photo::before {
     width: 300px;
-    height: auto;
   }
 
   .hero-right {
