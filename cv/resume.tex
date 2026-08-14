@@ -1,0 +1,232 @@
+%==============================================================================
+%  Resume -- Daniel Mehler | Software Developer
+%  Compile with: pdflatex resume.tex
+%==============================================================================
+\documentclass[10pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1.3cm, bottom=1.1cm, left=2.2cm, right=2.2cm]{geometry}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{lmodern}
+\usepackage{parskip}
+
+\definecolor{headcolor}{HTML}{1A1A2E}
+\definecolor{rulecolor}{HTML}{1A1A2E}
+\definecolor{mutedcolor}{HTML}{555555}
+\definecolor{linkcolor}{HTML}{0F4C81}
+\hypersetup{urlcolor=linkcolor, colorlinks=true}
+\pagestyle{empty}
+
+\titleformat{\section}
+  {\vspace{-2pt}}{}
+  {0pt}
+  {\noindent\textcolor{rulecolor}{\rule{\linewidth}{0.8pt}}\\[3pt]\large\bfseries\color{headcolor}}
+  []
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\sectionnobar}[1]{%
+  \vspace{10pt}%
+  {\large\bfseries\color{headcolor} #1}%
+  \vspace{5pt}\par%
+}
+
+\newcommand{\cventry}[5]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    {\bfseries #2} \, {\normalsize\textit{#3}} &
+    {\small\color{mutedcolor}#1}
+  \end{tabularx}%
+  \ifx&#4&\else\par\noindent{\small\color{mutedcolor}\faMapMarker*\enspace #4}\fi
+  \par #5\vspace{2pt}%
+}
+
+\newenvironment{cvlist}{%
+  \begin{itemize}[leftmargin=1.2em, label=\textcolor{headcolor}{\small$\bullet$},
+    itemsep=1pt, parsep=0pt, topsep=2pt]
+}{\end{itemize}}
+
+\newcommand{\skillrow}[2]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}>{\bfseries}p{3.2cm}X@{}}
+    #1 & #2
+  \end{tabularx}\vspace{2pt}%
+}
+
+%==============================================================================
+\begin{document}
+
+% -- HEADER --------------------------------------------------------------------
+\begin{center}
+  {\fontsize{26}{28}\selectfont\bfseries\color{headcolor} Daniel Mehler}
+  \vspace{6pt}
+
+  {\large\color{mutedcolor} AI \& Full-Stack Software Developer}
+  \vspace{8pt}
+
+  \noindent\textcolor{rulecolor}{\rule{\linewidth}{0.8pt}}
+  \vspace{6pt}
+
+  {\small
+    \faMapMarker*\enspace Barcelona, Spain
+    \quad\textcolor{mutedcolor}{|}
+    \faEnvelope\enspace \href{mailto:daniel.sebastian.mehler@gmail.com}{daniel.sebastian.mehler@gmail.com}
+    \quad\textcolor{mutedcolor}{|}
+    \faLinkedin\enspace \href{https://www.linkedin.com/in/daniel-mehler-536630305}{linkedin.com/in/daniel-mehler}
+  }
+  \vspace{4pt}
+
+  \textcolor{rulecolor}{\rule{\linewidth}{0.8pt}}
+\end{center}
+
+% -- PROFILE -------------------------------------------------------------------
+\noindent AI and full-stack software developer combining a mathematically grounded BSc in Cognitive Science (T\"ubingen) with an applied Master in AI for Business (EADA, Barcelona). \textbf{Shipped} production AI systems as co-founder of an EdTech venture and as a developer for healthcare and fintech clients; \textbf{trained} and fine-tuned deep-learning models (CNNs, LLMs) in PyTorch and \textbf{deployed} cloud infrastructure on AWS.
+
+% -- EDUCATION -----------------------------------------------------------------
+\sectionnobar{Education}
+
+\cventry{Oct 2025 -- Jul 2026}
+  {Master in AI for Business}
+  {EADA Business School, Barcelona}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Specialising} in machine learning applications, AI strategy, and product development, with applied industry projects including an AML classification model for the digital bank MyInvestor and a clinical computer-vision datathon (see Projects).
+    \end{cvlist}
+  }
+
+\cventry{Oct 2021 -- Oct 2024}
+  {Bachelor of Science, Cognitive Science}
+  {Eberhard Karls Universit\"at T\"ubingen}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Concentrated} on the formal core of the degree: linear algebra, multidimensional analysis, statistics, algorithms, machine learning, and computational linguistics (NLP), alongside programming in Python and MATLAB.
+    \end{cvlist}
+  }
+
+% -- EXPERIENCE ----------------------------------------------------------------
+\section{Professional Experience}
+
+\cventry{Feb 2026 -- Present}
+  {Co-Founder \& Full-Stack Developer}
+  {Voralio -- EdTech Venture (\href{https://voralio.com}{voralio.com})}
+  {Barcelona, Spain}
+  {%
+    \begin{cvlist}
+      \item \textbf{Co-founded} Voralio, an AI-powered oral-assessment platform that modernises oral exams in higher education through real-time AI voice interviews; pitched to the business-school dean and faculty, with a pilot currently in progress.
+      \item \textbf{Designed and built} the production web app end to end: teacher exam hub, account-free student exam flow, Firebase-backed APIs, Vapi voice integration, and OpenAI-powered PDF summarisation that generates transcripts and structured evaluations for instructors.
+      \item Stack: Next.js, TypeScript, React, Firebase, Vapi, OpenAI, Tailwind CSS, Vercel.
+    \end{cvlist}
+  }
+
+\cventry{Jan 2026 -- Present}
+  {Software Developer}
+  {Dlife -- Diabetes-Care Platform (\href{https://www.dlife.mx}{dlife.mx})}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Delivering} a three-sided healthcare platform (patients, doctors, pharma) for Dlife, a Mexican diabetes-treatment provider, as one of three developers: role-specific registration flows, dashboards, and permissions; software sold and partially paid, delivery expected Aug 2026.
+      \item \textbf{Designed and deployed} the platform's cloud infrastructure on AWS, including secure role-based authentication, an automated CI/CD pipeline, and an integration with an external affiliate programme.
+    \end{cvlist}
+  }
+
+\cventry{Apr 2026 -- Present}
+  {Full-Stack Developer}
+  {Axo Capital -- FinTech}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Co-developing} a lending platform for Axo Capital, a Mexican non-bank financial institution that finances importers and exporters against outstanding invoices to bridge their order-to-payment gap.
+      \item \textbf{Building} automated creditworthiness analysis that scrapes invoice data from Mexico's tax authority (SAT) to assess borrower cash flow, financial health, and transaction validity before findings reach human credit analysts.
+      \item Stack: Ruby on Rails (backend), React (frontend).
+    \end{cvlist}
+  }
+
+\cventry{Feb 2025 -- May 2025}
+  {AI Software Developer}
+  {Medphoton, a Brainlab Company}
+  {Salzburg, Austria}
+  {%
+    \begin{cvlist}
+      \item \textbf{Designed and implemented} a Python-based voice-command system for CT scanners as sole developer, integrating classical speech recognition with LLMs and prompt engineering, and delivered a working prototype within a 3-month timeline.
+      \item \textbf{Architected} the end-to-end pipeline (input processing, LLM inference, command mapping) and evaluated multiple model configurations for accuracy and latency trade-offs in a safety-critical medical context.
+      \item \textbf{Produced} a 50-page technical report documenting methodology, benchmark results, and deployment considerations, enabling the team to make informed next-step decisions.
+    \end{cvlist}
+  }
+
+% -- PROJECTS ------------------------------------------------------------------
+\section{Projects}
+
+\cventry{Feb 2026 -- Jul 2026}
+  {Money-Mule Detection Model -- MyInvestor}
+  {University Project -- EADA Business School}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Developed} an interpretable binary-classification model to flag money-mule accounts for MyInvestor, a Spanish digital investment platform, as part of an anti-money-laundering (AML) workflow that outputs risk scores for compliance-team review rather than automated decisions.
+      \item \textbf{Built and evaluated} explainable models (Logistic Regression, Decision Trees, Gradient Boosting with SHAP) on 3{,}000 accounts using device, transactional, and KYC features, prioritising interpretability and auditability.
+      \item \textbf{Designed} a conceptual framework for a dynamic model addressing temporal feature drift, covering concept-drift detection, rolling retraining windows, and behavioural sequence modelling.
+    \end{cvlist}
+  }
+
+\cventry{Apr 2026}
+  {Cardiomegaly Detection from Chest X-Rays -- Datathon}
+  {University Project -- EADA Business School}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Built} an end-to-end computer-vision system to detect cardiomegaly from chest X-rays in 5 days, running the full PyTorch pipeline: preprocessing, augmentation, training, validation, and evaluation.
+      \item \textbf{Developed} a web app for doctors to upload X-rays and receive predictions with clinical-support features, prioritising real-world usability: workflow integration and edge-case handling beyond a traditional demo.
+    \end{cvlist}
+  }
+
+\cventry{May 2025 -- Sep 2025}
+  {NutriPilot -- Full-Stack Progressive Web App}
+  {Personal Project}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Built} a nutrition and meal-planning PWA from scratch in pure HTML, CSS, and JavaScript (no frameworks), owning the full lifecycle from Figma UX design through frontend, backend, and deployment.
+      \item \textbf{Implemented} offline support and installability via Service Worker APIs, achieving full PWA compliance.
+    \end{cvlist}
+  }
+
+\cventry{Apr 2023 -- Aug 2023}
+  {ML-Based Disease Diagnosis System}
+  {University Project -- Universit\"at T\"ubingen}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Developed} a MATLAB diagnostic tool processing geographic and meteorological datasets to estimate regional disease likelihood, integrating several machine-learning algorithms for prediction and analysis.
+    \end{cvlist}
+  }
+
+\cventry{Dec 2022 -- Feb 2023}
+  {Speech Command Recognition System}
+  {University Project}
+  {}
+  {%
+    \begin{cvlist}
+      \item \textbf{Developed} a two-stage speech-recognition system (keyword + command detection) using CNNs, processing audio into Mel-spectrograms and training on the Speech Commands dataset.
+      \item \textbf{Achieved} 95\% classification accuracy across 34 spoken commands; implemented and optimised models in PyTorch with regularisation and performance evaluation.
+    \end{cvlist}
+  }
+
+% -- SKILLS --------------------------------------------------------------------
+\section{Skills}
+
+\skillrow{AI / ML}{ML/DL models (SVMs, CNNs, Gradient Boosting, Transformers/LLMs), AI Agents, RAG, MLOps}
+\skillrow{Languages}{Python, R, JavaScript, TypeScript, SQL, Java, MATLAB, Ruby, HTML5, CSS3}
+\skillrow{ML / Data stack}{PyTorch, Scikit-learn, Pandas, MLflow, Flask, Pytest}
+\skillrow{Web}{Next.js, React, Ruby on Rails, Firebase, Tailwind CSS}
+\skillrow{Cloud / Dev tools}{AWS (EC2, Cognito, RDS, Lambda, Amplify, S3), Vercel, Git, REST APIs, Figma}
+\skillrow{Spoken}{German (native), English (C1), Spanish (B1)}
+
+\end{document}
+%==============================================================================
