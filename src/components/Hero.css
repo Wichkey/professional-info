@@ -10,6 +10,12 @@
   padding-bottom: 24px;
 }
 
+/* The intro carries the first impression, so it runs slower than the
+   0.8s the rest of the page reveals at. */
+.hero [data-reveal] {
+  transition-duration: 1.2s;
+}
+
 .hero-left {
   grid-area: left;
   display: flex;
@@ -129,7 +135,7 @@
 .hero-photo::before {
   content: '';
   position: absolute;
-  top: 20px;
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
   width: min(470px, 100%);
