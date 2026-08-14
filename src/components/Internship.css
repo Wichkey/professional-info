@@ -4,14 +4,14 @@
 
 .intern-entry {
   position: relative;
-  margin: 84px 0 0 190px;
+  margin: 84px 0 0 var(--entry-x);
   max-width: 1030px;
 }
 
 /* Dot sits level with the company name, same as the qualification entries */
 .intern-entry .rail-marker {
-  top: 60px;
-  left: calc(var(--rail-x) - 190px);
+  top: 69px;
+  left: calc(var(--rail-x) - var(--entry-x));
 }
 
 /* Task list echoes the thesis blocks: blue rule on the left, generous
@@ -50,6 +50,7 @@
 
   .intern-entry {
     margin: 48px 0 0 40px;
+    max-width: none;
   }
 
   .intern-entry .rail-marker {

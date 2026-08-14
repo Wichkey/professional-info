@@ -2,108 +2,220 @@
   margin-top: 120px;
 }
 
-.project-row {
-  display: flex;
-  align-items: center;
-  gap: 120px;
-  margin-top: 100px;
-}
-
-.project-row-left {
-  margin-left: 190px;
-}
-
-.project-row-right {
-  margin-left: 190px;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-  margin-right: 120px;
-}
-
-.project-row-right .project-card {
-  margin-left: auto;
-}
-
-/* Card flips from blue title face to grey description face on hover
-   (Figma variants: Card status default -> Card status hovered) */
-.project-card {
+/* Each card sticks a little lower than the one before it, so scrolling
+   slides the next project over the last and leaves its top edge peeking
+   out. The container's bottom padding is the travel the final card gets
+   before it unsticks. */
+.projects-deck {
   position: relative;
-  width: 368px;
-  height: 614px;
-  flex-shrink: 0;
+  z-index: 2;
+  margin: 70px 0 0 155px;
+  padding-bottom: 140px;
 }
 
-.project-card-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 40px;
+.project-slot {
+  position: sticky;
+  top: calc(88px + var(--i) * 18px);
+  z-index: calc(var(--i) + 1);
+}
+
+.project-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.8fr);
+  gap: 60px;
+  min-height: 430px;
+  padding: 46px 50px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+  background: linear-gradient(155deg, #2f2f2f 0%, #1b1b1b 100%);
+  box-shadow: 0 -22px 60px rgba(0, 0, 0, 0.5);
+}
+
+.project-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-kicker {
   display: flex;
   align-items: center;
+  gap: 14px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.project-index {
+  color: var(--white-70);
+}
+
+.project-index::after {
+  content: '';
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  margin-left: 14px;
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.project-title {
+  margin-top: 22px;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.project-description {
+  margin-top: 22px;
+  max-width: 62ch;
+  color: var(--white-70);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 34px;
+  list-style: none;
+}
+
+.project-tech li {
+  padding: 7px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: var(--bg-chip);
+  color: var(--white-70);
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.project-spec {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 40px;
-  text-align: center;
-  transition: opacity 0.4s ease;
+  gap: 34px;
+  padding-left: 44px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.project-card-front {
-  background: var(--accent);
-  opacity: 1;
+.project-figure-value {
+  display: block;
+  color: var(--teal);
+  font-size: 46px;
+  font-weight: 200;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
-.project-card-front h3 {
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.project-card-back {
-  background: var(--grey-card);
-  color: var(--dark-text);
-  opacity: 0;
-}
-
-.project-card-back p {
-  font-size: 26px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.project-card:hover .project-card-front {
-  opacity: 0;
-}
-
-.project-card:hover .project-card-back {
-  opacity: 1;
-}
-
-.project-wip {
-  font-size: 24px;
+.project-figure-label {
+  display: block;
+  margin-top: 10px;
+  color: var(--white-70);
+  font-size: 13px;
   font-weight: 300;
   line-height: 1.5;
 }
 
-@media (max-width: 1100px) {
-  .project-row {
-    gap: 60px;
-  }
-
-  .project-row-left,
-  .project-row-right {
-    margin-left: 100px;
-    margin-right: 0;
-  }
+.project-meta dt {
+  color: var(--grey-placeholder);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 900px) {
-  .project-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    margin-left: 40px;
-    margin-top: 60px;
+.project-meta dd {
+  margin: 6px 0 20px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.project-meta dd:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1100px) {
+  .projects-deck {
+    margin-left: 60px;
   }
 
   .project-card {
-    width: min(368px, 100%);
+    gap: 36px;
+    padding: 38px 34px;
+  }
+
+  .project-title {
+    font-size: 30px;
+  }
+
+  .project-spec {
+    padding-left: 30px;
+  }
+}
+
+/* Stacking a full-height card under a fixed offset leaves almost no room
+   to read on a phone, so the deck falls back to a plain list. */
+@media (max-width: 900px) {
+  .projects-deck {
+    margin: 50px 0 0 40px;
+    padding-bottom: 0;
+  }
+
+  .project-slot {
+    position: static;
+  }
+
+  .project-slot + .project-slot {
+    margin-top: 24px;
+  }
+
+  .project-card {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    min-height: 0;
+    padding: 32px 26px;
+    border-radius: 24px;
+  }
+
+  .project-title {
+    font-size: 26px;
+  }
+
+  .project-description {
+    font-size: 16px;
+  }
+
+  .project-spec {
+    gap: 26px;
+    padding: 28px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: none;
+  }
+
+  .project-figure-value {
+    font-size: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-slot {
+    position: static;
+  }
+
+  .project-slot + .project-slot {
+    margin-top: 24px;
+  }
+
+  .projects-deck {
+    padding-bottom: 0;
   }
 }

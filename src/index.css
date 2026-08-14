@@ -16,7 +16,11 @@
 
   /* Layout */
   --page-width: 1440px;
-  --rail-x: 95px; /* x position of the timeline line inside the page */
+  /* Offsets are measured from the page content edge, which already sits
+     40px in, so these are the Figma x values minus that padding. */
+  --rail-x: 33px; /* timeline line: 73px in the Figma frame */
+  --entry-x: 222px; /* timeline entries start here, 82px clear of the connector */
+  --entry-col: 418px; /* left column of an entry, up to the thesis rule */
 }
 
 * {
@@ -141,18 +145,20 @@ button {
   position: absolute;
   left: var(--rail-x);
   transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--white);
 }
 
+/* Connector reaches to 107px right of the rail, leaving the 82px gap
+   before the entry text that the Figma frame has. */
 .rail-marker::after {
   content: '';
   position: absolute;
-  left: 14px;
+  left: 18px;
   top: 50%;
-  width: 90px;
+  width: 98px;
   height: 1.5px;
   background: var(--white);
 }
