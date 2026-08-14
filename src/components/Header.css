@@ -38,13 +38,98 @@
   filter: brightness(1.1);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 16px);
+}
+
+/* The section links live in the hero rule on desktop; the dropdown only
+   takes over once that rule is gone. */
+.section-menu {
+  display: none;
+  position: relative;
+}
+
+.section-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(5px, 1.6vw, 8px);
+  background: var(--bg-chip);
+  color: var(--white);
+  font-size: clamp(10px, 2.6vw, 13px);
+  font-weight: 600;
+  line-height: 1.5;
+  padding: clamp(7px, 1.8vw, 9px) clamp(7px, 2.6vw, 14px);
+  white-space: nowrap;
+}
+
+.section-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-menu > summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.section-menu[open] > summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.section-menu ul {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  list-style: none;
+  min-width: 150px;
+  padding: 6px 0;
+  background: var(--bg-chip);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.section-menu ul a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.section-menu ul a:hover,
+.section-menu ul a:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
 @media (max-width: 900px) {
   .logo {
-    font-size: 36px;
+    font-size: clamp(26px, 5.6vw, 36px);
   }
 
+  .header {
+    gap: 10px;
+  }
+
+  /* Both controls have to share one row with the logo, so the label may not
+     wrap — it shrinks instead. */
   .resume-button {
-    font-size: 14px;
-    padding: 10px 20px;
+    font-size: clamp(10px, 2.6vw, 13px);
+    padding: clamp(7px, 1.8vw, 9px) clamp(8px, 3vw, 18px);
+    white-space: nowrap;
+  }
+
+  .section-menu {
+    display: block;
   }
 }

@@ -313,23 +313,19 @@
     font-size: clamp(18px, 3.2vw, 24px);
   }
 
-  /* No room for the rule once the links alone fill the row. */
-  .nav-rule {
+  .hero-description {
+    margin-top: clamp(40px, 9vw, 64px);
+  }
+
+  /* The section links move into the header dropdown at this width, so the
+     whole rule-and-links row goes. */
+  .hero-nav {
     display: none;
   }
 
   /* Nothing left to dock without the rule. */
   .hero-bottom {
     margin-top: 0;
-  }
-
-  .hero-nav {
-    align-self: flex-start;
-    gap: 12px;
-  }
-
-  .nav-dash {
-    width: 20px;
   }
 
   .hero-quote {
