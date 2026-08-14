@@ -3,7 +3,6 @@ import './Hero.css'
 const socials = [
   { name: 'linkedIn', icon: '/icons/linkedin.png', url: 'https://www.linkedin.com' },
   { name: 'Github', icon: '/icons/github.png', url: 'https://github.com' },
-  { name: 'Instagram', icon: '/icons/instagram.png', url: 'https://www.instagram.com' },
 ]
 
 const Hero = () => {
@@ -57,6 +56,7 @@ const Hero = () => {
 
       <div className="hero-bottom" data-reveal="fade" style={{ '--reveal-delay': '0.6s' }}>
         <nav className="hero-nav" aria-label="Section navigation">
+          <span className="nav-rule" />
           <a href="#qualifications">Education</a>
           <span className="nav-dash" />
           <a href="#skills">Skills</a>

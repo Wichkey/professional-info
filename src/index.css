@@ -15,7 +15,7 @@
   --font-form: 'Inter', sans-serif;
 
   /* Layout */
-  --page-width: 1440px;
+  --page-width: 1680px;
   /* Offsets are measured from the page content edge, which already sits
      40px in, so these are the Figma x values minus that padding. */
   --rail-x: 33px; /* timeline line: 73px in the Figma frame */
@@ -102,6 +102,14 @@ button {
   margin: 0 auto;
   padding: 0 40px;
   overflow-x: clip;
+}
+
+/* The hero owns the first screen on its own: nothing below it is visible
+   until the user scrolls. */
+.landing {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Blue section heading, e.g. "Qualifications" */
