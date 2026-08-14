@@ -1,4 +1,5 @@
 import './Header.css'
+import resumePdf from '../assets/resume.pdf'
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
       </a>
       <a
         className="resume-button"
-        href="/resume.pdf"
+        href={resumePdf}
         download="Daniel-Mehler-CV.pdf"
       >
         Download my Resume

@@ -1,12 +1,15 @@
 import './Hero.css'
+import profilePhoto from '../assets/profile-photo.webp'
+import linkedinIcon from '../assets/icons/linkedin.png'
+import githubIcon from '../assets/icons/github.png'
 
 const socials = [
   {
     name: 'linkedIn',
-    icon: '/icons/linkedin.png',
+    icon: linkedinIcon,
     url: 'https://www.linkedin.com/in/daniel-mehler-536630305',
   },
-  { name: 'Github', icon: '/icons/github.png', url: 'https://github.com/Wichkey' },
+  { name: 'Github', icon: githubIcon, url: 'https://github.com/Wichkey' },
 ]
 
 const Hero = () => {
@@ -43,7 +46,7 @@ const Hero = () => {
 
       <div className="hero-center" data-reveal="down" style={{ '--reveal-delay': '0.35s' }}>
         <div className="hero-photo">
-          <img src="/profile-photo.webp" alt="Portrait of Daniel Mehler" />
+          <img src={profilePhoto} alt="Portrait of Daniel Mehler" />
         </div>
       </div>
 
