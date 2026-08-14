@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 34" width="48" height="48">
+  <text
+    x="24"
+    y="17"
+    text-anchor="middle"
+    font-family="Helvetica, Arial, sans-serif"
+    font-size="16"
+    font-weight="700"
+    fill="#fff"
+  >
+    aws
+  </text>
+  <path
+    d="M8 25.5c5 3.4 11 5 16 5s11-1.6 16-5"
+    fill="none"
+    stroke="#FF9900"
+    stroke-width="2.6"
+    stroke-linecap="round"
+  />
+  <path d="M37.4 22.6 42 25.2l-4.9 2.2Z" fill="#FF9900" />
+</svg>
