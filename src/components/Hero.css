@@ -135,7 +135,7 @@
 .hero-photo::before {
   content: '';
   position: absolute;
-  top: 5px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: min(470px, 100%);
@@ -245,32 +245,63 @@
   }
 }
 
+/* The name and the portrait keep sharing a row all the way down; both sides
+   scale with the viewport instead of the photo dropping below the text. */
 @media (max-width: 900px) {
   .hero {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'left'
-      'center'
-      'right'
-      'bottom';
+    column-gap: clamp(12px, 3vw, 40px);
+    row-gap: clamp(20px, 4vw, 40px);
+  }
+
+  .hero-chip {
+    font-size: clamp(11px, 1.9vw, 14px);
+    padding: clamp(5px, 1.2vw, 8px) clamp(9px, 2.4vw, 16px);
+    gap: clamp(6px, 1.4vw, 10px);
   }
 
   .hero-name {
-    font-size: 56px;
+    font-size: clamp(30px, 6.6vw, 56px);
   }
 
   .hero-lastname {
-    font-size: 36px;
-    margin-left: 40px;
+    font-size: clamp(20px, 4.2vw, 36px);
+    margin-left: clamp(14px, 4.4vw, 40px);
+    gap: clamp(10px, 2.6vw, 24px);
     margin-top: -10px;
   }
 
-  .hero-photo img {
-    width: 320px;
+  .hero-dash {
+    width: clamp(26px, 6vw, 70px);
+    height: clamp(2px, 0.4vw, 4px);
   }
 
-  .hero-photo::before {
-    width: 300px;
+  .contact-button {
+    font-size: clamp(14px, 2.6vw, 24px);
+    padding: clamp(6px, 1.2vw, 10px) clamp(14px, 4.8vw, 60px);
+    margin-top: clamp(18px, 3.6vw, 40px);
+  }
+
+  .hero-socials {
+    margin-top: clamp(22px, 4.4vw, 48px);
+  }
+
+  .socials-list {
+    margin-top: clamp(12px, 2.6vw, 28px);
+  }
+
+  .socials-list a {
+    font-size: clamp(10px, 1.9vw, 14px);
+    gap: clamp(5px, 1.4vw, 10px);
+  }
+
+  .socials-list img {
+    width: clamp(20px, 4vw, 32px);
+    height: auto;
+  }
+
+  .socials-list li + li::before {
+    margin: 0 clamp(7px, 2.2vw, 20px);
+    height: clamp(18px, 3.4vw, 28px);
   }
 
   .hero-right {
@@ -278,11 +309,11 @@
   }
 
   .hero-title {
-    font-size: 36px;
+    font-size: clamp(26px, 4.6vw, 36px);
   }
 
   .hero-subtitle {
-    font-size: 24px;
+    font-size: clamp(18px, 3.2vw, 24px);
   }
 
   /* No room for the rule once the links alone fill the row. */
