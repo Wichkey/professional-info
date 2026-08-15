@@ -31,7 +31,6 @@ const columns = [
     { name: 'SQL', level: 85, icon: mysqlIcon },
     { name: 'R', level: 80, icon: rIcon },
     { name: 'Algorithms', level: 95, icon: treeIcon },
-    { name: 'Figma', level: 75, icon: figmaIcon },
   ],
   [
     { name: 'JavaScript', level: 70, icon: javascriptIcon },
@@ -43,6 +42,7 @@ const columns = [
     { name: 'HTML', level: 70, icon: htmlIcon },
     { name: 'CSS', level: 90, icon: cssIcon },
     { name: 'Java', level: 70, icon: javaIcon },
+    { name: 'Figma', level: 75, icon: figmaIcon },
   ],
 ]
 

@@ -12,6 +12,9 @@ export const useReveal = () => {
       return
     }
 
+    // The first callback covers whatever is already on screen at load.
+    let isFirstBatch = true
+
     const observer = new IntersectionObserver(
       (entries) => {
         // Elements marked [data-reveal-stagger] cascade against the others
@@ -26,13 +29,21 @@ export const useReveal = () => {
         let step = 0
         arriving.forEach((entry) => {
           const el = entry.target
-          if (el.hasAttribute('data-reveal-stagger')) {
+
+          // Authored delays choreograph the hero on load, so they only make
+          // sense for what is already on screen. Once the layout stacks on a
+          // phone, the same elements scroll in one at a time — and a 0.6s
+          // delay then reads as lag. Anything arriving later is re-timed
+          // against its own batch instead.
+          if (el.hasAttribute('data-reveal-stagger') || !isFirstBatch) {
             el.style.setProperty('--reveal-delay', `${step * 0.07}s`)
             step += 1
           }
           el.classList.add('is-visible')
           observer.unobserve(el)
         })
+
+        if (arriving.length) isFirstBatch = false
       },
       // threshold 0 so sections taller than the viewport still trigger
       { threshold: 0, rootMargin: '0px 0px -10% 0px' }
