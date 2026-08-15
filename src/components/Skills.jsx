@@ -15,7 +15,6 @@ import ragIcon from '../assets/icons/icon-rag.svg'
 import typescriptIcon from '../assets/icons/icon-typescript.svg'
 import reactIcon from '../assets/icons/icon-react.svg'
 import nextIcon from '../assets/icons/icon-nextjs.svg'
-import rubyIcon from '../assets/icons/icon-ruby.svg'
 import awsIcon from '../assets/icons/icon-aws.svg'
 import gitIcon from '../assets/icons/icon-git.svg'
 
@@ -32,14 +31,13 @@ const columns = [
     { name: 'SQL', level: 85, icon: mysqlIcon },
     { name: 'R', level: 80, icon: rIcon },
     { name: 'Algorithms', level: 95, icon: treeIcon },
-    { name: 'Figma', level: 50, icon: figmaIcon },
+    { name: 'Figma', level: 75, icon: figmaIcon },
   ],
   [
     { name: 'JavaScript', level: 70, icon: javascriptIcon },
     { name: 'TypeScript', level: 75, icon: typescriptIcon },
     { name: 'React', level: 85, icon: reactIcon },
     { name: 'Next.js', level: 80, icon: nextIcon },
-    { name: 'Ruby on Rails', level: 65, icon: rubyIcon },
     { name: 'AWS', level: 75, icon: awsIcon },
     { name: 'Git', level: 90, icon: gitIcon },
     { name: 'HTML', level: 70, icon: htmlIcon },
