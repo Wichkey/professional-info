@@ -13,7 +13,9 @@ const App = () => {
 
   return (
     <div className="page">
-      <div className="landing">
+      {/* The #top anchor sits here rather than on the hero so "back to top"
+          lands above the header instead of scrolling past it. */}
+      <div className="landing" id="top">
         <Header />
         <Hero />
       </div>

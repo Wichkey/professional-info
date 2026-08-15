@@ -15,7 +15,7 @@ const socials = [
 
 const Hero = () => {
   return (
-    <section className="hero" id="top">
+    <section className="hero">
       <div className="hero-left" data-reveal="left" style={{ '--reveal-delay': '0.25s' }}>
         <span className="hero-chip">Hello, i am</span>
         <h1 className="hero-name">
