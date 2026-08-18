@@ -55,10 +55,10 @@ const Hero = () => {
         <h2 className="hero-title">AI for Businesses</h2>
         <h3 className="hero-subtitle">Ai expert &amp; software engineer</h3>
         <p className="hero-description">
-          I specialize in advising companies on AI integration, including
-          fine-tuning models and implementing proof-of-concept solutions.
-          Additionally, I design and develop interactive websites and create
-          custom algorithms tailored to specific needs.
+          I build full-stack applications and implement AI to automate the
+          processes companies run on. That spans fine-tuning models and wiring
+          them into production systems, through to designing and shipping the
+          interfaces people actually work in.
         </p>
         <a
           className="resume-button hero-resume"
