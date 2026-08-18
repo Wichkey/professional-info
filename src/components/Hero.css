@@ -149,9 +149,14 @@
   width: min(460px, 100%);
 }
 
+/* This column is the tallest thing in the row, so it sets the row height.
+   The bottom padding keeps the paragraph off the rule below it — without it
+   the last line butts straight into the section links, and any copy edit
+   that adds a line pushes it over them. */
 .hero-right {
   grid-area: right;
   padding-top: 40px;
+  padding-bottom: 22px;
 }
 
 .hero-title {
