@@ -53,7 +53,7 @@ const Hero = () => {
 
       <div className="hero-right" data-reveal="right" style={{ '--reveal-delay': '0.45s' }}>
         <h2 className="hero-title">AI for Businesses</h2>
-        <h3 className="hero-subtitle">Ai expert &amp; software engineer</h3>
+        <h3 className="hero-subtitle">AI Expert &amp; Software Engineer</h3>
         <p className="hero-description">
           I build full-stack applications and implement AI agents to automate
           the processes companies run on, and advise them on where agents pay
