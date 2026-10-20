@@ -39,7 +39,7 @@ const entries = [
     institution: 'EADA business school',
     grades: [
       ['Ger', '1.1'],
-      ['Esp', '9.3/10'],
+      ['Esp', '9.1/10'],
       ['USA', '4.0/4.0'],
     ],
     thesis: {
@@ -48,7 +48,7 @@ const entries = [
         'Built an interpretable machine-learning pipeline to detect money-mule accounts at a Spanish digital bank, with drift-triggered retraining under human compliance review.',
       grades: [
         ['Ger', '1.0'],
-        ['Esp', '10/10'],
+        ['Esp', '9.5/10'],
         ['USA', '4.0/4.0'],
       ],
     },
