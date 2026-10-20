@@ -38,7 +38,7 @@ const entries = [
     title: 'Master in AI for Business',
     institution: 'EADA business school',
     grades: [
-      ['Ger', '1.1'],
+      ['Ger', '1.5'],
       ['Esp', '9.1/10'],
       ['USA', '4.0/4.0'],
     ],
@@ -47,7 +47,7 @@ const entries = [
       description:
         'Built an interpretable machine-learning pipeline to detect money-mule accounts at a Spanish digital bank, with drift-triggered retraining under human compliance review.',
       grades: [
-        ['Ger', '1.0'],
+        ['Ger', '1.3'],
         ['Esp', '9.5/10'],
         ['USA', '4.0/4.0'],
       ],
