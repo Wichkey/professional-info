@@ -1,4 +1,12 @@
 import oldSite from '../assets/old-site.webp';
+import oldSitePhone from '../assets/old-site-phone.webp';
+import oldSitePhone2x from '../assets/old-site-phone-2x.webp';
+
+// intro.css picks the desktop or the phone capture of the old site per screen width.
+const OLD_SITE_VARS = {
+  '--old-site': `url(${oldSite})`,
+  '--old-site-phone': `-webkit-image-set(url(${oldSitePhone}) 1x, url(${oldSitePhone2x}) 2x)`,
+};
 
 // Per burst: horizontal bands of the old site as [top %, height %, shift px, flickers].
 const BANDS = [
@@ -45,25 +53,23 @@ const RESIDUE = [
 ];
 
 export default function OldSite({ burst, done }) {
-  const oldBg = { backgroundImage: `url(${oldSite})` };
   const level = burst || 0;
   const bands = level ? BANDS[level - 1] : [];
   const residue = level ? [] : RESIDUE[Math.min(done, RESIDUE.length - 1)];
 
   return (
-    <div className={`intro-old${level ? ` is-burst is-burst-${level}` : ''}`}>
+    <div className={`intro-old${level ? ` is-burst is-burst-${level}` : ''}`} style={OLD_SITE_VARS}>
       <div className="intro-old__roll" key={level}>
-        <div className="intro-old__base" style={oldBg} />
+        <div className="intro-old__base" />
         {level > 0 && (
           <>
-            <div className="intro-old__rgb intro-old__rgb--a" style={oldBg} />
-            <div className="intro-old__rgb intro-old__rgb--b" style={oldBg} />
+            <div className="intro-old__rgb intro-old__rgb--a" />
+            <div className="intro-old__rgb intro-old__rgb--b" />
             {bands.map(([top, height, shift, flickers], i) => (
               <div
                 key={top}
                 className={`intro-old__slice${flickers ? ' intro-old__slice--flicker' : ''}`}
                 style={{
-                  ...oldBg,
                   clipPath: `inset(${top}% 0 ${Math.max(0, 100 - top - height)}% 0)`,
                   '--shift': `${shift}px`,
                   animationDelay: `${i * 29}ms`,
@@ -76,7 +82,7 @@ export default function OldSite({ burst, done }) {
           <div
             key={top}
             className="intro-old__residue"
-            style={{ ...oldBg, clipPath: `inset(${top}% 0 ${100 - top - height}% 0)`, transform: `translateX(${shift}px)` }}
+            style={{ clipPath: `inset(${top}% 0 ${100 - top - height}% 0)`, transform: `translateX(${shift}px)` }}
           />
         ))}
       </div>

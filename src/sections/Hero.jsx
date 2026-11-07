@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import Nav from './Nav';
 import { useTheme } from '../theme/ThemeContext';
 import { useManualBuild } from '../build/useManualBuild';
@@ -26,8 +26,28 @@ const PORTRAITS = {
 // than the photo's 1.747 aspect it renders wider than the viewport.
 const PORTRAIT_SIZES = '(max-aspect-ratio: 1747/1000) 166vh, 95vw';
 
+// Phone browsers grow the viewport while their toolbar collapses on scroll, and the
+// portrait is sized off the hero's height, so it would zoom in. Lock the height to the
+// first measurement and only re-measure when the width changes (rotation, resize).
+function useLockedHeroHeight(ref) {
+  useLayoutEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+    let width = -1;
+    const lock = () => {
+      if (window.innerWidth === width) return;
+      width = window.innerWidth;
+      node.style.setProperty('--hero-locked-h', `${window.innerHeight}px`);
+    };
+    lock();
+    window.addEventListener('resize', lock);
+    return () => window.removeEventListener('resize', lock);
+  }, [ref]);
+}
+
 export default function Hero({ buildStart }) {
   const ref = useRef(null);
+  useLockedHeroHeight(ref);
   const { theme } = useTheme();
   const image = PORTRAITS[theme] ?? PORTRAITS.blue;
   useManualBuild(ref, buildStart);

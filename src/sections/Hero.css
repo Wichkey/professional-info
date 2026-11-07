@@ -118,6 +118,7 @@
 
 @media (max-width: 760px) {
   .hero {
+    height: var(--hero-locked-h, 100svh);
     max-height: none;
   }
 
