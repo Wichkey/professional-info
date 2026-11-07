@@ -138,22 +138,22 @@ export const PROJECTS = {
       tags: ['macOS', 'Swift', 'LLMs', 'Speech to text'],
     },
     {
-      icon: 'wave',
-      title: 'Voralio',
-      status: 'past',
-      text: 'A platform where oral exams are held by a real-time AI voice interviewer.',
-      tags: ['Next.js', 'Vapi', 'OpenAI', '2026'],
-      link: { href: LINKS.voralio, label: 'voralio.com' },
-    },
-  ],
-  sideBuilds: [
-    {
       icon: 'pint',
       title: 'FindPint',
       status: 'shipped',
       text: 'A map of pint prices at bars, with nights out planned together.',
-      meta: 'React · Supabase · 2026',
+      tags: ['React', 'Supabase', '2026'],
       link: { href: LINKS.findpint, label: 'findpint.app' },
+    },
+  ],
+  sideBuilds: [
+    {
+      icon: 'wave',
+      title: 'Voralio',
+      status: 'past',
+      text: 'A platform where oral exams are held by a real-time AI voice interviewer.',
+      meta: 'Next.js · Vapi · OpenAI · 2026',
+      link: { href: LINKS.voralio, label: 'voralio.com' },
     },
     {
       icon: 'receipt',
