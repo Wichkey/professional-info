@@ -1,5 +1,6 @@
 .hero {
   position: relative;
+  container-type: size;
   height: 100svh;
   min-height: 620px;
   max-height: max(810px, 56.25vw);
@@ -10,12 +11,23 @@
 
 .hero__bg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  bottom: 0;
+  left: 50%;
+  /* 85% of the size object-fit: cover would give, so the portrait sits smaller than the hero. */
+  width: max(85cqw, 148.5cqh);
   max-width: none;
-  object-fit: cover;
-  object-position: 50% 50%;
+  height: auto;
+  aspect-ratio: 1024 / 586;
+  transform: translateX(-50%);
+  /* Edges that land inside the hero fade into --hero-bg. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%);
+  mask-composite: intersect;
 }
 
 .hero__shade {
@@ -27,10 +39,10 @@
 
 .hero__portrait-anchor {
   position: absolute;
-  left: 30.5%;
-  top: 11.8%;
-  width: 38.9%;
-  height: 84%;
+  left: 33.5%;
+  top: 25%;
+  width: 33%;
+  height: 71.5%;
   pointer-events: none;
 }
 
@@ -97,8 +109,8 @@
   }
 
   .hero__portrait-anchor {
-    left: 18%;
-    width: 64%;
+    left: 23%;
+    width: 54%;
   }
 }
 
@@ -107,8 +119,9 @@
     max-height: none;
   }
 
+  /* The face sits right of the image centre; centre it on narrow screens. */
   .hero__bg {
-    object-position: 50% 30%;
+    transform: translateX(-54%);
   }
 
   .hero__shade {
@@ -116,10 +129,10 @@
   }
 
   .hero__portrait-anchor {
-    left: 8%;
-    top: 14%;
-    width: 84%;
-    height: 50%;
+    left: 14%;
+    top: 25%;
+    width: 72%;
+    height: 43%;
   }
 
   .hero__title {
