@@ -65,8 +65,9 @@ export const WORK = {
     title: 'Oblivion',
     role: 'Co-founder & CTO',
     link: { href: LINKS.oblivion, label: 'oblivion.vision' },
+    lead: 'You run the business. We run the software.',
     text: 'Most software goes dark the day the agency leaves. We started Oblivion to be the ones who stay up. AI agents build, host, operate and evolve production software for our clients, a senior engineer reviews every change, and the same team does all of it.',
-    quote: 'You run the business. We run the software.',
+    short: 'AI agents build, host and operate it, and a senior engineer reviews every change.',
     statements: [
       {
         label: 'Vision',
@@ -78,32 +79,20 @@ export const WORK = {
       },
     ],
     projects: [
+      { title: 'Overmind', status: 'in build', text: 'Agent pipeline' },
       {
-        icon: 'nodes',
-        title: 'Overmind',
-        status: 'in build',
-        text: 'Agent pipeline that plans, designs and ships client applications from a single brief.',
-      },
-      {
-        icon: 'bank',
         title: 'Axo Capital',
         status: 'in build',
+        text: 'Lending, Mexico',
         link: { href: LINKS.axo, label: 'axocapital.mx' },
-        text: 'Lending platform for a Mexican lender financing importers and exporters, with credit analysis automated from invoice data.',
       },
       {
-        icon: 'pulse',
         title: 'Dlife',
         status: 'built',
+        text: 'Diabetes care',
         link: { href: LINKS.dlife, label: 'dasp.mx' },
-        text: 'Diabetes care platform for patients, doctors and pharma: AWS infrastructure, role-based sign-in and CI/CD.',
       },
-      {
-        icon: 'drop',
-        title: 'FlowSight',
-        status: 'in build',
-        text: 'Contrast-media intelligence for hospitals: tracks every injection and runs on site, next to the scanners.',
-      },
+      { title: 'FlowSight', status: 'in build', text: 'Hospital contrast media' },
     ],
   },
   earlier: [
