@@ -29,6 +29,17 @@ body.is-locked {
   overflow: hidden;
 }
 
+/* The intro pins the page; the gutter keeps the layout from shifting when it lets go. */
+html.is-intro-locked,
+html.is-intro-locked body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+html.is-intro-locked {
+  scrollbar-gutter: stable;
+}
+
 h1,
 h2,
 h3,

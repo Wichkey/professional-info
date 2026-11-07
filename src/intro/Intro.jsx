@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CURSOR_PATH } from '../build/swarm';
 import OldSite from './OldSite';
 import Terminal from './Terminal';
+import { lockPageScroll } from './scrollLock';
 import { END_AT, GLITCH_END, REVEAL_AT, SPAWN_AT, burstAt, burstsDone } from './timeline';
 import './intro.css';
 
@@ -16,6 +17,7 @@ export default function Intro({ onReveal, onFinish }) {
   const cursorRef = useRef(null);
   const revealed = useRef(false);
   const finished = useRef(false);
+  const oldSiteScroll = useRef(null);
 
   const reveal = useCallback(
     (origin) => {
@@ -33,9 +35,10 @@ export default function Intro({ onReveal, onFinish }) {
     onFinish();
   }, [onFinish, reveal]);
 
+  // Layout effect so the page is pinned before the first frame can be scrolled.
+  useLayoutEffect(() => lockPageScroll(oldSiteScroll), []);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    document.body.classList.add('is-locked');
     const start = performance.now();
     let frame;
     let done = false;
@@ -61,7 +64,6 @@ export default function Intro({ onReveal, onFinish }) {
       done = true;
       cancelAnimationFrame(frame);
       window.clearInterval(fallback);
-      document.body.classList.remove('is-locked');
     };
   }, [finish, reveal]);
 
@@ -80,7 +82,7 @@ export default function Intro({ onReveal, onFinish }) {
 
   return (
     <div className={`intro${leaving ? ' is-leaving' : ''}`} role="dialog" aria-modal="true" aria-label="Intro animation">
-      {phase !== 'terminal' && <OldSite burst={burstAt(t)} done={burstsDone(t)} />}
+      {phase !== 'terminal' && <OldSite burst={burstAt(t)} done={burstsDone(t)} scrollRef={oldSiteScroll} />}
 
       {phase === 'terminal' && (
         <div className="intro-term">
