@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { CURSOR_PATH } from '../build/swarm';
 import OldSite from './OldSite';
 import Terminal from './Terminal';
-import { END_AT, GLITCH_END, OLD_END, REVEAL_AT, SPAWN_AT } from './timeline';
+import { END_AT, GLITCH_END, REVEAL_AT, SPAWN_AT, burstAt, burstsDone } from './timeline';
 import './intro.css';
 
 function cursorOrigin(node) {
@@ -73,14 +73,14 @@ export default function Intro({ onReveal, onFinish }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [finish]);
 
-  const phase = t < OLD_END ? 'old' : t < GLITCH_END ? 'glitch' : 'terminal';
+  const phase = t < GLITCH_END ? 'old' : 'terminal';
   const termT = t - GLITCH_END;
   const spawned = t >= SPAWN_AT;
   const leaving = t >= REVEAL_AT;
 
   return (
     <div className={`intro${leaving ? ' is-leaving' : ''}`} role="dialog" aria-modal="true" aria-label="Intro animation">
-      {phase !== 'terminal' && <OldSite glitching={phase === 'glitch'} />}
+      {phase !== 'terminal' && <OldSite burst={burstAt(t)} done={burstsDone(t)} />}
 
       {phase === 'terminal' && (
         <div className="intro-term">

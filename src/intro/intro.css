@@ -49,13 +49,29 @@
   background-position: top center;
 }
 
-.intro-old.is-glitching .intro-old__roll {
-  animation: intro-roll 0.7s steps(7) forwards;
+.intro-old {
+  --amp: 0;
+ 
+}
+
+.intro-old.is-burst-1 { --amp: 0.45; }
+.intro-old.is-burst-2 { --amp: 0.8; }
+.intro-old.is-burst-3 { --amp: 1.3; }
+.intro-old.is-burst-4 { --amp: 2; }
+
+.intro-old.is-burst .intro-old__roll {
+  animation: intro-jitter 0.09s steps(2) infinite;
+}
+
+.intro-old.is-burst-4 .intro-old__roll {
+  animation:
+    intro-jitter 0.07s steps(2) infinite,
+    intro-tear 0.5s steps(6) 0.7s forwards;
 }
 
 .intro-old__rgb {
   mix-blend-mode: screen;
-  opacity: 0.7;
+  opacity: calc(0.35 + var(--amp) * 0.2);
 }
 
 .intro-old__rgb--a {
@@ -71,11 +87,25 @@
 }
 
 .intro-old__slice {
-  animation: intro-slice 0.16s steps(2) infinite;
+  animation: intro-slice 0.14s steps(2) infinite;
 }
 
 .intro-old__slice:nth-child(odd) {
   animation-direction: reverse;
+}
+
+.intro-old__slice--new {
+  animation:
+    intro-slice 0.14s steps(2) infinite,
+    intro-flicker 0.18s steps(2) infinite;
+}
+
+.intro-old__residue {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: top center;
+  opacity: 0.85;
 }
 
 .intro-old__scan {
@@ -85,35 +115,55 @@
   background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
 }
 
+.intro-old.is-burst .intro-old__scan {
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.38) 2px 3px);
+  animation: intro-scan 0.25s linear infinite;
+}
+
 .intro-old__noise {
   position: absolute;
   inset: -50%;
   pointer-events: none;
-  opacity: 0.22;
+  opacity: calc(0.1 + var(--amp) * 0.1);
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
   animation: intro-noise 0.2s steps(3) infinite;
 }
 
-@keyframes intro-roll {
+@keyframes intro-jitter {
+  from { transform: translate(calc(var(--amp) * -3px), calc(var(--amp) * 1px)); }
+  to { transform: translate(calc(var(--amp) * 3px), calc(var(--amp) * -2px)); }
+}
+
+@keyframes intro-tear {
   0% { transform: translateY(0); }
-  40% { transform: translateY(-3%); }
-  70% { transform: translateY(6%); }
+  35% { transform: translateY(-3%); }
+  65% { transform: translateY(6%); }
   100% { transform: translateY(-100%); opacity: 0; }
 }
 
 @keyframes intro-split-a {
-  from { transform: translateX(-6px); }
-  to { transform: translateX(4px); }
+  from { transform: translateX(calc(var(--amp) * -8px)); }
+  to { transform: translateX(calc(var(--amp) * 5px)); }
 }
 
 @keyframes intro-split-b {
-  from { transform: translateX(6px); }
-  to { transform: translateX(-4px); }
+  from { transform: translateX(calc(var(--amp) * 8px)); }
+  to { transform: translateX(calc(var(--amp) * -5px)); }
 }
 
 @keyframes intro-slice {
-  from { transform: translateX(-24px); }
-  to { transform: translateX(32px); }
+  from { transform: translateX(calc(var(--shift, 24px) * -0.6)); }
+  to { transform: translateX(var(--shift, 24px)); }
+}
+
+@keyframes intro-flicker {
+  from { opacity: 1; }
+  to { opacity: 0.55; }
+}
+
+@keyframes intro-scan {
+  from { background-position: 0 0; }
+  to { background-position: 0 6px; }
 }
 
 @keyframes intro-noise {

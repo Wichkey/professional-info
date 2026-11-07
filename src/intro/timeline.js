@@ -1,5 +1,13 @@
-export const OLD_END = 1200;
-export const GLITCH_END = 1900;
+
+// Four escalating bursts with calm gaps; the last one tears the old site away.
+export const BURSTS = [
+  { from: 1200, to: 1520 },
+  { from: 1900, to: 2400 },
+  { from: 2750, to: 3450 },
+  { from: 3700, to: 4900 },
+];
+
+export const GLITCH_END = BURSTS[BURSTS.length - 1].to;
 export const SPAWN_AT = GLITCH_END + 3700;
 export const REVEAL_AT = SPAWN_AT + 900;
 export const END_AT = REVEAL_AT + 520;
@@ -15,6 +23,17 @@ export const LINES = [
   { stamp: '01.24', at: 2240, text: '> spawning agent…', ok: true, okAt: 3000, caret: true },
   { stamp: '01.30', at: 3050, text: '> This site just rebuilt itself. Yours can too.', signoff: true, typeMs: 560 },
 ];
+
+/** 1-based burst level at `t`, or 0 while the old site sits still between bursts. */
+export function burstAt(t) {
+  const index = BURSTS.findIndex((b) => t >= b.from && t < b.to);
+  return index + 1;
+}
+
+/** How many bursts have already finished by `t`. */
+export function burstsDone(t) {
+  return BURSTS.filter((b) => t >= b.to).length;
+}
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
