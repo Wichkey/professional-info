@@ -4,7 +4,7 @@ import { runBuild } from './runBuild';
 
 /**
  * Keeps the scope hidden until `start` is set, then builds it once.
- * `start` is null while waiting, or `{ origin, speed }`.
+ * `start` is null while waiting, or `{ origin, speed, stretch }`.
  */
 export function useManualBuild(ref, start) {
   const enabled = useBuildEnabled();
@@ -19,7 +19,11 @@ export function useManualBuild(ref, start) {
   useEffect(() => {
     const scope = ref.current;
     if (!enabled || !scope || !start) return undefined;
-    const stop = runBuild(scope, { speed: start.speed ?? 1, origin: start.origin ?? null });
+    const stop = runBuild(scope, {
+      speed: start.speed ?? 1,
+      stretch: start.stretch ?? 1,
+      origin: start.origin ?? null,
+    });
     return stop;
   }, [enabled, ref, start]);
 }

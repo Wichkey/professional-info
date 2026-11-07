@@ -1,11 +1,6 @@
-import { useTheme } from '../theme/ThemeContext';
 import oldSite from '../assets/old-site.webp';
-import newBlue from '../assets/intro-new-blue.webp';
-import newPink from '../assets/intro-new-pink.webp';
 
-const NEW_SITE = { blue: newBlue, pink: newPink };
-
-// Per burst: horizontal bands as [top %, height %, shift px, shows new site].
+// Per burst: horizontal bands of the old site as [top %, height %, shift px, flickers].
 const BANDS = [
   [
     [22, 4, -18, false],
@@ -41,7 +36,7 @@ const BANDS = [
   ],
 ];
 
-// Fragments of the new site that stay visible during the calm after a burst.
+// Displaced bands of the old site that stay torn during the calm after a burst.
 const RESIDUE = [
   [],
   [[57, 2, 0]],
@@ -50,9 +45,7 @@ const RESIDUE = [
 ];
 
 export default function OldSite({ burst, done }) {
-  const { theme } = useTheme();
   const oldBg = { backgroundImage: `url(${oldSite})` };
-  const newBg = { backgroundImage: `url(${NEW_SITE[theme] ?? newBlue})` };
   const level = burst || 0;
   const bands = level ? BANDS[level - 1] : [];
   const residue = level ? [] : RESIDUE[Math.min(done, RESIDUE.length - 1)];
@@ -65,12 +58,12 @@ export default function OldSite({ burst, done }) {
           <>
             <div className="intro-old__rgb intro-old__rgb--a" style={oldBg} />
             <div className="intro-old__rgb intro-old__rgb--b" style={oldBg} />
-            {bands.map(([top, height, shift, isNew], i) => (
+            {bands.map(([top, height, shift, flickers], i) => (
               <div
                 key={top}
-                className={`intro-old__slice${isNew ? ' intro-old__slice--new' : ''}`}
+                className={`intro-old__slice${flickers ? ' intro-old__slice--flicker' : ''}`}
                 style={{
-                  ...(isNew ? newBg : oldBg),
+                  ...oldBg,
                   clipPath: `inset(${top}% 0 ${Math.max(0, 100 - top - height)}% 0)`,
                   '--shift': `${shift}px`,
                   animationDelay: `${i * 29}ms`,
@@ -83,7 +76,7 @@ export default function OldSite({ burst, done }) {
           <div
             key={top}
             className="intro-old__residue"
-            style={{ ...newBg, clipPath: `inset(${top}% 0 ${100 - top - height}% 0)`, transform: `translateX(${shift}px)` }}
+            style={{ ...oldBg, clipPath: `inset(${top}% 0 ${100 - top - height}% 0)`, transform: `translateX(${shift}px)` }}
           />
         ))}
       </div>
