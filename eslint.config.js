@@ -5,7 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["dist"] },
+  { ignores: ["dist", "legacy-site"] },
   {
     // Config files run in Node, not the browser.
     files: ["*.config.js"],
