@@ -5,6 +5,8 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const MOVE_EASE = 'cubic-bezier(0.45, 0, 0.2, 1)';
 const FRAME_PAD = 6;
+// Stretches every build timing so a viewer can follow the cursors placing frames.
+const PACE = 1.65;
 
 function make(tag, className, parent) {
   const node = document.createElement(tag);
@@ -130,6 +132,8 @@ function connectorPoints(a, b) {
  * only opacity and transform are animated.
  */
 export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
+  const pace = speed * PACE;
+  const ms = (value) => value * PACE;
   const animations = [];
   const anim = (node, keyframes, options) => {
     const a = node.animate(keyframes, { fill: 'both', easing: EASE, ...options });
@@ -144,13 +148,13 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
   const small = isSmallScreen();
 
   const n = Math.max(frames.length, 1);
-  const frameStagger = Math.min(90, 620 / n) * speed;
-  const frameAt = (i) => 140 * speed + i * frameStagger;
-  const fillStart = frameAt(Math.floor(n * 0.6)) + 220 * speed;
-  const fillStagger = Math.min(80, 620 / n) * speed;
+  const frameStagger = Math.min(90, 620 / n) * pace;
+  const frameAt = (i) => 140 * pace + i * frameStagger;
+  const fillStart = frameAt(Math.floor(n * 0.6)) + 220 * pace;
+  const fillStagger = Math.min(80, 620 / n) * pace;
   const revealAt = (i) => fillStart + i * fillStagger;
-  const fadeAt = revealAt(n - 1) + 520 * speed;
-  const total = fadeAt + 480;
+  const fadeAt = revealAt(n - 1) + 520 * pace;
+  const total = fadeAt + ms(480);
 
   const swarm = pickSwarm(frames.length, small);
   const owner = frames.map((_, i) => (i === 0 ? 0 : 1 + ((i - 1) % (swarm.length - 1))));
@@ -172,25 +176,25 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
     }
 
     anim(frame, [{ opacity: 0, transform: 'scale(0.97)' }, { opacity: 1, transform: 'none' }], {
-      duration: 260,
+      duration: ms(260),
       delay: frameAt(i),
     });
     pieces.forEach((piece, p) => {
       anim(piece, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], {
-        duration: 320,
-        delay: frameAt(i) + 120 + p * 45,
+        duration: ms(320),
+        delay: frameAt(i) + ms(120 + p * 45),
       });
     });
-    anim(fill, [{ opacity: 1 }, { opacity: 0 }], { duration: 240, delay: revealAt(i) });
+    anim(fill, [{ opacity: 1 }, { opacity: 0 }], { duration: ms(240), delay: revealAt(i) });
 
     anim(f.node, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], {
-      duration: 480,
-      delay: revealAt(i) + 60,
+      duration: ms(480),
+      delay: revealAt(i) + ms(60),
       fill: 'backwards',
     });
     if (f.reveals) {
       anim(f.reveals, [{ opacity: 0 }, { opacity: 1 }], {
-        duration: 900,
+        duration: ms(900),
         delay: revealAt(i),
         fill: 'backwards',
       });
@@ -202,7 +206,7 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
     const points = connectorPoints(frames[i], frames[i + 1]);
     if (!points) continue;
     const color = swarm[owner[i + 1]].main ? 'var(--accent)' : swarm[owner[i + 1]].color;
-    const startAt = frameAt(i + 1) + 120 * speed;
+    const startAt = frameAt(i + 1) + 120 * pace;
     points.slice(0, -1).forEach((p, s) => {
       const q = points[s + 1];
       const horizontal = p.y === q.y;
@@ -214,8 +218,8 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
         ? `left:${Math.min(p.x, q.x)}px;top:${p.y}px;width:${length}px;height:1px;transform-origin:${q.x > p.x ? 'left' : 'right'}`
         : `left:${p.x}px;top:${Math.min(p.y, q.y)}px;width:1px;height:${length}px;transform-origin:${q.y > p.y ? 'top' : 'bottom'}`;
       anim(line, [{ transform: horizontal ? 'scaleX(0)' : 'scaleY(0)' }, { transform: 'none' }], {
-        duration: 220,
-        delay: startAt + s * 200,
+        duration: ms(220),
+        delay: startAt + ms(s * 200),
       });
     });
     [points[0], points[points.length - 1]].forEach((p, d) => {
@@ -224,8 +228,8 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
       dot.style.left = `${p.x - 3}px`;
       dot.style.top = `${p.y - 3}px`;
       anim(dot, [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'none' }], {
-        duration: 200,
-        delay: startAt + d * 400,
+        duration: ms(200),
+        delay: startAt + ms(d * 400),
       });
     });
   }
@@ -238,16 +242,16 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
     const cursor = buildCursor(overlay, agent);
     const spread = c === 0 ? { x: 0, y: 0 } : { x: random(-60, 60), y: random(-30, 50) };
     const points = [{ t: 0, x: startPoint.x, y: startPoint.y, o: 0, s: 0.4 }];
-    points.push({ t: 90 + c * 40, x: startPoint.x + spread.x, y: startPoint.y + spread.y, o: 1, s: 1 });
+    points.push({ t: ms(90 + c * 40), x: startPoint.x + spread.x, y: startPoint.y + spread.y, o: 1, s: 1 });
 
     frames.forEach((f, i) => {
       if (owner[i] !== c) return;
-      points.push({ t: frameAt(i) - 30, x: f.x, y: f.y });
-      points.push({ t: frameAt(i) + 240 * speed, x: f.x + Math.min(f.w, 520), y: f.y + Math.min(f.h, 300) });
+      points.push({ t: frameAt(i) - ms(30), x: f.x, y: f.y });
+      points.push({ t: frameAt(i) + 240 * pace, x: f.x + Math.min(f.w, 520), y: f.y + Math.min(f.h, 300) });
     });
     frames.forEach((f, i) => {
       if (owner[i] !== c) return;
-      points.push({ t: revealAt(i) + 20, x: f.x + Math.min(f.w * 0.6, 220), y: f.y + Math.min(f.h * 0.5, 80) });
+      points.push({ t: revealAt(i) + ms(20), x: f.x + Math.min(f.w * 0.6, 220), y: f.y + Math.min(f.h * 0.5, 80) });
     });
     const last = points[points.length - 1];
     points.push({ t: fadeAt, x: last.x + random(20, 60), y: last.y + random(10, 40), o: 1 });
@@ -270,7 +274,7 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
     anim(cursor, keyframes, { duration: total, easing: 'linear' });
   });
 
-  anim(overlay, [{ opacity: 1 }, { opacity: 0 }], { duration: 420, delay: fadeAt, fill: 'forwards' });
+  anim(overlay, [{ opacity: 1 }, { opacity: 0 }], { duration: ms(420), delay: fadeAt, fill: 'forwards' });
   scope.classList.remove('is-pending');
 
   let done = false;
