@@ -315,4 +315,67 @@
   .work__project {
     gap: 12px;
   }
+
+  .work__label {
+    margin-bottom: 32px;
+  }
+
+  .work__grid {
+    gap: 40px;
+  }
+
+  .work__aside {
+    gap: 20px;
+    padding-top: 0;
+  }
+
+  .work__legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-size: 13px;
+  }
+
+  .work__body {
+    gap: 16px;
+    padding-bottom: 48px;
+  }
+
+  .work__meta {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  .work__name {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .work__name--big {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .work__text {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .work__quote {
+    padding-left: 16px;
+  }
+
+  .work__quote-line {
+    font-size: 19px;
+    line-height: 25px;
+  }
+
+  .work__projects {
+    margin-top: 6px;
+  }
+
+  .work__project-head h4 {
+    font-size: 19px;
+    line-height: 24px;
+  }
 }
