@@ -1,0 +1,523 @@
+.cterm-stage {
+  position: relative;
+  isolation: isolate;
+  margin: 0 calc(var(--gutter) * -1) 72px;
+  padding: clamp(56px, 8vw, 120px) var(--gutter);
+}
+
+/* Neon backdrop: the hero's spotlight and beams */
+.cterm-neon {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cterm-neon__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.6s ease, transform 0.6s var(--ease-out);
+}
+
+.cterm-neon__glow--outer {
+  width: min(1000px, 120%);
+  height: 70%;
+  background: rgb(var(--accent-rgb) / 0.55);
+  filter: blur(120px);
+  opacity: 0.35;
+}
+
+.cterm-neon__glow--core {
+  top: 62%;
+  width: min(520px, 80%);
+  height: 34%;
+  background: rgb(var(--accent-rgb) / 0.7);
+  filter: blur(80px);
+  opacity: 0.25;
+}
+
+.cterm-neon__beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
+}
+
+.cterm-stage.is-armed .cterm-neon__glow--outer {
+  opacity: 0.7;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.cterm-stage.is-armed .cterm-neon__glow--core {
+  opacity: 0.6;
+}
+
+.cterm-stage.is-armed .cterm-neon__beams {
+  opacity: 1;
+}
+
+/* Terminal window */
+.cterm {
+  position: relative;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 28px 36px 26px;
+  border: 1px solid var(--accent-33);
+  border-radius: 16px;
+  background: rgb(3 7 11 / 0.82);
+  box-shadow: 0 0 60px rgb(var(--accent-rgb) / 0.18);
+  font-family: var(--font-mono);
+  cursor: text;
+  transition: box-shadow 0.6s ease, border-color 0.6s ease;
+}
+
+.cterm-stage.is-armed .cterm {
+  border-color: var(--accent-60);
+  box-shadow: 0 0 90px rgb(var(--accent-rgb) / 0.35);
+}
+
+.cterm__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+}
+
+.cterm__head-aside {
+  margin-left: auto;
+  color: var(--text-faint);
+}
+
+.cterm__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.cterm__dot.is-busy {
+  animation: cterm-pulse 0.8s ease-in-out infinite alternate;
+}
+
+.cterm__log {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cterm__log:not(:empty) {
+  margin-bottom: 14px;
+}
+
+.cterm__line,
+.cterm__prompt-label,
+.cterm__field {
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height: 1.4;
+}
+
+.cterm__line {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  color: var(--text-body);
+}
+
+.cterm__line.is-bright {
+  color: var(--text);
+}
+
+.cterm__text {
+  min-width: 0;
+  padding-left: 2ch;
+  text-indent: -2ch;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cterm__value {
+  color: var(--text-card-3);
+}
+
+.cterm__status {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.cterm__status.is-ok {
+  color: var(--accent);
+}
+
+.cterm__status.is-skip {
+  color: var(--text-faint);
+}
+
+.cterm__status.is-error,
+.cterm__status.is-fail {
+  color: #ff7a8a;
+}
+
+.cterm__line--error {
+  display: block;
+  padding-left: 2ch;
+  color: #ff7a8a;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.cterm__line--info {
+  display: block;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.cterm__progress {
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.cterm__progress-empty {
+  color: var(--text-faint);
+}
+
+.cterm__pct {
+  margin-left: 10px;
+  color: var(--text-muted);
+}
+
+/* Active prompt */
+.cterm__prompt {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cterm__prompt-line {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1ch;
+  min-width: 0;
+  color: var(--text);
+}
+
+.cterm__prompt-line.is-multiline {
+  flex-direction: column;
+}
+
+.cterm__prompt-label {
+  color: var(--text);
+  cursor: text;
+}
+
+.cterm__prompt-label--bright {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.cterm__dim {
+  color: var(--text-faint);
+}
+
+.cterm__field {
+  position: relative;
+  flex: 1;
+  min-width: 8ch;
+  color: var(--text);
+}
+
+.cterm__mirror {
+  display: block;
+  min-height: 1.4em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cterm__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  /* 16px keeps iOS from zooming in on focus. */
+  font: 16px/1.4 var(--font-mono);
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  opacity: 0;
+}
+
+.cterm__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin: 0 1px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: cterm-blink 0.9s steps(1) infinite;
+}
+
+.cterm__caret.is-idle {
+  background: transparent;
+  outline: 1px solid var(--accent-60);
+  outline-offset: -1px;
+  animation: none;
+}
+
+.cterm__field:has(.cterm__input:focus-visible) .cterm__mirror {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-40);
+  text-underline-offset: 6px;
+}
+
+/* Keys for touch and for going back */
+.cterm__touch {
+  display: none;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.cterm__touch--left {
+  margin-top: 12px;
+}
+
+.cterm__key {
+  padding: 8px 12px;
+  border: 1px solid var(--accent-60);
+  border-radius: 8px;
+  background: rgb(var(--accent-rgb) / 0.06);
+  color: var(--accent);
+  font: 500 13px/16px var(--font-mono);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cterm__key:hover {
+  background: var(--accent-12);
+}
+
+.cterm__key--ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.cterm__key:focus-visible,
+.cterm__enter:focus-visible,
+.cterm__step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.cterm__step {
+  outline: none;
+}
+
+/* hCaptcha sits inline as a terminal step */
+.cterm__captcha {
+  margin: 14px 0 4px;
+  min-height: 78px;
+  cursor: default;
+}
+
+.cterm__captcha.is-hidden {
+  height: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* Final confirm: the loud neon moment */
+.cterm__confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.cterm__confirm-keys {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.cterm__enter {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 168px;
+  height: 120px;
+  padding: 14px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgb(var(--accent-rgb) / 0.16), rgb(3 7 11 / 0.9));
+  color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgb(var(--accent-rgb) / 0.25) inset,
+    0 0 40px rgb(var(--accent-rgb) / 0.45),
+    0 10px 0 rgb(var(--accent-rgb) / 0.12);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s;
+  animation: cterm-breathe 2.4s ease-in-out infinite;
+}
+
+.cterm__enter-label {
+  align-self: flex-start;
+  font: 500 13px/16px var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.cterm__enter-glyph {
+  align-self: flex-end;
+  font-size: 44px;
+  line-height: 1;
+  text-shadow: 0 0 18px var(--accent);
+}
+
+.cterm__enter:hover {
+  box-shadow:
+    0 0 0 1px rgb(var(--accent-rgb) / 0.4) inset,
+    0 0 70px rgb(var(--accent-rgb) / 0.7),
+    0 10px 0 rgb(var(--accent-rgb) / 0.16);
+}
+
+.cterm__enter:active {
+  transform: translateY(6px);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Hints */
+.cterm__hint {
+  margin-top: 22px;
+  color: var(--text-faint);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.cterm__hint.is-hidden {
+  visibility: hidden;
+}
+
+.cterm__hint-touch {
+  display: none;
+}
+
+@media (pointer: coarse), (max-width: 760px) {
+  .cterm__touch {
+    display: flex;
+  }
+
+  .cterm__hint-keys {
+    display: none;
+  }
+
+  .cterm__hint-touch {
+    display: inline;
+  }
+}
+
+@media (max-width: 760px) {
+  .cterm-stage {
+    margin-bottom: 48px;
+    padding: 56px var(--gutter);
+  }
+
+  .cterm {
+    padding: 18px 16px 18px;
+    border-radius: 14px;
+  }
+
+  .cterm__head {
+    margin-bottom: 18px;
+    font-size: 11px;
+  }
+
+  .cterm__line,
+  .cterm__prompt-label,
+  .cterm__field {
+    font-size: 14px;
+  }
+
+  .cterm__line {
+    gap: 10px;
+  }
+
+  .cterm__line--error,
+  .cterm__line--info {
+    font-size: 12px;
+  }
+
+  .cterm__prompt {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cterm__prompt .cterm__touch {
+    align-self: flex-end;
+  }
+
+  .cterm__key {
+    min-height: 40px;
+  }
+
+  .cterm__captcha {
+    overflow-x: auto;
+  }
+
+  .cterm__enter {
+    width: 136px;
+    height: 100px;
+  }
+
+  .cterm__enter-glyph {
+    font-size: 36px;
+  }
+
+  .cterm__hint {
+    font-size: 11px;
+    line-height: 15px;
+  }
+}
+
+@keyframes cterm-blink {
+  50% { opacity: 0; }
+}
+
+@keyframes cterm-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.35; }
+}
+
+@keyframes cterm-breathe {
+  50% { box-shadow: 0 0 0 1px rgb(var(--accent-rgb) / 0.3) inset, 0 0 60px rgb(var(--accent-rgb) / 0.6), 0 10px 0 rgb(var(--accent-rgb) / 0.14); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cterm__caret,
+  .cterm__dot.is-busy,
+  .cterm__enter {
+    animation: none;
+  }
+}

@@ -1,0 +1,258 @@
+.shutdown {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  overflow: hidden;
+  background: var(--hero-bg);
+  font-family: var(--font-mono);
+  animation: shutdown-in 0.35s ease both;
+}
+
+.shutdown.is-crt,
+.shutdown.is-dot,
+.shutdown.is-black,
+.shutdown.is-final {
+  background: #000;
+}
+
+.shutdown.is-final {
+  cursor: pointer;
+}
+
+/* Frame 3: sections flatten into lines */
+.shutdown__screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 0 16px;
+  transform-origin: 50% 50%;
+}
+
+.shutdown.is-crt .shutdown__screen {
+  animation: shutdown-squash 0.2s ease-in forwards;
+}
+
+.shutdown__glow {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  z-index: -1;
+  width: min(900px, 120vw);
+  height: 60vh;
+  border-radius: 50%;
+  background: rgb(var(--accent-rgb) / 0.4);
+  filter: blur(120px);
+  opacity: 0.45;
+  transform: translate(-50%, -50%);
+}
+
+.shutdown__head {
+  position: absolute;
+  top: 28px;
+  left: max(var(--gutter), 8vw);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.shutdown__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: shutdown-pulse 0.5s ease-in-out infinite alternate;
+}
+
+.shutdown__log {
+  color: var(--text);
+  font-size: clamp(13px, 1.3vw, 16px);
+  white-space: nowrap;
+}
+
+.shutdown__bar {
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.shutdown__bar-empty {
+  color: var(--text-faint);
+}
+
+.shutdown__count {
+  margin-left: 10px;
+  color: var(--text-muted);
+}
+
+.shutdown__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: min(560px, 100%);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shutdown__section {
+  position: relative;
+  height: clamp(26px, 4.4vh, 40px);
+  border: 1px solid var(--accent-40);
+  border-radius: 6px;
+  background: rgb(var(--accent-rgb) / 0.04);
+  transform-origin: 50% 50%;
+  transition:
+    transform 0.28s cubic-bezier(0.7, 0, 0.84, 0),
+    border-color 0.28s,
+    box-shadow 0.28s,
+    background-color 0.28s;
+}
+
+.shutdown__section.is-flat {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 14px rgb(var(--accent-rgb) / 0.9);
+  transform: scaleY(0.05);
+}
+
+.shutdown__tab {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  color: var(--text-muted);
+  font-size: 11px;
+  transform: translateY(-50%);
+  transition: opacity 0.2s;
+}
+
+.shutdown__section.is-flat .shutdown__tab {
+  opacity: 0;
+}
+
+/* Frames 4 and 5: CRT power-off to a line, then a dot */
+.shutdown__beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  background: #f2fdff;
+  box-shadow:
+    0 0 8px #fff,
+    0 0 30px rgb(var(--accent-rgb) / 0.9),
+    0 0 90px 20px rgb(var(--accent-rgb) / 0.35);
+  animation: shutdown-line-in 0.2s ease-in both;
+}
+
+.shutdown.is-dot .shutdown__beam {
+  animation: shutdown-to-dot 0.9s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+}
+
+/* Frame 6: black screen and a way back */
+.shutdown__final {
+  position: absolute;
+  left: max(var(--gutter), 8vw);
+  right: var(--gutter);
+  bottom: clamp(80px, 18vh, 170px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.5;
+}
+
+.shutdown__closing {
+  min-height: 1.5em;
+  color: var(--text-muted);
+}
+
+.shutdown__reboot {
+  min-height: 1.5em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.shutdown__reboot:focus-visible {
+  outline: 1px solid var(--accent-60);
+  outline-offset: 6px;
+}
+
+.shutdown__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 8px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: shutdown-blink 1.06s steps(1) infinite;
+}
+
+@keyframes shutdown-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shutdown-pulse {
+  to { opacity: 0.3; }
+}
+
+@keyframes shutdown-squash {
+  0% { transform: scale(1, 1); filter: brightness(1); }
+  60% { transform: scale(1, 0.02); filter: brightness(3); }
+  100% { transform: scale(1, 0.002); filter: brightness(4); opacity: 0; }
+}
+
+@keyframes shutdown-line-in {
+  from { opacity: 0; transform: scaleY(30); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes shutdown-to-dot {
+  0% { transform: scaleX(1); opacity: 1; }
+  45% { transform: scaleX(0.004) scaleY(3); opacity: 1; }
+  75% { transform: scaleX(0.004) scaleY(3); opacity: 1; }
+  100% { transform: scaleX(0.002) scaleY(2); opacity: 0; }
+}
+
+@keyframes shutdown-blink {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 560px) {
+  .shutdown__head {
+    left: 16px;
+    font-size: 11px;
+  }
+
+  .shutdown__sections {
+    gap: 12px;
+  }
+
+  .shutdown__final {
+    left: 16px;
+    right: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shutdown,
+  .shutdown__caret,
+  .shutdown__dot {
+    animation: none;
+  }
+}

@@ -8,6 +8,14 @@ export function introAlreadyPlayed() {
   }
 }
 
+export function clearIntroPlayed() {
+  try {
+    window.sessionStorage.removeItem(KEY);
+  } catch {
+    // Without storage the intro plays on every load anyway.
+  }
+}
+
 export function markIntroPlayed() {
   try {
     window.sessionStorage.setItem(KEY, '1');

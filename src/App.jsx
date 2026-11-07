@@ -10,6 +10,7 @@ import Footer from './sections/Footer';
 import Hero from './sections/Hero';
 import Modernize from './sections/Modernize';
 import Projects from './sections/Projects';
+import Shutdown from './shutdown/Shutdown';
 import Skills from './sections/Skills';
 import Work from './sections/Work';
 import ThemeProvider from './theme/ThemeProvider';
@@ -22,6 +23,7 @@ export default function App() {
   const [buildEnabled] = useState(canAnimate);
   const [introOpen, setIntroOpen] = useState(() => buildEnabled && !introAlreadyPlayed());
   const [heroStart, setHeroStart] = useState(() => (introOpen ? null : PLAIN_START));
+  const [shutdownFor, setShutdownFor] = useState(null);
   const mainRef = useRef(null);
 
   useEffect(() => {
@@ -31,14 +33,15 @@ export default function App() {
   useEffect(() => {
     const main = mainRef.current;
     if (!main) return;
-    main.inert = introOpen;
-  }, [introOpen]);
+    main.inert = introOpen || shutdownFor !== null;
+  }, [introOpen, shutdownFor]);
 
   const handleReveal = useCallback((origin) => {
     setHeroStart({ origin, speed: 1.3, stretch: HERO_STRETCH });
   }, []);
 
   const handleFinish = useCallback(() => setIntroOpen(false), []);
+  const handleSent = useCallback((name) => setShutdownFor(name), []);
 
   const build = useMemo(() => ({ enabled: buildEnabled }), [buildEnabled]);
 
@@ -56,10 +59,11 @@ export default function App() {
           <Skills />
           <Education />
           <Modernize />
-          <Contact />
+          <Contact onSent={handleSent} />
         </main>
         <Footer />
         {introOpen && <Intro onReveal={handleReveal} onFinish={handleFinish} />}
+        {shutdownFor !== null && <Shutdown name={shutdownFor} />}
       </BuildContext.Provider>
     </ThemeProvider>
   );

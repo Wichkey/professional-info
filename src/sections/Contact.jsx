@@ -2,7 +2,7 @@ import BuildScope from '../build/BuildScope';
 import SectionLabel from '../components/SectionLabel';
 import ExternalLink from '../components/ExternalLink';
 import Icon from '../components/Icon';
-import ContactForm from './ContactForm';
+import ContactTerminal from './contact-terminal/ContactTerminal';
 import { CURSOR_PATH } from '../build/swarm';
 import { CONTACT, EMAIL, LINKS } from '../data/content';
 import resumePdf from '../assets/resume.pdf';
@@ -41,7 +41,7 @@ function Channel({ channel }) {
   );
 }
 
-export default function Contact() {
+export default function Contact({ onSent }) {
   return (
     <section id="contact" className="section contact" aria-labelledby="contact-title">
       <BuildScope className="contact__top">
@@ -70,7 +70,7 @@ export default function Contact() {
       </BuildScope>
 
       <BuildScope className="contact__form-wrap">
-        <ContactForm />
+        <ContactTerminal onSent={onSent} />
       </BuildScope>
 
       <BuildScope as="ul" className="contact__channels">
