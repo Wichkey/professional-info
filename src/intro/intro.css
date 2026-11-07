@@ -42,6 +42,13 @@
 
 .intro-old__base,
 .intro-old__rgb,
+.intro-old__slice,
+.intro-old__residue {
+  background-image: var(--old-site);
+}
+
+.intro-old__base,
+.intro-old__rgb,
 .intro-old__slice {
   position: absolute;
   inset: 0;
@@ -350,11 +357,12 @@
 }
 
 @media (max-width: 560px) {
-  /* Phones are portrait, so cover would crop the old site; show it whole instead. */
-  .intro-old__roll {
-    inset: 50% 0 auto;
-    aspect-ratio: 1440 / 900;
-    translate: 0 -50%;
+  /* Phones glitch a phone capture of the old site instead of the desktop one. */
+  .intro-old__base,
+  .intro-old__rgb,
+  .intro-old__slice,
+  .intro-old__residue {
+    background-image: var(--old-site-phone);
   }
 
   .term__line {
