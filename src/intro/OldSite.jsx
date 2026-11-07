@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import oldSite from '../assets/old-site.webp';
 import oldSitePhone from '../assets/old-site-phone.webp';
 import oldSitePhone2x from '../assets/old-site-phone-2x.webp';
@@ -7,6 +8,46 @@ const OLD_SITE_VARS = {
   '--old-site': `url(${oldSite})`,
   '--old-site-phone': `-webkit-image-set(url(${oldSitePhone}) 1x, url(${oldSitePhone2x}) 2x)`,
 };
+
+// Pixel sizes of the captures above (the top four screens of the old page).
+const DESKTOP_ASPECT = 3600 / 1440;
+const PHONE_ASPECT = 3376 / 390;
+const PHONE_QUERY = '(max-width: 560px)';
+const EASE = 0.22;
+
+// Scrolling during the old-site phase pans the capture instead of the page; every
+// glitch layer reads the same --old-y so the bursts stay aligned with it.
+function useOldSiteScroll(nodeRef, scrollRef) {
+  useEffect(() => {
+    const node = nodeRef.current;
+    if (!node) return undefined;
+    let target = 0;
+    let current = 0;
+    let frame = 0;
+
+    const maxY = () => {
+      const aspect = window.matchMedia(PHONE_QUERY).matches ? PHONE_ASPECT : DESKTOP_ASPECT;
+      return Math.max(0, node.clientWidth * aspect - node.clientHeight);
+    };
+    const paint = () => {
+      current += (target - current) * EASE;
+      if (Math.abs(target - current) < 0.5) current = target;
+      node.style.setProperty('--old-y', `${current.toFixed(1)}px`);
+      frame = current === target ? 0 : requestAnimationFrame(paint);
+    };
+
+    scrollRef.current = {
+      by(dy) {
+        target = Math.min(maxY(), Math.max(0, target + dy));
+        if (!frame) frame = requestAnimationFrame(paint);
+      },
+    };
+    return () => {
+      scrollRef.current = null;
+      cancelAnimationFrame(frame);
+    };
+  }, [nodeRef, scrollRef]);
+}
 
 // Per burst: horizontal bands of the old site as [top %, height %, shift px, flickers].
 const BANDS = [
@@ -52,13 +93,15 @@ const RESIDUE = [
   [[30, 4, 10], [55, 5, -8], [72, 2, 4]],
 ];
 
-export default function OldSite({ burst, done }) {
+export default function OldSite({ burst, done, scrollRef }) {
+  const ref = useRef(null);
+  useOldSiteScroll(ref, scrollRef);
   const level = burst || 0;
   const bands = level ? BANDS[level - 1] : [];
   const residue = level ? [] : RESIDUE[Math.min(done, RESIDUE.length - 1)];
 
   return (
-    <div className={`intro-old${level ? ` is-burst is-burst-${level}` : ''}`} style={OLD_SITE_VARS}>
+    <div ref={ref} className={`intro-old${level ? ` is-burst is-burst-${level}` : ''}`} style={OLD_SITE_VARS}>
       <div className="intro-old__roll" key={level}>
         <div className="intro-old__base" />
         {level > 0 && (

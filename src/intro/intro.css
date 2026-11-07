@@ -54,8 +54,8 @@
 .intro-old__slice {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: top center;
+  background-size: 100% auto;
+  background-position: center calc(var(--old-y, 0px) * -1);
 }
 
 .intro-old {
@@ -112,8 +112,8 @@
 .intro-old__residue {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: top center;
+  background-size: 100% auto;
+  background-position: center calc(var(--old-y, 0px) * -1);
   opacity: 0.85;
 }
 
