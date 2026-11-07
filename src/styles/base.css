@@ -8,6 +8,7 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: clip;
 }
 
 body {
@@ -21,6 +22,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body.is-locked {
@@ -200,6 +202,21 @@ textarea {
 
 .text-link:hover {
   border-bottom-color: var(--accent);
+}
+
+/* On touch screens, small inline links get a 44px tall hit area without changing their look. */
+@media (pointer: coarse) {
+  .text-link,
+  .footer__top {
+    position: relative;
+  }
+
+  .text-link::after,
+  .footer__top::after {
+    content: '';
+    position: absolute;
+    inset: -14px -8px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
