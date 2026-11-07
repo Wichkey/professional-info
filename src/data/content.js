@@ -266,7 +266,7 @@ export const EDUCATION = [
     place: 'Tübingen',
     school: 'Bachelor · University of Tübingen',
     degree: 'Cognitive Science',
-    grades: [{ label: 'DE 1.7' }, { label: 'US 3.7 / 4.0' }],
+    grades: [{ label: 'DE 1.7' }, { label: 'US 3.5 / 4.0' }],
     thesisGrade: '1.3 · 3.8 / 4.0',
     thesis: 'How AI writing tools like ChatGPT change the way people come up with ideas.',
   },
