@@ -142,9 +142,9 @@ function connectorPoints(a, b) {
  * cursors, then fades the real content in. Content never leaves the DOM;
  * only opacity and transform are animated.
  */
-export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
-  const pace = speed * PACE;
-  const ms = (value) => value * PACE;
+export function runBuild(scope, { speed = 1, stretch = 1, origin = null, onDone } = {}) {
+  const pace = speed * PACE * stretch;
+  const ms = (value) => value * PACE * stretch;
   const animations = [];
   const anim = (node, keyframes, options) => {
     const a = node.animate(keyframes, { fill: 'both', easing: EASE, ...options });

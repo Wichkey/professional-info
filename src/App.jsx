@@ -14,7 +14,9 @@ import Skills from './sections/Skills';
 import Work from './sections/Work';
 import ThemeProvider from './theme/ThemeProvider';
 
-const PLAIN_START = { origin: null, speed: 0.9 };
+// The hero is the first build a visitor sees, so it plays slower than the sections below.
+const HERO_STRETCH = 1.6;
+const PLAIN_START = { origin: null, speed: 0.9, stretch: HERO_STRETCH };
 
 export default function App() {
   const [buildEnabled] = useState(canAnimate);
@@ -33,7 +35,7 @@ export default function App() {
   }, [introOpen]);
 
   const handleReveal = useCallback((origin) => {
-    setHeroStart({ origin, speed: 1.3 });
+    setHeroStart({ origin, speed: 1.3, stretch: HERO_STRETCH });
   }, []);
 
   const handleFinish = useCallback(() => setIntroOpen(false), []);
