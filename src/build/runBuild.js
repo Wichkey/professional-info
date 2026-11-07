@@ -113,6 +113,17 @@ function buildCursor(overlay, agent) {
   return cursor;
 }
 
+// Full-width scopes would push the overlay's side bleed past the screen edge.
+function fitToViewport(overlay) {
+  const box = overlay.getBoundingClientRect();
+  const vw = document.documentElement.clientWidth;
+  if (box.left >= 0 && box.right <= vw) return box;
+  const style = getComputedStyle(overlay);
+  overlay.style.left = `${parseFloat(style.left) - Math.min(0, box.left)}px`;
+  overlay.style.right = `${parseFloat(style.right) + Math.max(0, box.right - vw)}px`;
+  return overlay.getBoundingClientRect();
+}
+
 function connectorPoints(a, b) {
   const overlapX = b.x < a.x + a.w - 24 && b.x + b.w > a.x + 24;
   if (overlapX || b.y > a.y + a.h) {
@@ -143,7 +154,7 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
 
   const overlay = make('div', 'build-overlay', scope);
   overlay.setAttribute('aria-hidden', 'true');
-  const box = overlay.getBoundingClientRect();
+  const box = fitToViewport(overlay);
   const frames = measureFrames(scope, box);
   const small = isSmallScreen();
 
@@ -240,6 +251,10 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
 
   swarm.forEach((agent, c) => {
     const cursor = buildCursor(overlay, agent);
+    // Cursors are clamped so the name pill never runs past the overlay's edges.
+    const pill = cursor.querySelector('.bc__pill');
+    const maxX = Math.max(0, box.width - pill.offsetLeft - pill.offsetWidth - 4);
+    const maxY = Math.max(0, box.height - pill.offsetTop - pill.offsetHeight - 4);
     const spread = c === 0 ? { x: 0, y: 0 } : { x: random(-60, 60), y: random(-30, 50) };
     const points = [{ t: 0, x: startPoint.x, y: startPoint.y, o: 0, s: 0.4 }];
     points.push({ t: ms(90 + c * 40), x: startPoint.x + spread.x, y: startPoint.y + spread.y, o: 1, s: 1 });
@@ -262,7 +277,7 @@ export function runBuild(scope, { speed = 1, origin = null, onDone } = {}) {
       .filter((p, idx) => idx === 0 || p.t - points[idx - 1].t > 50 || idx === points.length - 1)
       .map((p) => ({
         offset: Math.min(1, Math.max(0, p.t / total)),
-        transform: `translate3d(${p.x}px, ${p.y}px, 0) scale(${p.s ?? 1})`,
+        transform: `translate3d(${Math.min(Math.max(p.x, 0), maxX)}px, ${Math.min(Math.max(p.y, 0), maxY)}px, 0) scale(${p.s ?? 1})`,
         opacity: p.o ?? 1,
         easing: MOVE_EASE,
       }));

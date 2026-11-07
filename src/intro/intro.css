@@ -350,6 +350,13 @@
 }
 
 @media (max-width: 560px) {
+  /* Phones are portrait, so cover would crop the old site; show it whole instead. */
+  .intro-old__roll {
+    inset: 50% 0 auto;
+    aspect-ratio: 1440 / 900;
+    translate: 0 -50%;
+  }
+
   .term__line {
     gap: 10px;
   }
