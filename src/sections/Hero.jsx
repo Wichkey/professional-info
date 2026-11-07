@@ -24,7 +24,7 @@ const PORTRAITS = {
 
 // The image is cover-fitted into a box 87% of the hero, so on screens taller
 // than the photo's 1.747 aspect it renders wider than the viewport.
-const PORTRAIT_SIZES = '(max-aspect-ratio: 1747/1000) 152vh, 87vw';
+const PORTRAIT_SIZES = '(max-aspect-ratio: 1747/1000) 149vh, 85vw';
 
 export default function Hero({ buildStart }) {
   const ref = useRef(null);
