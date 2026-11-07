@@ -13,12 +13,14 @@
   position: absolute;
   bottom: 0;
   left: 50%;
-  /* 85% of the size object-fit: cover would give, so the portrait sits smaller than the hero. */
-  width: max(85cqw, 148.5cqh);
+  /* 95% of the size object-fit: cover would give, so the portrait sits a little smaller than the hero. */
+  width: max(95cqw, 166cqh);
   max-width: none;
   height: auto;
   aspect-ratio: 1024 / 586;
-  transform: translateX(-50%);
+  /* The face sits right of the image centre; shift by its measured position so it lands mid-hero. */
+  --face-x: 55%;
+  transform: translateX(calc(var(--face-x) * -1));
   /* Edges that land inside the hero fade into --hero-bg. */
   -webkit-mask-image:
     linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
@@ -39,10 +41,10 @@
 
 .hero__portrait-anchor {
   position: absolute;
-  left: 33.5%;
-  top: 25%;
-  width: 33%;
-  height: 71.5%;
+  left: 31.5%;
+  top: 16.5%;
+  width: 37%;
+  height: 80%;
   pointer-events: none;
 }
 
@@ -109,8 +111,8 @@
   }
 
   .hero__portrait-anchor {
-    left: 23%;
-    width: 54%;
+    left: 20%;
+    width: 60%;
   }
 }
 
@@ -119,20 +121,15 @@
     max-height: none;
   }
 
-  /* The face sits right of the image centre; centre it on narrow screens. */
-  .hero__bg {
-    transform: translateX(-54%);
-  }
-
   .hero__shade {
     background: linear-gradient(180deg, rgb(0 0 0 / 0.4) 0%, transparent 20%, transparent 45%, rgb(3 3 6 / 0.9) 100%);
   }
 
   .hero__portrait-anchor {
-    left: 14%;
-    top: 25%;
-    width: 72%;
-    height: 43%;
+    left: 10%;
+    top: 20%;
+    width: 80%;
+    height: 48%;
   }
 
   .hero__title {
@@ -148,4 +145,8 @@
     gap: 8px 20px;
     font-size: 13px;
   }
+}
+
+:root[data-theme='pink'] .hero__bg {
+  --face-x: 54.8%;
 }
