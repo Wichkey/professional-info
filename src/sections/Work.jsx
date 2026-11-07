@@ -59,34 +59,31 @@ export default function Work() {
         <ol className="work__timeline">
           <li className="work__entry">
             <Rail now />
-            <div className="work__body">
-              <BuildScope className="work__block">
+            <div className="work__body work__body--oblivion">
+              <BuildScope className="work__block work__block--oblivion">
                 <p className="work__meta" data-build="Meta" data-build-kind="chips">
                   <span>{oblivion.meta}</span>
                   <span className="status-pill status-pill--solid">now</span>
                 </p>
-                <div className="work__head" data-build="oblivion · entry 1" data-build-kind="heading">
-                  <Icon name="layers" size={26} className="accent" />
+                <div className="work__head work__head--oblivion" data-build="oblivion · entry 1" data-build-kind="heading">
+                  <Icon name="layers" size={26} className="accent work__head-icon" />
                   <h3 className="work__name work__name--big">{oblivion.title}</h3>
                   <span className="work__role">{oblivion.role}</span>
-                  <span className="work__head-link">
-                    <LinkOut link={oblivion.link} />
-                  </span>
                 </div>
-                <p className="work__text" data-build="Copy">
-                  {oblivion.text}
+                <p className="work__text work__text--long" data-build="Copy">
+                  <span className="work__lead">{oblivion.lead}</span> {oblivion.text}
                 </p>
-                <blockquote className="work__quote" data-build="Vision · Mission" data-build-kind="card">
-                  <p className="work__quote-line">{oblivion.quote}</p>
-                  <dl>
-                    {oblivion.statements.map((s) => (
-                      <div key={s.label}>
-                        <dt>{s.label}</dt>
-                        <dd>{s.text}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </blockquote>
+                <p className="work__text work__text--short" data-build="Copy">
+                  <span className="work__lead">{oblivion.lead}</span> {oblivion.short}
+                </p>
+                <dl className="work__statements" data-build="Vision · Mission" data-build-kind="card">
+                  {oblivion.statements.map((s) => (
+                    <div key={s.label} className="work__statement">
+                      <dt>{s.label}</dt>
+                      <dd>{s.text}</dd>
+                    </div>
+                  ))}
+                </dl>
               </BuildScope>
 
               <BuildScope as="ul" className="work__projects" aria-label="Oblivion projects">
@@ -97,19 +94,29 @@ export default function Work() {
                     data-build={`oblivion/projects · ${i + 1} of ${oblivion.projects.length}`}
                     data-build-kind="card"
                   >
-                    <Icon name={p.icon} size={20} className="work__project-icon" />
-                    <div className="work__project-main">
-                      <div className="work__project-head">
-                        <h4>{p.title}</h4>
-                        <span className={`status-pill${p.status === 'built' ? ' status-pill--done' : ''}`}>
-                          {p.status}
-                        </span>
-                        {p.link && <LinkOut link={p.link} />}
-                      </div>
-                      <p>{p.text}</p>
+                    <div className="work__project-head">
+                      <span
+                        className={`work__key work__key--small work__key--${p.status === 'built' ? 'done' : 'build'}`}
+                        aria-hidden="true"
+                      />
+                      <h4>{p.title}</h4>
+                      <span className="visually-hidden">({p.status})</span>
                     </div>
+                    <p>{p.text}</p>
+                    {p.link && (
+                      <span className="work__project-link">
+                        <LinkOut link={p.link} />
+                      </span>
+                    )}
                   </li>
                 ))}
+              </BuildScope>
+
+              <BuildScope className="work__more">
+                <ExternalLink className="work__more-link" href={oblivion.link.href} data-build="oblivion.vision">
+                  More on {oblivion.link.label}
+                  <Icon name="external" size={12} />
+                </ExternalLink>
               </BuildScope>
             </div>
           </li>
