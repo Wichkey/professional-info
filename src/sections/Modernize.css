@@ -158,3 +158,32 @@
     font-size: 16px;
   }
 }
+
+@media (max-width: 560px) {
+  .modernize__top {
+    gap: 40px;
+  }
+
+  .modernize__row {
+    gap: 40px;
+  }
+
+  .modernize__copy {
+    gap: 24px;
+  }
+
+  .modernize__text {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .modernize__actions {
+    flex-direction: column;
+  }
+
+  .modernize__cta,
+  .modernize__talk {
+    width: 100%;
+    min-height: 52px;
+  }
+}

@@ -23,3 +23,13 @@
 .footer__top:hover {
   color: var(--accent);
 }
+
+@media (max-width: 560px) {
+  .footer {
+    padding: 32px var(--gutter) 28px;
+  }
+
+  .footer__top {
+    min-height: 44px;
+  }
+}
