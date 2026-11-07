@@ -119,6 +119,11 @@
     max-height: none;
   }
 
+  /* The face sits right of the image centre; centre it on narrow screens. */
+  .hero__bg {
+    transform: translateX(-54%);
+  }
+
   .hero__shade {
     background: linear-gradient(180deg, rgb(0 0 0 / 0.4) 0%, transparent 20%, transparent 45%, rgb(3 3 6 / 0.9) 100%);
   }
