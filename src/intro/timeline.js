@@ -8,20 +8,26 @@ export const BURSTS = [
 ];
 
 export const GLITCH_END = BURSTS[BURSTS.length - 1].to;
-export const SPAWN_AT = GLITCH_END + 3700;
+
+// Stretches the terminal's typing and pauses so each boot line can be read.
+const TERM_PACE = 1.9;
+const term = (ms) => Math.round(ms * TERM_PACE);
+
+export const SPAWN_AT = GLITCH_END + term(3700);
 export const REVEAL_AT = SPAWN_AT + 900;
 export const END_AT = REVEAL_AT + 520;
 
-const TYPE_MS = 240;
+const TYPE_MS = term(240);
+const OK_DELAY = term(90);
 
 export const LINES = [
   { stamp: '00.04', at: 0, text: '> initializing workspace…', ok: true },
-  { stamp: '00.31', at: 320, text: '> downloading assets', progress: { from: 480, to: 1150 } },
-  { stamp: '00.58', at: 1200, text: '> resolving dependencies…', ok: true },
-  { stamp: '00.82', at: 1520, text: '> loading portfolio: ', strong: 'daniel-mehler.com', ok: true },
-  { stamp: '01.06', at: 1880, text: '> initializing new website…', ok: true },
-  { stamp: '01.24', at: 2240, text: '> spawning agent…', ok: true, okAt: 3000, caret: true },
-  { stamp: '01.30', at: 3050, text: '> This site just rebuilt itself. Yours can too.', signoff: true, typeMs: 560 },
+  { stamp: '00.31', at: term(320), text: '> downloading assets', progress: { from: term(480), to: term(1150) } },
+  { stamp: '00.58', at: term(1200), text: '> resolving dependencies…', ok: true },
+  { stamp: '00.82', at: term(1520), text: '> loading portfolio: ', strong: 'daniel-mehler.com', ok: true },
+  { stamp: '01.06', at: term(1880), text: '> initializing new website…', ok: true },
+  { stamp: '01.24', at: term(2240), text: '> spawning agent…', ok: true, okAt: term(3000), caret: true },
+  { stamp: '01.30', at: term(3050), text: '> This site just rebuilt itself. Yours can too.', signoff: true, typeMs: term(560) },
 ];
 
 /** 1-based burst level at `t`, or 0 while the old site sits still between bursts. */
@@ -44,7 +50,7 @@ export function lineState(line, t) {
   const typed = Math.floor(full.length * clamp01((t - line.at) / typeMs));
   const visible = t >= line.at;
   const typedDone = t >= line.at + typeMs;
-  const okAt = line.okAt ?? line.at + typeMs + 90;
+  const okAt = line.okAt ?? line.at + typeMs + OK_DELAY;
   const progress = line.progress ? clamp01((t - line.progress.from) / (line.progress.to - line.progress.from)) : null;
   return {
     visible,
