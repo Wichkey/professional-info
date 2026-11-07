@@ -33,3 +33,20 @@
   border-radius: 3px;
   background: var(--accent);
 }
+
+@media (max-width: 560px) {
+  .section-label {
+    gap: 12px;
+  }
+
+  .section-label__line {
+    flex: 1 1 16px;
+    min-width: 16px;
+  }
+
+  .section-label__aside {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
