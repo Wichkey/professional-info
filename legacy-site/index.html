@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/dm.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      GitHub Pages cannot send response headers, so the policy has to ride
+      along in the document. Everything listed is a host the page genuinely
+      talks to: Web3Forms for the contact form, hCaptcha for its widget,
+      Google Fonts for Poppins and Inter. script-src deliberately has no
+      'unsafe-inline' — the build emits no inline scripts, so an injected
+      <script> would not execute. style-src needs it for the <noscript>
+      block below and hCaptcha's own styles.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://web3forms.com https://hcaptcha.com https://*.hcaptcha.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://hcaptcha.com https://*.hcaptcha.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data:;
+        connect-src 'self' https://api.web3forms.com https://hcaptcha.com https://*.hcaptcha.com;
+        frame-src https://hcaptcha.com https://*.hcaptcha.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests
+      "
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      name="description"
+      content="Daniel Mehler — AI expert & software engineer. AI for businesses: model fine-tuning, proof-of-concept solutions and custom algorithms."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Daniel Mehler</title>
+    <noscript>
+      <style>
+        /* Scroll reveals need JS; without it show everything straight away. */
+        [data-reveal] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .skill-fill {
+          width: var(--level) !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

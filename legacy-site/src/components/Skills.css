@@ -1,0 +1,100 @@
+.skills-heading {
+  margin-top: 110px;
+}
+
+.skills-grid {
+  display: flex;
+  gap: 144px;
+  margin: 70px 0 0 155px;
+}
+
+.skills-column {
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+  flex: 1;
+  max-width: 540px;
+}
+
+.skill {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.skill-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  margin-bottom: 4px;
+}
+
+.skill-info {
+  flex: 1;
+}
+
+.skill-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.skill-name {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.skill-level {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.skill-bar {
+  border: 1px solid var(--white);
+  border-radius: 9px;
+  height: 17px;
+  margin-top: 4px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* Bar fills up once the skill scrolls into view */
+.skill-fill {
+  display: block;
+  height: 11px;
+  width: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-delay, 0s) + 0.2s);
+}
+
+.skill.is-visible .skill-fill {
+  width: var(--level);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-fill {
+    width: var(--level);
+    transition: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .skills-grid {
+    gap: 60px;
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 900px) {
+  .skills-grid {
+    flex-direction: column;
+    gap: 46px;
+    margin-left: 40px;
+  }
+}

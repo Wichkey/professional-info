@@ -1,0 +1,74 @@
+.internship-heading {
+  margin-top: 110px;
+}
+
+.intern-entry {
+  position: relative;
+  margin: 84px 0 0 var(--entry-x);
+  max-width: 1030px;
+}
+
+/* Dot sits level with the company name, same as the qualification entries */
+.intern-entry .rail-marker {
+  top: 69px;
+  left: calc(var(--rail-x) - var(--entry-x));
+}
+
+/* Task list echoes the thesis blocks: blue rule on the left, generous
+   breathing room around the items. */
+.intern-tasks {
+  list-style: none;
+  border-left: 4px solid var(--accent);
+  margin-top: 48px;
+  padding: 6px 0 6px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.intern-tasks li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.intern-tasks li::before {
+  content: '';
+  width: 19px;
+  height: 19px;
+  border: 1.5px solid var(--accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .internship-heading {
+    margin-top: 80px;
+  }
+
+  .intern-entry {
+    margin: 48px 0 0 40px;
+    max-width: none;
+  }
+
+  .intern-entry .rail-marker {
+    display: none;
+  }
+
+  .intern-tasks {
+    margin-top: 32px;
+    padding-left: 22px;
+    gap: 18px;
+  }
+
+  .intern-tasks li {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .intern-tasks li::before {
+    margin-top: 6px;
+  }
+}
