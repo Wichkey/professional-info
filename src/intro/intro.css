@@ -94,7 +94,7 @@
   animation-direction: reverse;
 }
 
-.intro-old__slice--new {
+.intro-old__slice--flicker {
   animation:
     intro-slice 0.14s steps(2) infinite,
     intro-flicker 0.18s steps(2) infinite;
