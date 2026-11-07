@@ -3,16 +3,33 @@ import Nav from './Nav';
 import { useTheme } from '../theme/ThemeContext';
 import { useManualBuild } from '../build/useManualBuild';
 import { HERO } from '../data/content';
-import heroBlue from '../assets/hero-blue.webp';
-import heroPink from '../assets/hero-pink.webp';
+import blue1600 from '../assets/hero-blue-1600.webp';
+import blue2560 from '../assets/hero-blue-2560.webp';
+import blue3840 from '../assets/hero-blue-3840.webp';
+import pink1600 from '../assets/hero-pink-1600.webp';
+import pink2560 from '../assets/hero-pink-2560.webp';
+import pink3840 from '../assets/hero-pink-3840.webp';
 import '../build/build.css';
 import './Hero.css';
 
-const PORTRAITS = { blue: heroBlue, pink: heroPink };
+const portrait = (w1600, w2560, w3840) => ({
+  src: w2560,
+  srcSet: `${w1600} 1600w, ${w2560} 2560w, ${w3840} 3840w`,
+});
+
+const PORTRAITS = {
+  blue: portrait(blue1600, blue2560, blue3840),
+  pink: portrait(pink1600, pink2560, pink3840),
+};
+
+// The image is cover-fitted into a box 87% of the hero, so on screens taller
+// than the photo's 1.747 aspect it renders wider than the viewport.
+const PORTRAIT_SIZES = '(max-aspect-ratio: 1747/1000) 152vh, 87vw';
 
 export default function Hero({ buildStart }) {
   const ref = useRef(null);
   const { theme } = useTheme();
+  const image = PORTRAITS[theme] ?? PORTRAITS.blue;
   useManualBuild(ref, buildStart);
 
   return (
@@ -20,10 +37,12 @@ export default function Hero({ buildStart }) {
       <img
         className="hero__bg"
         data-build-id="hero-bg"
-        src={PORTRAITS[theme] ?? heroBlue}
+        sizes={PORTRAIT_SIZES}
+        srcSet={image.srcSet}
+        src={image.src}
         alt="Daniel Mehler in a dark room, lit by a single spotlight"
-        width="1024"
-        height="586"
+        width="3840"
+        height="2198"
         fetchPriority="high"
       />
       <div className="hero__shade" aria-hidden="true" />
