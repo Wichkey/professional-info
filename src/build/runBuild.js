@@ -6,7 +6,12 @@ const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const MOVE_EASE = 'cubic-bezier(0.45, 0, 0.2, 1)';
 const FRAME_PAD = 6;
 // Stretches every build timing so a viewer can follow the cursors placing frames.
-const PACE = 1.65;
+const PACE = 1.32;
+// Cursor visits run in real time, independent of PACE, so they never linger on slow builds.
+const ENTER_MS = 260;
+const EXIT_DELAY_MS = 90;
+const EXIT_MS = 380;
+const IDLE_MAX = 900;
 
 function make(tag, className, parent) {
   const node = document.createElement(tag);
@@ -250,43 +255,64 @@ export function runBuild(scope, { speed = 1, stretch = 1, origin = null, onDone 
     : { x: (frames[0]?.x ?? 40) + 20, y: Math.max(20, (frames[0]?.y ?? 40) - 30) };
 
   swarm.forEach((agent, c) => {
+    const actions = [];
+    frames.forEach((f, i) => {
+      if (owner[i] !== c) return;
+      actions.push({ t: frameAt(i) - ms(30), x: f.x, y: f.y });
+      actions.push({ t: frameAt(i) + 240 * pace, x: f.x + Math.min(f.w, 520), y: f.y + Math.min(f.h, 300) });
+    });
+    frames.forEach((f, i) => {
+      if (owner[i] !== c) return;
+      actions.push({ t: revealAt(i) + ms(20), x: f.x + Math.min(f.w * 0.6, 220), y: f.y + Math.min(f.h * 0.5, 80) });
+    });
+    if (!actions.length) return;
+    actions.sort((a, b) => a.t - b.t);
+
+    // A cursor is only on screen while it has work: long waits split its timeline into separate visits.
+    const visits = [];
+    actions.forEach((a) => {
+      const visit = visits[visits.length - 1];
+      if (visit && a.t - visit[visit.length - 1].t <= IDLE_MAX) visit.push(a);
+      else visits.push([a]);
+    });
+
     const cursor = buildCursor(overlay, agent);
     // Cursors are clamped so the name pill never runs past the overlay's edges.
     const pill = cursor.querySelector('.bc__pill');
     const maxX = Math.max(0, box.width - pill.offsetLeft - pill.offsetWidth - 4);
     const maxY = Math.max(0, box.height - pill.offsetTop - pill.offsetHeight - 4);
-    const spread = c === 0 ? { x: 0, y: 0 } : { x: random(-60, 60), y: random(-30, 50) };
-    const points = [{ t: 0, x: startPoint.x, y: startPoint.y, o: 0, s: 0.4 }];
-    points.push({ t: ms(90 + c * 40), x: startPoint.x + spread.x, y: startPoint.y + spread.y, o: 1, s: 1 });
 
-    frames.forEach((f, i) => {
-      if (owner[i] !== c) return;
-      points.push({ t: frameAt(i) - ms(30), x: f.x, y: f.y });
-      points.push({ t: frameAt(i) + 240 * pace, x: f.x + Math.min(f.w, 520), y: f.y + Math.min(f.h, 300) });
+    const points = [];
+    visits.forEach((visit, v) => {
+      const first = visit[0];
+      const last = visit[visit.length - 1];
+      const enterAt = Math.max(0, first.t - ENTER_MS);
+      const from = v === 0
+        ? { x: startPoint.x + (c === 0 ? 0 : random(-60, 60)), y: startPoint.y + (c === 0 ? 0 : random(-30, 50)) }
+        : { x: first.x - random(30, 60), y: first.y - random(20, 40) };
+      points.push({ t: enterAt, x: from.x, y: from.y, o: 0, s: 0.6 });
+      points.push(...visit.map((a) => ({ ...a, t: Math.max(a.t, enterAt + 60) })));
+      const driftX = random(20, 50);
+      const driftY = random(10, 30);
+      points.push({ t: last.t + EXIT_DELAY_MS, x: last.x + driftX * 0.3, y: last.y + driftY * 0.3, o: 1 });
+      points.push({ t: last.t + EXIT_DELAY_MS + EXIT_MS, x: last.x + driftX, y: last.y + driftY, o: 0, s: 0.6 });
     });
-    frames.forEach((f, i) => {
-      if (owner[i] !== c) return;
-      points.push({ t: revealAt(i) + ms(20), x: f.x + Math.min(f.w * 0.6, 220), y: f.y + Math.min(f.h * 0.5, 80) });
-    });
-    const last = points[points.length - 1];
-    points.push({ t: fadeAt, x: last.x + random(20, 60), y: last.y + random(10, 40), o: 1 });
-    points.push({ t: total, x: last.x + random(40, 90), y: last.y + random(20, 60), o: 0, s: 0.6 });
+    const end = points[points.length - 1];
+    if (end.t < total) points.push({ ...end, t: total });
+    const span = Math.max(total, end.t);
 
-    points.sort((a, b) => a.t - b.t);
-    const keyframes = points
-      .filter((p, idx) => idx === 0 || p.t - points[idx - 1].t > 50 || idx === points.length - 1)
-      .map((p) => ({
-        offset: Math.min(1, Math.max(0, p.t / total)),
-        transform: `translate3d(${Math.min(Math.max(p.x, 0), maxX)}px, ${Math.min(Math.max(p.y, 0), maxY)}px, 0) scale(${p.s ?? 1})`,
-        opacity: p.o ?? 1,
-        easing: MOVE_EASE,
-      }));
+    const keyframes = points.map((p) => ({
+      offset: Math.min(1, Math.max(0, p.t / span)),
+      transform: `translate3d(${Math.min(Math.max(p.x, 0), maxX)}px, ${Math.min(Math.max(p.y, 0), maxY)}px, 0) scale(${p.s ?? 1})`,
+      opacity: p.o ?? 1,
+      easing: MOVE_EASE,
+    }));
     for (let k = 1; k < keyframes.length; k += 1) {
       if (keyframes[k].offset < keyframes[k - 1].offset) keyframes[k].offset = keyframes[k - 1].offset;
     }
     keyframes[0].offset = 0;
     keyframes[keyframes.length - 1].offset = 1;
-    anim(cursor, keyframes, { duration: total, easing: 'linear' });
+    anim(cursor, keyframes, { duration: span, easing: 'linear' });
   });
 
   anim(overlay, [{ opacity: 1 }, { opacity: 0 }], { duration: ms(420), delay: fadeAt, fill: 'forwards' });
