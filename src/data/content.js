@@ -61,7 +61,7 @@ export const WORK = {
   intro:
     'Oblivion, the company I co-founded, and the client platforms we build and run there, a bank research project, and where it started. Newest first.',
   oblivion: {
-    meta: '2026 → now · Mexico City',
+    meta: '2026 → present · Mexico City',
     title: 'Oblivion',
     role: 'Co-founder & CTO',
     link: { href: LINKS.oblivion, label: 'oblivion.vision' },
