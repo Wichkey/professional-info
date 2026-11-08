@@ -300,12 +300,10 @@
   line-height: 14px;
 }
 
-.work__more {
-  display: flex;
-  padding-top: 10px;
-}
-
 .work__more-link {
+  margin-left: auto;
+  align-self: center;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -444,6 +442,14 @@
 
   .work__head--oblivion .work__role {
     padding-top: 0;
+  }
+
+  .work__head--oblivion .work__more-link {
+    flex-basis: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+    border-bottom: 0;
+    font-size: 14px;
   }
 
   .work__text--short {

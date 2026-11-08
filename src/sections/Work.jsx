@@ -69,6 +69,10 @@ export default function Work() {
                   <Icon name="layers" size={26} className="accent work__head-icon" />
                   <h3 className="work__name work__name--big">{oblivion.title}</h3>
                   <span className="work__role">{oblivion.role}</span>
+                  <ExternalLink className="work__more-link" href={oblivion.link.href}>
+                    More on {oblivion.link.label}
+                    <Icon name="external" size={12} />
+                  </ExternalLink>
                 </div>
                 <p className="work__text work__text--long" data-build="Copy">
                   <span className="work__lead">{oblivion.lead}</span> {oblivion.text}
@@ -110,13 +114,6 @@ export default function Work() {
                     )}
                   </li>
                 ))}
-              </BuildScope>
-
-              <BuildScope className="work__more">
-                <ExternalLink className="work__more-link" href={oblivion.link.href} data-build="oblivion.vision">
-                  More on {oblivion.link.label}
-                  <Icon name="external" size={12} />
-                </ExternalLink>
               </BuildScope>
             </div>
           </li>
