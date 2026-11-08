@@ -49,22 +49,29 @@ export default function Hero({ buildStart }) {
   const ref = useRef(null);
   useLockedHeroHeight(ref);
   const { theme } = useTheme();
-  const image = PORTRAITS[theme] ?? PORTRAITS.blue;
+  const active = PORTRAITS[theme] ? theme : 'blue';
   useManualBuild(ref, buildStart);
 
   return (
     <section ref={ref} id="top" className="hero build-scope" aria-labelledby="hero-title">
-      <img
-        className="hero__bg"
-        data-build-id="hero-bg"
-        sizes={PORTRAIT_SIZES}
-        srcSet={image.srcSet}
-        src={image.src}
-        alt="Daniel Mehler in a dark room, lit by a single spotlight"
-        width="3840"
-        height="2198"
-        fetchPriority="high"
-      />
+      {/* Both portraits stay mounted and the theme only fades between them: iPhone Safari
+          kept painting the old picture when the img's srcset was swapped in place. */}
+      <div className="hero__bg" data-build-id="hero-bg">
+        {Object.entries(PORTRAITS).map(([name, image]) => (
+          <img
+            key={name}
+            className={`hero__bg-img${name === active ? ' is-active' : ''}`}
+            sizes={PORTRAIT_SIZES}
+            srcSet={image.srcSet}
+            src={image.src}
+            alt={name === active ? 'Daniel Mehler in a dark room, lit by a single spotlight' : ''}
+            aria-hidden={name === active ? undefined : 'true'}
+            width="3840"
+            height="2198"
+            fetchPriority={name === active ? 'high' : 'low'}
+          />
+        ))}
+      </div>
       <div className="hero__shade" aria-hidden="true" />
       <Nav />
 

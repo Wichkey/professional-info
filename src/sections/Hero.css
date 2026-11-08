@@ -16,7 +16,6 @@
   /* 95% of the size object-fit: cover would give, so the portrait sits a little smaller than the hero. */
   width: max(95cqw, 166cqh);
   max-width: none;
-  height: auto;
   aspect-ratio: 1024 / 586;
   /* The face sits right of the image centre; shift by its measured position so it lands mid-hero. */
   --face-x: 55%;
@@ -30,6 +29,19 @@
     linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
     linear-gradient(to bottom, transparent, #000 12%);
   mask-composite: intersect;
+}
+
+.hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.hero__bg-img.is-active {
+  opacity: 1;
 }
 
 .hero__shade {
