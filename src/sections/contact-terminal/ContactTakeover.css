@@ -1,0 +1,211 @@
+/* The page tears away. It lives outside this tree, so the phase reaches it
+   through the <html> element and lands on the app root. */
+html[data-ctake] #root {
+  will-change: transform, filter, opacity;
+}
+
+html[data-ctake='open'] #root,
+html[data-ctake='power-off'] #root {
+  visibility: hidden;
+}
+
+/* Reduced motion gets this path alone: a plain fade to black and back. */
+html[data-ctake='fade'] #root {
+  opacity: 0;
+}
+
+html[data-ctake='fade'] #root,
+html[data-ctake='back'] #root {
+  transition: opacity 0.22s linear;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-ctake='burst-1'] #root,
+  html[data-ctake='calm'] #root,
+  html[data-ctake='burst-2'] #root,
+  html[data-ctake='roll'] #root,
+  html[data-ctake='back'] #root {
+    animation: glitch-jitter 0.07s steps(2) infinite;
+    filter:
+      drop-shadow(calc(var(--amp) * -7px) 0 rgb(255 0 0 / 0.6))
+      drop-shadow(calc(var(--amp) * 7px) 0 rgb(0 255 255 / 0.6))
+      saturate(calc(1 + var(--amp)));
+  }
+
+  html[data-ctake='burst-1'] #root { --amp: 0.7; }
+  html[data-ctake='calm'] #root { --amp: 0.25; }
+  html[data-ctake='burst-2'] #root { --amp: 1.5; }
+
+  html[data-ctake='roll'] #root {
+    --amp: 1.5;
+    animation:
+      glitch-jitter 0.06s steps(2) infinite,
+      glitch-tear 0.2s steps(5) forwards;
+  }
+
+  html[data-ctake='back'] #root {
+    --amp: 0.6;
+    animation:
+      glitch-jitter 0.06s steps(2) infinite,
+      glitch-tear 0.24s steps(5) reverse both;
+  }
+}
+
+/* The black the terminal boots into */
+.ctake {
+  --amp: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 115;
+  display: flex;
+  height: 100dvh;
+  padding: clamp(20px, 5vw, 64px) var(--gutter);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.ctake.is-burst-1 { --amp: 0.7; }
+.ctake.is-calm { --amp: 0.25; }
+.ctake.is-burst-2 { --amp: 1.5; }
+.ctake.is-back { --amp: 0.6; }
+
+/* Fixed so the scrollable overlay never grows around them. */
+.ctake__void,
+.ctake__scan,
+.ctake__noise {
+  position: fixed;
+  pointer-events: none;
+}
+
+.ctake__void {
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.14s linear;
+}
+
+.ctake__scan {
+  inset: 0;
+  opacity: 0.75;
+}
+
+.ctake.is-burst-1 .ctake__void { opacity: 0.22; }
+.ctake.is-calm .ctake__void { opacity: 0.34; }
+.ctake.is-burst-2 .ctake__void { opacity: 0.68; }
+
+.ctake.is-roll .ctake__void {
+  opacity: 1;
+  transition-duration: 0.18s;
+}
+
+.ctake.is-fade .ctake__void {
+  opacity: 1;
+  transition-duration: 0.22s;
+}
+
+.ctake.is-open .ctake__void,
+.ctake.is-power-off .ctake__void {
+  opacity: 1;
+  transition: none;
+}
+
+.ctake.is-back .ctake__void,
+.ctake.is-closed .ctake__void {
+  opacity: 0;
+  transition-duration: 0.26s;
+}
+
+/* The terminal powers on into the black like a CRT */
+.ctake__panel {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+  margin: auto;
+  transform-origin: 50% 50%;
+  animation: ctake-boot 0.46s var(--ease-out) both;
+}
+
+.ctake.is-power-off .ctake__panel {
+  animation: ctake-boot 0.16s ease reverse both;
+}
+
+/* No 100% keyframe, so the panel ends on its own untransformed values. */
+@keyframes ctake-boot {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.006);
+  }
+
+  38% {
+    opacity: 1;
+    transform: scaleY(0.03);
+  }
+}
+
+/* In the page the stage carried the glow in its own padding; over the black it
+   spans the whole viewport instead, so the panel can hug the terminal. */
+.ctake .cterm-stage {
+  margin: 0;
+  padding: 0;
+}
+
+.ctake .cterm-neon {
+  position: fixed;
+}
+
+.ctake .cterm-neon__glow--outer {
+  opacity: 0.42;
+}
+
+/* The glow is sized off the viewport now, so the core recentres on the terminal. */
+.ctake .cterm-neon__glow--core {
+  top: 50%;
+  opacity: 0.38;
+}
+
+.ctake .cterm {
+  background: rgb(3 7 11 / 0.9);
+}
+
+@media (max-width: 760px) {
+  .ctake {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .ctake__panel {
+    display: flex;
+    min-height: 100%;
+    padding: 16px;
+  }
+
+  .ctake .cterm-stage {
+    display: flex;
+    width: 100%;
+  }
+
+  .ctake .cterm {
+    width: 100%;
+    margin: auto 0;
+  }
+
+  /* The glow covers a phone viewport many times over, so it stays further back. */
+  .ctake .cterm-neon__glow--outer {
+    opacity: 0.28;
+  }
+
+  .ctake .cterm-neon__glow--core {
+    opacity: 0.26;
+  }
+
+  .ctake .cterm-neon__beams {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctake__panel,
+  .ctake.is-power-off .ctake__panel {
+    animation: none;
+  }
+}
