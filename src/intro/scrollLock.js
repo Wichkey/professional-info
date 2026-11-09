@@ -1,6 +1,18 @@
 const LOCK_CLASS = 'is-intro-locked';
+const OVERLAY_LOCK_CLASS = 'is-locked';
 const LINE_PX = 16;
 const ARROW_PX = 60;
+
+/**
+ * Freezes the page where it stands while an overlay is open. Unlike the intro lock
+ * below it keeps the scroll position, so closing the overlay returns to the section.
+ * Returns the function that releases the page.
+ */
+export function lockBodyScroll() {
+  const root = document.documentElement;
+  root.classList.add(OVERLAY_LOCK_CLASS);
+  return () => root.classList.remove(OVERLAY_LOCK_CLASS);
+}
 
 const isEditable = (el) =>
   el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(el.tagName));

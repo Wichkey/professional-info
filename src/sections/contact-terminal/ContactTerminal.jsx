@@ -19,7 +19,7 @@ function previousStep(step) {
   return target === CAPTCHA_STEP && !WEB3FORMS_KEY ? target - 1 : target;
 }
 
-export default function ContactTerminal({ onSent }) {
+export default function ContactTerminal({ autoFocus = false, onClose, onSent }) {
   const [step, setStep] = useState(0);
   const [phase, setPhase] = useState('input');
   const [values, setValues] = useState(EMPTY_VALUES);
@@ -27,7 +27,7 @@ export default function ContactTerminal({ onSent }) {
   const [captchaToken, setCaptchaToken] = useState(null);
 
   const nextId = useRef(0);
-  const interacted = useRef(false);
+  const interacted = useRef(autoFocus);
   const inputRef = useRef(null);
   const captchaRef = useRef(null);
   const confirmRef = useRef(null);
@@ -229,11 +229,21 @@ export default function ContactTerminal({ onSent }) {
     <div className={`cterm-stage${armed ? ' is-armed' : ''}`}>
       <NeonBackdrop />
       {/* Clicks only forward focus to the real input; keyboard users reach it directly. */}
-      <div className="cterm" onClick={focusCurrent} data-build="Terminal" data-build-kind="card">
+      <div className="cterm" onClick={focusCurrent}>
         <div className="cterm__head">
           <span className={`cterm__dot${phase === 'input' ? '' : ' is-busy'}`} />
           <span>daniel-mehler.com · contact</span>
-          <span className="cterm__head-aside">{phase === 'input' ? 'session open' : 'sending'}</span>
+          {onClose ? (
+            <button type="button" className="cterm__close" onClick={onClose}>
+              esc close
+              <span className="cterm__close-glyph" aria-hidden="true">
+                ×
+              </span>
+              <span className="visually-hidden">Close the contact terminal</span>
+            </button>
+          ) : (
+            <span className="cterm__head-aside">{phase === 'input' ? 'session open' : 'sending'}</span>
+          )}
         </div>
 
         <ol className="cterm__log" role="log" aria-live="polite" aria-label="Contact terminal">
