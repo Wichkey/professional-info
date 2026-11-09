@@ -12,6 +12,16 @@ html[data-ctake='gone'] #root {
   visibility: hidden;
 }
 
+/* The shutdown overlay lives inside that hidden page, so it opts back in, and
+   without will-change its fixed position anchors to the viewport again. */
+html[data-ctake='gone'] #root {
+  will-change: auto;
+}
+
+html[data-ctake='gone'] .shutdown {
+  visibility: visible;
+}
+
 /* Reduced motion gets this path alone: a plain fade to black and back. */
 html[data-ctake='fade'] #root {
   opacity: 0;
