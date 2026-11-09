@@ -23,7 +23,7 @@ export const HERO = {
     ['processes', 'automated end', 'to end.'],
     ['ai reduced to', 'what pays off.'],
   ],
-  eyebrow: 'Tech Lead & AI Enthusiast',
+  eyebrow: 'Daniel Mehler · Co-founder & CTO',
   title: ['AI for', 'Businesses'],
   tags: ['full-stack builds', 'ai agents', 'only what pays off'],
 };
@@ -32,7 +32,7 @@ export const ABOUT = {
   headline: 'I build the software companies run on, ',
   headlineAccent: 'and the agents that run it for them.',
   intro:
-    'Cognitive scientist by training, engineer by trade. As Co-founder & CTO of Oblivion I own the technology and build Overmind, the agent pipeline that builds, hosts and runs client software, with a senior engineer reviewing every change.',
+    "I'm Daniel Mehler, a cognitive scientist by training and an engineer by trade. As Co-founder & CTO of Oblivion I own the technology and build Overmind, the agent pipeline that builds, hosts and runs client software, with a senior engineer reviewing every change.",
   pillars: [
     {
       icon: 'monitor',

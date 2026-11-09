@@ -93,12 +93,17 @@ export default function Hero({ buildStart }) {
         ))}
       </ul>
 
+      {/* Name and headline are one H1: a search for "Daniel Mehler" has to find
+          the name in the page's own heading, and the eyebrow was already the
+          line sitting above the display text. */}
       <div className="hero__title" data-build="H1 · display" data-build-kind="heading">
-        <p className="hero__eyebrow">{HERO.eyebrow}</p>
         <h1 id="hero-title" className="hero__h1">
-          {HERO.title[0]}
-          <br />
-          {HERO.title[1]}
+          <span className="hero__eyebrow">{HERO.eyebrow}</span>
+          <span className="hero__h1-line">
+            {HERO.title[0]}
+            <br />
+            {HERO.title[1]}
+          </span>
         </h1>
       </div>
 

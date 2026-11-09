@@ -88,6 +88,13 @@
   gap: 14px;
 }
 
+/* The H1 holds both lines, so it only stacks them; the type is set per line. */
+.hero__h1 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .hero__eyebrow {
   color: var(--accent);
   font-size: 13px;
@@ -97,7 +104,7 @@
   text-transform: uppercase;
 }
 
-.hero__h1 {
+.hero__h1-line {
   color: var(--text);
   font-size: clamp(48px, 5.3vw, 76px);
   line-height: 0.95;
