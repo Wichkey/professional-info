@@ -285,7 +285,6 @@
 }
 
 .cterm__key:focus-visible,
-.cterm__enter:focus-visible,
 .cterm__step:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -307,64 +306,17 @@
   overflow: hidden;
 }
 
-/* Final confirm: the loud neon moment */
+/* Final confirm: the same voice as every other step */
 .cterm__confirm {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 14px;
 }
 
 .cterm__confirm-keys {
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
-}
-
-.cterm__enter {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 168px;
-  height: 120px;
-  padding: 14px 16px;
-  border: 1px solid var(--accent);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgb(var(--accent-rgb) / 0.16), rgb(3 7 11 / 0.9));
-  color: var(--accent);
-  box-shadow:
-    0 0 0 1px rgb(var(--accent-rgb) / 0.25) inset,
-    0 0 40px rgb(var(--accent-rgb) / 0.45),
-    0 10px 0 rgb(var(--accent-rgb) / 0.12);
-  cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s;
-  animation: cterm-breathe 2.4s ease-in-out infinite;
-}
-
-.cterm__enter-label {
-  align-self: flex-start;
-  font: 500 13px/16px var(--font-mono);
-  letter-spacing: 0.08em;
-}
-
-.cterm__enter-glyph {
-  align-self: flex-end;
-  font-size: 44px;
-  line-height: 1;
-  text-shadow: 0 0 18px var(--accent);
-}
-
-.cterm__enter:hover {
-  box-shadow:
-    0 0 0 1px rgb(var(--accent-rgb) / 0.4) inset,
-    0 0 70px rgb(var(--accent-rgb) / 0.7),
-    0 10px 0 rgb(var(--accent-rgb) / 0.16);
-}
-
-.cterm__enter:active {
-  transform: translateY(6px);
-  background: var(--accent);
-  color: var(--on-accent);
+  align-items: center;
+  gap: 10px;
 }
 
 /* Hints */
@@ -429,15 +381,6 @@
     min-height: 40px;
   }
 
-  .cterm__enter {
-    width: 136px;
-    height: 100px;
-  }
-
-  .cterm__enter-glyph {
-    font-size: 36px;
-  }
-
   .cterm__hint {
     font-size: 11px;
     line-height: 15px;
@@ -453,14 +396,9 @@
   to { opacity: 0.35; }
 }
 
-@keyframes cterm-breathe {
-  50% { box-shadow: 0 0 0 1px rgb(var(--accent-rgb) / 0.3) inset, 0 0 60px rgb(var(--accent-rgb) / 0.6), 0 10px 0 rgb(var(--accent-rgb) / 0.14); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cterm__caret,
-  .cterm__dot.is-busy,
-  .cterm__enter {
+  .cterm__dot.is-busy {
     animation: none;
   }
 }

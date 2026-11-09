@@ -232,12 +232,15 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
             <span aria-hidden="true">&gt; </span>send message to daniel? <span className="cterm__dim">[enter]</span>
           </p>
           <div className="cterm__confirm-keys">
-            <button ref={confirmRef} type="button" className="cterm__enter" onClick={send} onKeyDown={onStepKey}>
-              <span className="cterm__enter-label">enter</span>
-              <span className="cterm__enter-glyph" aria-hidden="true">
-                ↵
-              </span>
-              <span className="visually-hidden">Send message to Daniel</span>
+            <button
+              ref={confirmRef}
+              type="button"
+              className="cterm__key"
+              aria-label="Send message to Daniel"
+              onClick={send}
+              onKeyDown={onStepKey}
+            >
+              return <span aria-hidden="true">↵</span>
             </button>
             <button type="button" className="cterm__key cterm__key--ghost" onClick={goBack}>
               back
