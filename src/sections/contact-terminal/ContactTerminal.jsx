@@ -4,7 +4,7 @@ import { CAPTCHA_STEP, CONFIRM_STEP, EMPTY_VALUES, FIELDS } from './fields';
 import LogLine from './LogLine';
 import NeonBackdrop from './NeonBackdrop';
 import PromptInput from './PromptInput';
-import { WEB3FORMS_KEY, loadCaptchaScript, openMailDraft, sendMessage } from './submit';
+import { WEB3FORMS_KEY, loadCaptchaScript, openMailDraft, renderCaptcha, sendMessage } from './submit';
 import './ContactTerminal.css';
 
 const CAPTCHA_DONE = 'dmContactCaptchaDone';
@@ -30,6 +30,7 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
   const interacted = useRef(autoFocus);
   const inputRef = useRef(null);
   const captchaRef = useRef(null);
+  const captchaHostRef = useRef(null);
   const confirmRef = useRef(null);
   const botcheckRef = useRef(null);
 
@@ -47,7 +48,13 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
     setLog((current) => current.filter((e) => e.step === undefined || e.step < fromStep));
   }, []);
 
-  useEffect(loadCaptchaScript, []);
+  useEffect(() => {
+    loadCaptchaScript();
+    return renderCaptcha(captchaHostRef.current, {
+      callback: (token) => window[CAPTCHA_DONE]?.(token),
+      'expired-callback': () => window[CAPTCHA_EXPIRED]?.(),
+    });
+  }, []);
 
   useEffect(() => {
     if (!interacted.current) return;
@@ -287,6 +294,7 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
         {WEB3FORMS_KEY && (
           <div className={`cterm__captcha${phase === 'input' && step === CAPTCHA_STEP ? '' : ' is-hidden'}`}>
             <div
+              ref={captchaHostRef}
               className="h-captcha"
               data-captcha="true"
               data-theme="dark"
