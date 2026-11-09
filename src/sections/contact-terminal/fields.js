@@ -42,7 +42,6 @@ export const FIELDS = [
   },
 ];
 
-export const CAPTCHA_STEP = FIELDS.length;
-export const CONFIRM_STEP = FIELDS.length + 1;
+export const CONFIRM_STEP = FIELDS.length;
 
 export const EMPTY_VALUES = Object.fromEntries(FIELDS.map((f) => [f.key, '']));

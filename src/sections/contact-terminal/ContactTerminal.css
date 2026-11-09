@@ -263,10 +263,6 @@
   gap: 8px;
 }
 
-.cterm__touch--left {
-  margin-top: 12px;
-}
-
 .cterm__key {
   padding: 8px 12px;
   border: 1px solid var(--accent-60);
@@ -302,20 +298,13 @@
   outline: none;
 }
 
-/* hCaptcha sits inline as a terminal step */
+/* The check is invisible: hCaptcha's own challenge overlay hangs off the body, so
+   nothing of the widget itself has to be in the terminal. */
 .cterm__captcha {
-  margin: 14px 0 4px;
-  min-height: 78px;
-  max-width: min(100%, 340px);
-  cursor: default;
-}
-
-.cterm__captcha.is-hidden {
+  position: absolute;
+  width: 0;
   height: 0;
-  min-height: 0;
-  margin: 0;
   overflow: hidden;
-  visibility: hidden;
 }
 
 /* Final confirm: the loud neon moment */
@@ -438,10 +427,6 @@
 
   .cterm__key {
     min-height: 40px;
-  }
-
-  .cterm__captcha {
-    overflow-x: auto;
   }
 
   .cterm__enter {
