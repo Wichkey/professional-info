@@ -60,9 +60,7 @@ html[data-ctake='back'] #root {
   position: fixed;
   inset: 0;
   z-index: 115;
-  display: flex;
   height: 100dvh;
-  padding: clamp(20px, 5vw, 64px) var(--gutter);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -118,14 +116,15 @@ html[data-ctake='back'] #root {
   transition-duration: 0.26s;
 }
 
-/* The terminal powers on into the black like a CRT */
+/* The terminal powers on into the black like a CRT. It is the whole screen,
+   so the panel only carries the boot animation. */
 .ctake__panel {
   position: relative;
-  width: 100%;
-  max-width: 940px;
-  margin: auto;
+  min-height: 100%;
   transform-origin: 50% 50%;
-  animation: ctake-boot 0.46s var(--ease-out) both;
+  /* backwards, not both: a retained transform would make this the containing
+     block for the terminal's fixed head and scroll it out of reach. */
+  animation: ctake-boot 0.46s var(--ease-out) backwards;
 }
 
 .ctake.is-power-off .ctake__panel {
@@ -142,67 +141,6 @@ html[data-ctake='back'] #root {
   38% {
     opacity: 1;
     transform: scaleY(0.03);
-  }
-}
-
-/* In the page the stage carried the glow in its own padding; over the black it
-   spans the whole viewport instead, so the panel can hug the terminal. */
-.ctake .cterm-stage {
-  margin: 0;
-  padding: 0;
-}
-
-.ctake .cterm-neon {
-  position: fixed;
-}
-
-.ctake .cterm-neon__glow--outer {
-  opacity: 0.42;
-}
-
-/* The glow is sized off the viewport now, so the core recentres on the terminal. */
-.ctake .cterm-neon__glow--core {
-  top: 50%;
-  opacity: 0.38;
-}
-
-.ctake .cterm {
-  background: rgb(3 7 11 / 0.9);
-}
-
-@media (max-width: 760px) {
-  .ctake {
-    padding: 0;
-    align-items: stretch;
-  }
-
-  .ctake__panel {
-    display: flex;
-    min-height: 100%;
-    padding: 16px;
-  }
-
-  .ctake .cterm-stage {
-    display: flex;
-    width: 100%;
-  }
-
-  .ctake .cterm {
-    width: 100%;
-    margin: auto 0;
-  }
-
-  /* The glow covers a phone viewport many times over, so it stays further back. */
-  .ctake .cterm-neon__glow--outer {
-    opacity: 0.28;
-  }
-
-  .ctake .cterm-neon__glow--core {
-    opacity: 0.26;
-  }
-
-  .ctake .cterm-neon__beams {
-    opacity: 0.3;
   }
 }
 
