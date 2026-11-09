@@ -98,6 +98,33 @@
   color: var(--text-faint);
 }
 
+.cterm__close {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cterm__close:hover {
+  color: var(--accent);
+}
+
+.cterm__close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.cterm__close-glyph {
+  margin-left: 6px;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
 .cterm__dot {
   width: 8px;
   height: 8px;

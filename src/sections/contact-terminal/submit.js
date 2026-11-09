@@ -2,6 +2,8 @@ import { EMAIL } from '../../data/content';
 
 export const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 export const CAPTCHA_SCRIPT = 'https://web3forms.com/client/script.js';
+// The public key the Web3Forms script itself fills in for unconfigured widgets.
+export const CAPTCHA_SITEKEY = '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
 
 /** Without a form key the site falls back to the visitor's mail app. */
 export function openMailDraft({ name, email, phone, message }) {
@@ -17,6 +19,24 @@ export function loadCaptchaScript() {
   script.async = true;
   script.defer = true;
   document.body.appendChild(script);
+}
+
+/**
+ * hCaptcha only renders the widgets that are in the page when its script loads, and
+ * the terminal mounts later than that, so every widget is drawn by hand. Returns the
+ * function that stops waiting for the script.
+ */
+export function renderCaptcha(host, options) {
+  if (!WEB3FORMS_KEY || !host) return undefined;
+  let timer = 0;
+  const attempt = () => {
+    if (host.querySelector('iframe')) return true;
+    if (!window.hcaptcha?.render) return false;
+    window.hcaptcha.render(host, { sitekey: host.dataset.sitekey || CAPTCHA_SITEKEY, theme: 'dark', ...options });
+    return true;
+  };
+  if (!attempt()) timer = window.setInterval(() => attempt() && window.clearInterval(timer), 120);
+  return () => window.clearInterval(timer);
 }
 
 /** Resolves on success, throws with a short reason otherwise. */

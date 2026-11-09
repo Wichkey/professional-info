@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '../build/motion';
+import { lockBodyScroll } from '../intro/scrollLock';
 import { reboot } from './reboot';
 import {
   BLACK_AT,
@@ -34,10 +35,7 @@ export default function Shutdown({ name }) {
   const stage = stageAt(t);
   const isFinal = stage === 'final';
 
-  useEffect(() => {
-    document.body.classList.add('is-locked');
-    return () => document.body.classList.remove('is-locked');
-  }, []);
+  useEffect(lockBodyScroll, []);
 
   useEffect(() => {
     if (t === Infinity) return undefined;
