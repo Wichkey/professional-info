@@ -35,16 +35,121 @@
       "
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <title>Daniel Mehler | AI for Businesses</title>
-    <meta name="description" content="AI engineer and co-founder of Oblivion. Full-stack builds, AI agents and process automation for businesses, built end to end." />
+    <title>Daniel Mehler | Co-founder &amp; CTO at Oblivion</title>
+    <meta name="description" content="Daniel Mehler is co-founder and CTO of Oblivion. He builds full-stack software, AI agents and process automation for businesses, end to end." />
     <link rel="canonical" href="https://daniel-mehler.com/" />
+
+    <!--
+      One @graph wired by @id: the Person is the primary entity, the ProfilePage
+      and WebSite point at it, and sameAs closes the loop with the LinkedIn,
+      GitHub and oblivion.vision/team profiles that link back here. Every claim
+      is one the page itself makes. JSON-LD is a data block, not an executed
+      script, so the Content-Security-Policy above does not apply to it.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://daniel-mehler.com/#person",
+            "name": "Daniel Mehler",
+            "givenName": "Daniel",
+            "familyName": "Mehler",
+            "url": "https://daniel-mehler.com/",
+            "mainEntityOfPage": { "@id": "https://daniel-mehler.com/#webpage" },
+            "image": {
+              "@type": "ImageObject",
+              "@id": "https://daniel-mehler.com/#image",
+              "url": "https://daniel-mehler.com/og-image.png",
+              "contentUrl": "https://daniel-mehler.com/og-image.png",
+              "width": 1200,
+              "height": 630,
+              "caption": "Daniel Mehler"
+            },
+            "description": "Daniel Mehler is co-founder and CTO of Oblivion. He builds full-stack software, AI agents and process automation for businesses, end to end.",
+            "jobTitle": "Co-founder & CTO",
+            "email": "daniel.sebastian.mehler@gmail.com",
+            "worksFor": { "@id": "https://oblivion.vision/#organization" },
+            "alumniOf": [
+              {
+                "@type": "EducationalOrganization",
+                "name": "EADA Business School",
+                "url": "https://www.eada.edu/",
+                "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" }
+              },
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "University of T\u00fcbingen",
+                "url": "https://uni-tuebingen.de/",
+                "address": { "@type": "PostalAddress", "addressLocality": "T\u00fcbingen", "addressCountry": "DE" }
+              }
+            ],
+            "workLocation": [
+              { "@type": "City", "name": "Barcelona" },
+              { "@type": "City", "name": "Mexico City" }
+            ],
+            "knowsLanguage": ["de", "en", "es"],
+            "knowsAbout": [
+              "Artificial intelligence",
+              "AI agents",
+              "Large language models",
+              "Voice AI",
+              "Machine learning",
+              "Process automation",
+              "Full-stack web development",
+              "Cognitive science"
+            ],
+            "sameAs": [
+              "https://www.linkedin.com/in/daniel-mehler-536630305",
+              "https://github.com/Wichkey",
+              "https://oblivion.vision/team#daniel-mehler"
+            ]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://oblivion.vision/#organization",
+            "name": "Oblivion",
+            "url": "https://oblivion.vision/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://oblivion.vision/brand/logo-512.png",
+              "width": 512,
+              "height": 512
+            },
+            "slogan": "You run the business. We run the software.",
+            "founder": { "@id": "https://daniel-mehler.com/#person" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://daniel-mehler.com/#website",
+            "url": "https://daniel-mehler.com/",
+            "name": "Daniel Mehler",
+            "description": "Personal website of Daniel Mehler, co-founder and CTO of Oblivion.",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://daniel-mehler.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://daniel-mehler.com/#webpage",
+            "url": "https://daniel-mehler.com/",
+            "name": "Daniel Mehler | Co-founder & CTO at Oblivion",
+            "inLanguage": "en",
+            "isPartOf": { "@id": "https://daniel-mehler.com/#website" },
+            "about": { "@id": "https://daniel-mehler.com/#person" },
+            "mainEntity": { "@id": "https://daniel-mehler.com/#person" },
+            "primaryImageOfPage": { "@id": "https://daniel-mehler.com/#image" }
+          }
+        ]
+      }
+    </script>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Daniel Mehler" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://daniel-mehler.com/" />
-    <meta property="og:title" content="Daniel Mehler | AI for Businesses" />
-    <meta property="og:description" content="AI engineer and co-founder of Oblivion. Full-stack builds, AI agents and process automation for businesses, built end to end." />
+    <meta property="og:title" content="Daniel Mehler | Co-founder &amp; CTO at Oblivion" />
+    <meta property="og:description" content="Daniel Mehler is co-founder and CTO of Oblivion. He builds full-stack software, AI agents and process automation for businesses, end to end." />
     <meta property="og:image" content="https://daniel-mehler.com/og-image.png" />
     <meta property="og:image:secure_url" content="https://daniel-mehler.com/og-image.png" />
     <meta property="og:image:type" content="image/png" />
@@ -53,8 +158,8 @@
     <meta property="og:image:alt" content="Daniel Mehler in blue spotlight, with the line AI for Businesses" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Daniel Mehler | AI for Businesses" />
-    <meta name="twitter:description" content="AI engineer and co-founder of Oblivion. Full-stack builds, AI agents and process automation for businesses, built end to end." />
+    <meta name="twitter:title" content="Daniel Mehler | Co-founder &amp; CTO at Oblivion" />
+    <meta name="twitter:description" content="Daniel Mehler is co-founder and CTO of Oblivion. He builds full-stack software, AI agents and process automation for businesses, end to end." />
     <meta name="twitter:image" content="https://daniel-mehler.com/og-image.png" />
     <meta name="twitter:image:alt" content="Daniel Mehler in blue spotlight, with the line AI for Businesses" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
