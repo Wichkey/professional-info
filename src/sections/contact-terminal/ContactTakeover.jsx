@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { prefersReducedMotion } from '../../build/motion';
 import { lockBodyScroll } from '../../intro/scrollLock';
 import ContactTerminal from './ContactTerminal';
-import { BLACKED_OUT, LEAVE, LEAVE_PLAIN, SENT, TEAR, TEAR_PLAIN, TEARING } from './takeover';
+import { BLACKED_OUT, DONE, LEAVE, LEAVE_PLAIN, SENT, TEAR, TEAR_PLAIN, TEARING } from './takeover';
 import './ContactTakeover.css';
 
 const FOCUSABLE = 'a[href], button, input, textarea, select, iframe, [tabindex]';
@@ -41,7 +41,7 @@ export default function ContactTakeover({ onClose, onSent }) {
   }, [script, scripts]);
 
   useEffect(() => {
-    if (phase !== 'closed') return;
+    if (!DONE.has(phase)) return;
     if (sentName.current === null) onClose();
     else onSent(sentName.current);
   }, [onClose, onSent, phase]);

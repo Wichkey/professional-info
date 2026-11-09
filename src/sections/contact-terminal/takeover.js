@@ -21,7 +21,7 @@ export const LEAVE = [
 // After a sent message the screen stays black: the shutdown sequence continues there.
 export const SENT = [
   { phase: 'power-off', at: 0 },
-  { phase: 'closed', at: 200 },
+  { phase: 'gone', at: 200 },
 ];
 
 // Under reduced motion the page just fades out and back, with no glitch at all.
@@ -40,3 +40,6 @@ export const TEARING = new Set(['burst-1', 'calm', 'burst-2', 'roll', 'fade', 'b
 
 /** True once the page is gone and the terminal owns the screen. */
 export const BLACKED_OUT = new Set(['open', 'power-off']);
+
+/** The last phase of either script: 'closed' hands the page back, 'gone' keeps it black. */
+export const DONE = new Set(['closed', 'gone']);

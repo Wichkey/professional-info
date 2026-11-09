@@ -4,8 +4,11 @@ html[data-ctake] #root {
   will-change: transform, filter, opacity;
 }
 
+/* 'gone' outlives this component: the shutdown overlay fades in over the same
+   black, and its reboot reloads the page. */
 html[data-ctake='open'] #root,
-html[data-ctake='power-off'] #root {
+html[data-ctake='power-off'] #root,
+html[data-ctake='gone'] #root {
   visibility: hidden;
 }
 
