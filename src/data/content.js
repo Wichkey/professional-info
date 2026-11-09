@@ -1,7 +1,7 @@
 export const EMAIL = 'daniel.sebastian.mehler@gmail.com';
 
 export const LINKS = {
-  linkedin: 'https://www.linkedin.com/in/daniel-mehler-536630305',
+  linkedin: 'https://www.linkedin.com/in/daniel-mehler',
   github: 'https://github.com/Wichkey',
   oblivion: 'https://oblivion.vision',
   axo: 'https://axocapital.mx',
