@@ -1,0 +1,70 @@
+/*
+ * The site's glitch vocabulary, shared by the intro (which tears a capture of the
+ * old site) and the contact takeover (which tears the live page). Every burst reads
+ * the same --amp, so a caller only sets that to pick how hard it breaks.
+ */
+
+.glitch-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
+}
+
+.glitch-scan.is-burst {
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.38) 2px 3px);
+  animation: glitch-scan 0.25s linear infinite;
+}
+
+.glitch-noise {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: calc(0.1 + var(--amp, 0) * 0.1);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+  animation: glitch-noise 0.2s steps(3) infinite;
+}
+
+@keyframes glitch-jitter {
+  from { transform: translate(calc(var(--amp) * -3px), calc(var(--amp) * 1px)); }
+  to { transform: translate(calc(var(--amp) * 3px), calc(var(--amp) * -2px)); }
+}
+
+@keyframes glitch-tear {
+  0% { transform: translateY(0); }
+  35% { transform: translateY(-3%); }
+  65% { transform: translateY(6%); }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes glitch-split-a {
+  from { transform: translateX(calc(var(--amp) * -8px)); }
+  to { transform: translateX(calc(var(--amp) * 5px)); }
+}
+
+@keyframes glitch-split-b {
+  from { transform: translateX(calc(var(--amp) * 8px)); }
+  to { transform: translateX(calc(var(--amp) * -5px)); }
+}
+
+@keyframes glitch-slice {
+  from { transform: translateX(calc(var(--shift, 24px) * -0.6)); }
+  to { transform: translateX(var(--shift, 24px)); }
+}
+
+@keyframes glitch-flicker {
+  from { opacity: 1; }
+  to { opacity: 0.55; }
+}
+
+@keyframes glitch-scan {
+  from { background-position: 0 0; }
+  to { background-position: 0 6px; }
+}
+
+@keyframes glitch-noise {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-8%, 5%); }
+  66% { transform: translate(6%, -7%); }
+  100% { transform: translate(-3%, 9%); }
+}

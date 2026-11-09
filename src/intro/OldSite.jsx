@@ -129,8 +129,8 @@ export default function OldSite({ burst, done, scrollRef }) {
           />
         ))}
       </div>
-      <div className="intro-old__scan" />
-      {level > 0 && <div className="intro-old__noise" />}
+      <div className={`glitch-scan${level ? ' is-burst' : ''}`} />
+      {level > 0 && <div className="glitch-noise" />}
     </div>
   );
 }

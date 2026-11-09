@@ -137,6 +137,13 @@
   animation: cterm-pulse 0.8s ease-in-out infinite alternate;
 }
 
+.cterm__brief {
+  margin: 0 0 20px;
+  color: var(--text);
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height: 1.4;
+}
+
 .cterm__log {
   display: flex;
   flex-direction: column;
