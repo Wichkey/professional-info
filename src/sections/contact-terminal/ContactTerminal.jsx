@@ -253,6 +253,10 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
           )}
         </div>
 
+        <p className="cterm__brief">
+          <span aria-hidden="true">&gt; </span>please type in the following information
+        </p>
+
         <ol className="cterm__log" role="log" aria-live="polite" aria-label="Contact terminal">
           {log.map((entry) => (
             <LogLine key={entry.id} entry={entry} />
