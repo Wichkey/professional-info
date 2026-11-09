@@ -4,7 +4,6 @@ import SectionLabel from '../components/SectionLabel';
 import ExternalLink from '../components/ExternalLink';
 import Icon from '../components/Icon';
 import ContactDialog from './contact-terminal/ContactDialog';
-import ContactTerminal from './contact-terminal/ContactTerminal';
 import { CURSOR_PATH } from '../build/swarm';
 import { CONTACT, EMAIL, LINKS } from '../data/content';
 import resumePdf from '../assets/resume.pdf';
@@ -87,10 +86,6 @@ export default function Contact({ onSent }) {
             </span>
           </div>
         </div>
-      </BuildScope>
-
-      <BuildScope className="contact__form-wrap">
-        <ContactTerminal onSent={onSent} />
       </BuildScope>
 
       <BuildScope as="ul" className="contact__channels">
