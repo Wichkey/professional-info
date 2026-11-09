@@ -12,8 +12,8 @@
 .cdialog__backdrop {
   position: fixed;
   inset: 0;
-  background: rgb(2 1 4 / 0.74);
-  backdrop-filter: blur(8px);
+  background: rgb(2 1 4 / 0.92);
+  backdrop-filter: blur(10px);
   animation: cdialog-fade 0.3s ease both;
 }
 
@@ -34,6 +34,16 @@
 
 .cdialog .cterm-neon {
   position: fixed;
+}
+
+.cdialog .cterm-neon__glow--outer {
+  opacity: 0.45;
+}
+
+/* The glow is sized off the viewport now, so the core recentres on the terminal. */
+.cdialog .cterm-neon__glow--core {
+  top: 50%;
+  opacity: 0.4;
 }
 
 .cdialog .cterm {
@@ -79,6 +89,19 @@
   .cdialog .cterm {
     width: 100%;
     margin: auto 0;
+  }
+
+  /* The glow covers a phone viewport many times over, so it stays further back. */
+  .cdialog .cterm-neon__glow--outer {
+    opacity: 0.28;
+  }
+
+  .cdialog .cterm-neon__glow--core {
+    opacity: 0.26;
+  }
+
+  .cdialog .cterm-neon__beams {
+    opacity: 0.3;
   }
 }
 
