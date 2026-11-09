@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BuildContext } from './build/BuildContext';
 import { canAnimate } from './build/motion';
 import Intro from './intro/Intro';
@@ -21,14 +21,23 @@ const PLAIN_START = { origin: null, speed: 0.9, stretch: HERO_STRETCH };
 
 export default function App() {
   const [buildEnabled] = useState(canAnimate);
-  const [introOpen, setIntroOpen] = useState(() => buildEnabled && !introAlreadyPlayed());
-  const [heroStart, setHeroStart] = useState(() => (introOpen ? null : PLAIN_START));
+  // The deployed HTML is a prerender of the finished page, so the first client
+  // render has to match it: no intro in the tree yet. Whether the intro should
+  // play is decided here but only acted on in the layout effect below, which
+  // React flushes before the browser's first paint.
+  const wantsIntro = useRef(null);
+  if (wantsIntro.current === null) wantsIntro.current = buildEnabled && !introAlreadyPlayed();
+
+  const [introOpen, setIntroOpen] = useState(false);
+  const [heroStart, setHeroStart] = useState(() => (wantsIntro.current ? null : PLAIN_START));
   const [shutdownFor, setShutdownFor] = useState(null);
   const mainRef = useRef(null);
 
-  useEffect(() => {
-    if (introOpen) markIntroPlayed();
-  }, [introOpen]);
+  useLayoutEffect(() => {
+    if (!wantsIntro.current) return;
+    markIntroPlayed();
+    setIntroOpen(true);
+  }, []);
 
   useEffect(() => {
     const main = mainRef.current;
