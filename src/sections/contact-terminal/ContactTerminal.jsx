@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '../../build/motion';
 import { CAPTCHA_STEP, CONFIRM_STEP, EMPTY_VALUES, FIELDS } from './fields';
 import LogLine from './LogLine';
-import NeonBackdrop from './NeonBackdrop';
 import PromptInput from './PromptInput';
 import { WEB3FORMS_KEY, loadCaptchaScript, openMailDraft, renderCaptcha, sendMessage } from './submit';
 import './ContactTerminal.css';
@@ -230,126 +229,122 @@ export default function ContactTerminal({ autoFocus = false, onClose, onSent }) 
   };
 
   const field = FIELDS[step];
-  const armed = step === CONFIRM_STEP || phase !== 'input';
 
   return (
-    <div className={`cterm-stage${armed ? ' is-armed' : ''}`}>
-      <NeonBackdrop />
-      {/* Clicks only forward focus to the real input; keyboard users reach it directly. */}
-      <div className="cterm" onClick={focusCurrent}>
-        <div className="cterm__head">
-          <span className={`cterm__dot${phase === 'input' ? '' : ' is-busy'}`} />
-          <span>daniel-mehler.com · contact</span>
-          {onClose ? (
-            <button type="button" className="cterm__close" onClick={onClose}>
-              esc close
-              <span className="cterm__close-glyph" aria-hidden="true">
-                ×
-              </span>
-              <span className="visually-hidden">Close the contact terminal</span>
-            </button>
-          ) : (
-            <span className="cterm__head-aside">{phase === 'input' ? 'session open' : 'sending'}</span>
-          )}
-        </div>
-
-        <p className="cterm__brief">
-          <span aria-hidden="true">&gt; </span>please type in the following information
-        </p>
-
-        <ol className="cterm__log" role="log" aria-live="polite" aria-label="Contact terminal">
-          {log.map((entry) => (
-            <LogLine key={entry.id} entry={entry} />
-          ))}
-        </ol>
-
-        {phase === 'input' && field && (
-          <PromptInput
-            key={field.key}
-            ref={inputRef}
-            field={field}
-            value={values[field.key]}
-            onChange={(v) => setValues((current) => ({ ...current, [field.key]: v }))}
-            onKeyDown={onFieldKey}
-            onSubmit={commitField}
-            onBack={goBack}
-            canGoBack={step > 0}
-          />
+    /* Clicks only forward focus to the real input; keyboard users reach it directly. */
+    <div className="cterm" onClick={focusCurrent}>
+      <div className="cterm__head">
+        <span className={`cterm__dot${phase === 'input' ? '' : ' is-busy'}`} />
+        <span>daniel-mehler.com · contact</span>
+        {onClose ? (
+          <button type="button" className="cterm__close" onClick={onClose}>
+            esc close
+            <span className="cterm__close-glyph" aria-hidden="true">
+              ×
+            </span>
+            <span className="visually-hidden">Close the contact terminal</span>
+          </button>
+        ) : (
+          <span className="cterm__head-aside">{phase === 'input' ? 'session open' : 'sending'}</span>
         )}
-
-        {phase === 'input' && step === CAPTCHA_STEP && (
-          <div className="cterm__step" ref={captchaRef} tabIndex={-1} onKeyDown={onStepKey}>
-            <p className="cterm__prompt-label">
-              <span aria-hidden="true">&gt; </span>verify: {captchaToken ? 'done, press enter' : 'one quick check that you are human'}
-            </p>
-            <div className="cterm__touch cterm__touch--left">
-              <button type="button" className="cterm__key cterm__key--ghost" onClick={goBack}>
-                back
-              </button>
-              {captchaToken && (
-                <button type="button" className="cterm__key" onClick={commitCaptcha}>
-                  return <span aria-hidden="true">↵</span>
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
-        {WEB3FORMS_KEY && (
-          <div className={`cterm__captcha${phase === 'input' && step === CAPTCHA_STEP ? '' : ' is-hidden'}`}>
-            <div
-              ref={captchaHostRef}
-              className="h-captcha"
-              data-captcha="true"
-              data-theme="dark"
-              data-callback={CAPTCHA_DONE}
-              data-expired-callback={CAPTCHA_EXPIRED}
-            />
-          </div>
-        )}
-
-        {phase === 'input' && step === CONFIRM_STEP && (
-          <div className="cterm__step cterm__confirm">
-            <p className="cterm__prompt-label cterm__prompt-label--bright">
-              <span aria-hidden="true">&gt; </span>send message to daniel? <span className="cterm__dim">[enter]</span>
-            </p>
-            <div className="cterm__confirm-keys">
-              <button ref={confirmRef} type="button" className="cterm__enter" onClick={send} onKeyDown={onStepKey}>
-                <span className="cterm__enter-label">enter</span>
-                <span className="cterm__enter-glyph" aria-hidden="true">
-                  ↵
-                </span>
-                <span className="visually-hidden">Send message to Daniel</span>
-              </button>
-              <button type="button" className="cterm__key cterm__key--ghost" onClick={goBack}>
-                back
-              </button>
-            </div>
-          </div>
-        )}
-
-        <p className={`cterm__hint${phase === 'input' ? '' : ' is-hidden'}`} aria-hidden="true">
-          <span className="cterm__hint-keys">
-            {step === CONFIRM_STEP
-              ? 'enter sends · backspace goes back'
-              : step === CAPTCHA_STEP
-                ? 'solve the check · backspace goes back'
-                : field?.multiline
-                  ? 'enter to continue · shift+enter for a new line · backspace on an empty line goes back'
-                  : 'enter to continue · backspace on an empty line goes back'}
-          </span>
-          <span className="cterm__hint-touch">tap return to continue · back edits the line before</span>
-        </p>
-
-        <input
-          ref={botcheckRef}
-          type="checkbox"
-          name="botcheck"
-          className="visually-hidden"
-          tabIndex={-1}
-          aria-hidden="true"
-        />
       </div>
+
+      <p className="cterm__brief">
+        <span aria-hidden="true">&gt; </span>please type in the following information
+      </p>
+
+      <ol className="cterm__log" role="log" aria-live="polite" aria-label="Contact terminal">
+        {log.map((entry) => (
+          <LogLine key={entry.id} entry={entry} />
+        ))}
+      </ol>
+
+      {phase === 'input' && field && (
+        <PromptInput
+          key={field.key}
+          ref={inputRef}
+          field={field}
+          value={values[field.key]}
+          onChange={(v) => setValues((current) => ({ ...current, [field.key]: v }))}
+          onKeyDown={onFieldKey}
+          onSubmit={commitField}
+          onBack={goBack}
+          canGoBack={step > 0}
+        />
+      )}
+
+      {phase === 'input' && step === CAPTCHA_STEP && (
+        <div className="cterm__step" ref={captchaRef} tabIndex={-1} onKeyDown={onStepKey}>
+          <p className="cterm__prompt-label">
+            <span aria-hidden="true">&gt; </span>verify: {captchaToken ? 'done, press enter' : 'one quick check that you are human'}
+          </p>
+          <div className="cterm__touch cterm__touch--left">
+            <button type="button" className="cterm__key cterm__key--ghost" onClick={goBack}>
+              back
+            </button>
+            {captchaToken && (
+              <button type="button" className="cterm__key" onClick={commitCaptcha}>
+                return <span aria-hidden="true">↵</span>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {WEB3FORMS_KEY && (
+        <div className={`cterm__captcha${phase === 'input' && step === CAPTCHA_STEP ? '' : ' is-hidden'}`}>
+          <div
+            ref={captchaHostRef}
+            className="h-captcha"
+            data-captcha="true"
+            data-theme="dark"
+            data-callback={CAPTCHA_DONE}
+            data-expired-callback={CAPTCHA_EXPIRED}
+          />
+        </div>
+      )}
+
+      {phase === 'input' && step === CONFIRM_STEP && (
+        <div className="cterm__step cterm__confirm">
+          <p className="cterm__prompt-label cterm__prompt-label--bright">
+            <span aria-hidden="true">&gt; </span>send message to daniel? <span className="cterm__dim">[enter]</span>
+          </p>
+          <div className="cterm__confirm-keys">
+            <button ref={confirmRef} type="button" className="cterm__enter" onClick={send} onKeyDown={onStepKey}>
+              <span className="cterm__enter-label">enter</span>
+              <span className="cterm__enter-glyph" aria-hidden="true">
+                ↵
+              </span>
+              <span className="visually-hidden">Send message to Daniel</span>
+            </button>
+            <button type="button" className="cterm__key cterm__key--ghost" onClick={goBack}>
+              back
+            </button>
+          </div>
+        </div>
+      )}
+
+      <p className={`cterm__hint${phase === 'input' ? '' : ' is-hidden'}`} aria-hidden="true">
+        <span className="cterm__hint-keys">
+          {step === CONFIRM_STEP
+            ? 'enter sends · backspace goes back'
+            : step === CAPTCHA_STEP
+              ? 'solve the check · backspace goes back'
+              : field?.multiline
+                ? 'enter to continue · shift+enter for a new line · backspace on an empty line goes back'
+                : 'enter to continue · backspace on an empty line goes back'}
+        </span>
+        <span className="cterm__hint-touch">tap return to continue · back edits the line before</span>
+      </p>
+
+      <input
+        ref={botcheckRef}
+        type="checkbox"
+        name="botcheck"
+        className="visually-hidden"
+        tabIndex={-1}
+        aria-hidden="true"
+      />
     </div>
   );
 }
