@@ -34,6 +34,7 @@ const ICONS = {
   github: { box: 24, shape: <path d="M9 19c-4 1.5-4-2-6-2.5m12 4.5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6 0-1.2-.4-2.3-1.2-3.2.4-1.1.3-2.3-.1-3.3 0 0-1.1-.3-3.6 1.4a12 12 0 0 0-6.2 0C6.4 2.7 5.3 3 5.3 3c-.4 1-.5 2.2-.1 3.3C4.4 7.2 4 8.3 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /> },
   download: { box: 24, shape: <><path d="M6 2.5h8l4.5 4.5v14.5H6Z" /><path d="M14 2.5V7h4.5M12.25 10.5V17M9.5 14.5l2.75 2.75L15 14.5" /></> },
   arrowUpRight: { box: 16, shape: <path d="M4 12 12 4M6 4h6v6" /> },
+  arrowRight: { box: 28, shape: <path d="M4 14h19M16 7l7 7-7 7" /> },
   arrowDown: { box: 16, shape: <path d="M8 3v10M4 9l4 4 4-4" /> },
   arrowUp: { box: 14, shape: <path d="M7 12V2M3 6l4-4 4 4" /> },
   external: { box: 10, shape: <path d="M3 7 7 3M3.8 3H7v3.2" /> },

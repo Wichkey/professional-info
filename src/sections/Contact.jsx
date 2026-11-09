@@ -1,7 +1,9 @@
+import { useCallback, useRef, useState } from 'react';
 import BuildScope from '../build/BuildScope';
 import SectionLabel from '../components/SectionLabel';
 import ExternalLink from '../components/ExternalLink';
 import Icon from '../components/Icon';
+import ContactDialog from './contact-terminal/ContactDialog';
 import ContactTerminal from './contact-terminal/ContactTerminal';
 import { CURSOR_PATH } from '../build/swarm';
 import { CONTACT, EMAIL, LINKS } from '../data/content';
@@ -42,6 +44,23 @@ function Channel({ channel }) {
 }
 
 export default function Contact({ onSent }) {
+  const [open, setOpen] = useState(false);
+  const openerRef = useRef(null);
+
+  const close = useCallback(() => {
+    setOpen(false);
+    openerRef.current?.focus();
+  }, []);
+
+  // The shutdown sequence takes over from here, so the link keeps no focus.
+  const handleSent = useCallback(
+    (name) => {
+      setOpen(false);
+      onSent(name);
+    },
+    [onSent],
+  );
+
   return (
     <section id="contact" className="section contact" aria-labelledby="contact-title">
       <BuildScope className="contact__top">
@@ -56,9 +75,10 @@ export default function Contact({ onSent }) {
             {CONTACT.text}
           </p>
           <div className="contact__cta-wrap" data-build="CTA" data-build-kind="chips">
-            <a className="btn btn--accent contact__cta" href={`mailto:${EMAIL}`}>
-              {EMAIL} <span aria-hidden="true">→</span>
-            </a>
+            <button ref={openerRef} type="button" className="contact__cta" onClick={() => setOpen(true)}>
+              Contact me
+              <Icon name="arrowRight" className="contact__cta-arrow" strokeWidth={2.2} />
+            </button>
             <span className="contact__cursor" aria-hidden="true">
               <svg width="20" height="22" viewBox="0 0 20 22">
                 <path d={CURSOR_PATH} />
@@ -80,6 +100,8 @@ export default function Contact({ onSent }) {
           </li>
         ))}
       </BuildScope>
+
+      {open && <ContactDialog onClose={close} onSent={handleSent} />}
     </section>
   );
 }

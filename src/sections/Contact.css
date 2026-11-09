@@ -38,10 +38,35 @@
 }
 
 .contact__cta {
-  padding: 18px 28px;
-  font-size: clamp(16px, 1.5vw, 22px);
-  line-height: 1.2;
-  overflow-wrap: anywhere;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 0 10px;
+  border: 0;
+  border-bottom: 2px solid var(--accent);
+  background: none;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.contact__cta-arrow {
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.contact__cta:hover .contact__cta-arrow {
+  transform: translateX(5px);
+}
+
+.contact__cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
 }
 
 .contact__cursor {
@@ -155,14 +180,15 @@
     margin-bottom: 0;
   }
 
-  .contact__cta-wrap {
-    width: 100%;
+  .contact__cta {
+    gap: 10px;
+    font-size: 26px;
+    line-height: 30px;
   }
 
-  .contact__cta {
-    width: 100%;
-    padding: 16px 18px;
-    font-size: 15px;
+  .contact__cta-arrow {
+    width: 24px;
+    height: 24px;
   }
 
   .contact__channels {
