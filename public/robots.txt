@@ -1,0 +1,62 @@
+# daniel-mehler.com — everything is public and meant to be found, quoted and cited.
+
+# Classic search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI search crawlers: these fetch pages to answer and cite in real time.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Bingbot-Chat
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# AI training crawlers: being in the models is the point here.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Google-Extended and Applebot-Extended are not crawlers. They are the tokens
+# that govern whether Google and Apple may use already-crawled pages for
+# training and for AI answers. Allowing them never affects normal indexing,
+# which Googlebot and Applebot above control.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Anything not named above
+User-agent: *
+Allow: /
+
+Sitemap: https://daniel-mehler.com/sitemap.xml
