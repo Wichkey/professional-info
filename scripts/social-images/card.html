@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; box-sizing: border-box; }
+      html, body { width: 100vw; height: 100vh; overflow: hidden; background: #03080b; }
+      .card {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background: url('../../src/assets/hero-blue-3840.webp') no-repeat;
+        background-size: var(--bg-size);
+        background-position: var(--bg-pos);
+        font-family: 'Inter Tight', sans-serif;
+        color: #fff;
+      }
+      .card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 55%, rgba(3, 8, 11, 0.55) 100%);
+      }
+      .mark { position: absolute; top: 44px; left: 44px; width: 52px; height: 52px; z-index: 1; }
+      .domain {
+        position: absolute; top: 56px; right: 48px; z-index: 1;
+        font-size: 19px; font-weight: 500; letter-spacing: 0.01em;
+      }
+      .name {
+        position: absolute; left: 0; right: 0; bottom: var(--name-bottom); z-index: 1;
+        text-align: center; font-size: var(--name-size); font-weight: 500; letter-spacing: -0.035em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+      }
+      .tagline {
+        position: absolute; left: 0; right: 0; bottom: var(--tag-bottom); z-index: 1;
+        text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 19px;
+        font-weight: 500; letter-spacing: 0.16em; color: #7fe6ff;
+      }
+      body.wide .card { --bg-size: 133% auto; --bg-pos: 50% 34%; --name-size: 88px; --name-bottom: 82px; --tag-bottom: 44px; }
+      body.square .card { --bg-size: auto 118%; --bg-pos: 50% 18%; --name-size: 104px; --name-bottom: 112px; --tag-bottom: 66px; }
+      body.square .tagline { font-size: 24px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#110B12" />
+        <rect x="6" y="7" width="3.5" height="18" fill="#F4ECF1" />
+        <path d="M11.5 7H16L25 16L16 25H11.5L20.5 16Z" fill="#F4ECF1" />
+        <rect x="21" y="21.5" width="5" height="3.5" fill="#5FE0FF" />
+      </svg>
+      <div class="domain">daniel-mehler.com</div>
+      <div class="name">Daniel Mehler</div>
+      <div class="tagline">AI FOR BUSINESSES</div>
+    </div>
+    <script>
+      document.body.className = new URLSearchParams(location.search).get('layout') || 'wide';
+    </script>
+  </body>
+</html>
