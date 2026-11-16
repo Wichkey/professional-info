@@ -4,55 +4,9 @@
     {
       "name": "portfolio-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "dev"
-      ],
+      "runtimeArgs": ["run", "dev"],
       "port": 5173,
       "autoPort": true
-    },
-    {
-      "name": "fix-intro-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "/Users/danielmehler/Documents/GitHub.nosync/professional-info/.claude/worktrees/fix-intro",
-        "run",
-        "dev",
-        "--",
-        "--port",
-        "5188",
-        "--strictPort"
-      ],
-      "port": 5188
-    },
-    {
-      "name": "hero-size-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "/Users/danielmehler/Documents/GitHub.nosync/professional-info/.claude/worktrees/hero-size",
-        "run",
-        "dev",
-        "--",
-        "--port",
-        "5189",
-        "--strictPort"
-      ],
-      "port": 5189
-    },
-    {
-      "name": "portfolio-preview",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "preview",
-        "--",
-        "--port",
-        "4173",
-        "--strictPort"
-      ],
-      "port": 4173
     }
   ]
 }
