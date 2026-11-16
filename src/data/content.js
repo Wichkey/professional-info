@@ -32,7 +32,7 @@ export const ABOUT = {
   headline: 'I build the software companies run on, ',
   headlineAccent: 'and the agents that run it for them.',
   intro:
-    "I'm Daniel Mehler, a German cognitive scientist by training and an engineer by trade. As Co-founder & CTO of Oblivion I own the technology and build Overmind, the agent pipeline that builds, hosts and runs client software, with a senior engineer reviewing every change.",
+    "I'm Daniel Mehler, a cognitive scientist by training and an engineer by trade. As Co-founder & CTO of Oblivion I own the technology and build Overmind, the agent pipeline that builds, hosts and runs client software, with a senior engineer reviewing every change.",
   pillars: [
     {
       icon: 'monitor',
@@ -256,7 +256,7 @@ export const EDUCATION = [
     school: 'Bachelor · University of Tübingen',
     degree: 'Cognitive Science',
     grades: [{ label: 'DE 1.7' }, { label: 'US 3.5 / 4.0' }],
-    thesisGrade: '1.3 · 3.8 / 4.0',
+    thesisGrade: '1.1 · 4.0 / 4.0',
     thesis: 'How AI writing tools like ChatGPT change the way people come up with ideas.',
   },
 ];
