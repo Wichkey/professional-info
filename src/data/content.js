@@ -247,6 +247,7 @@ export const EDUCATION = [
     school: 'Master · EADA Business School',
     degree: 'AI for Business',
     grades: [
+      { label: 'Valedictorian', primary: true },
       { label: 'DE 1.2', primary: true },
       { label: 'ES 9.1 / 10' },
       { label: 'US 4.0 / 4.0' },
