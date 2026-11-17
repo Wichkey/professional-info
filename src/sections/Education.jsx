@@ -35,7 +35,7 @@ export default function Education() {
               <p>{d.school}</p>
               <h3>{d.degree}</h3>
             </div>
-            <ul className="degree__grades" aria-label="Grades">
+            <ul className="degree__grades" aria-label="Grades and honours">
               {d.grades.map((g) => (
                 <li key={g.label} className={g.primary ? 'is-primary' : undefined}>
                   {g.label}
