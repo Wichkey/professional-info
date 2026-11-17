@@ -8,6 +8,7 @@ export const LINKS = {
   dlife: 'https://dasp.mx',
   voralio: 'https://voralio.com',
   findpint: 'https://findpint.app',
+  flowsight: 'https://flowsight.oblivion.vision',
 };
 
 export const NAV_LINKS = [
@@ -92,7 +93,12 @@ export const WORK = {
         text: 'Diabetes care',
         link: { href: LINKS.dlife, label: 'dasp.mx' },
       },
-      { title: 'FlowSight', status: 'in build', text: 'Hospital contrast media' },
+      {
+        title: 'FlowSight',
+        status: 'in build',
+        text: 'Hospital contrast media',
+        link: { href: LINKS.flowsight, label: 'flowsight.oblivion.vision' },
+      },
     ],
   },
   earlier: [
