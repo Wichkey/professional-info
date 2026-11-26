@@ -66,7 +66,7 @@ export const WORK = {
     title: 'Oblivion',
     role: 'Co-founder & CTO',
     link: { href: LINKS.oblivion, label: 'oblivion.vision' },
-    lead: 'You run the business. We run the software.',
+    lead: 'We run the software. You run the business.',
     text: 'Most software goes dark the day the agency leaves. We started Oblivion to be the ones who stay up. AI agents build, host, operate and evolve production software for our clients, a senior engineer reviews every change, and the same team does all of it.',
     short: 'AI agents build, host and operate it, and a senior engineer reviews every change.',
     statements: [
